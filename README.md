@@ -1,9 +1,6 @@
 # ASYND: Amazon Advertising Analytics Dashboard
 
-- **Edit in StackBlitz:** [SellSmart on StackBlitz](https://stackblitz.com/~/github.com/johnwesleyquintero/sellsmart)  
-- **Lovable.dev Project:** [View on Lovable.dev](https://lovable.dev/projects/9fbb30c8-5bf2-49e7-bbb0-ee1fd35faceb?utm_source=gpt-engineer-badge)  
-- **GitHub Repository:** [SellSmart on GitHub](https://github.com/johnwesleyquintero/sellsmart?tab=readme-ov-file#asynd-amazon-advertising-analytics-dashboard)  
-
+![Platform Overview](https://github.com/user-attachments/assets/b9e19cf5-0199-469b-93a5-c860b47b1098)
 
 ## Completed Features ✅
 
