@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { DataImport } from "@/components/DataImport";
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -30,6 +31,12 @@ interface TacosDataPoint {
   tacos: number;
 }
 
+interface DashboardMetricsData {
+  metrics: ReturnType<typeof calculateMetrics>;
+  tacosData: TacosDataPoint[];
+  keywordRankings: KeywordRanking[];
+}
+
 const Dashboard = () => {
   const [filters, setFilters] = useState({
     dateRange: "14",
@@ -37,7 +44,7 @@ const Dashboard = () => {
     category: "all"
   });
 
-  const { data: metricsData, isLoading } = useQuery({
+  const { data: metricsData, isLoading } = useQuery<DashboardMetricsData>({
     queryKey: ['metrics', filters],
     queryFn: async () => {
       let query = supabase
@@ -65,15 +72,17 @@ const Dashboard = () => {
       
       if (error) throw error;
 
+      const rawMetrics = metrics as MetricRow[] || [];
+
       // Calculate TACoS data
-      const tacosData: TacosDataPoint[] = (metrics as MetricRow[] || []).map(metric => ({
+      const tacosData: TacosDataPoint[] = rawMetrics.map(metric => ({
         date: metric.date?.toString() || '',
         acos: metric.acos || 0,
         tacos: ((metric.amount_spent || 0) / (metric.total_ad_sales || 1)) * 100
       }));
 
       // Calculate keyword rankings
-      const keywordData: KeywordRanking[] = (metrics as MetricRow[] || []).reduce((acc: KeywordRanking[], metric) => {
+      const keywordData: KeywordRanking[] = rawMetrics.reduce((acc: KeywordRanking[], metric) => {
         if (metric.keyword && metric.impressions) {
           const existing = acc.find(k => k.keyword === metric.keyword);
           if (!existing) {
@@ -89,8 +98,10 @@ const Dashboard = () => {
         return acc;
       }, []).slice(0, 10);
 
+      const calculatedMetrics = calculateMetrics(rawMetrics);
+
       return {
-        metrics: calculateMetrics(metrics as MetricRow[] || []),
+        metrics: calculatedMetrics,
         tacosData,
         keywordRankings: keywordData
       };
