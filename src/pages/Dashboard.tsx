@@ -12,6 +12,23 @@ import { TACOSChart } from "@/components/metrics/TACOSChart";
 import { KeywordRankingTable } from "@/components/metrics/KeywordRankingTable";
 import { WorkspaceIntegration } from "@/components/google/WorkspaceIntegration";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
+import { Tables } from "@/integrations/supabase/types";
+
+type MetricRow = Tables<"amazon_ads_metrics">;
+
+interface KeywordRanking {
+  keyword: string;
+  rank: number;
+  previousRank: number;
+  searchVolume: number;
+  change: number;
+}
+
+interface TacosDataPoint {
+  date: string;
+  acos: number;
+  tacos: number;
+}
 
 const Dashboard = () => {
   const [filters, setFilters] = useState({
@@ -49,14 +66,14 @@ const Dashboard = () => {
       if (error) throw error;
 
       // Calculate TACoS data
-      const tacosData = metrics?.map(metric => ({
-        date: metric.date,
+      const tacosData: TacosDataPoint[] = (metrics as MetricRow[] || []).map(metric => ({
+        date: metric.date?.toString() || '',
         acos: metric.acos || 0,
         tacos: ((metric.amount_spent || 0) / (metric.total_ad_sales || 1)) * 100
-      })) || [];
+      }));
 
       // Calculate keyword rankings
-      const keywordData = metrics?.reduce((acc: any[], metric) => {
+      const keywordData: KeywordRanking[] = (metrics as MetricRow[] || []).reduce((acc: KeywordRanking[], metric) => {
         if (metric.keyword && metric.impressions) {
           const existing = acc.find(k => k.keyword === metric.keyword);
           if (!existing) {
@@ -70,10 +87,10 @@ const Dashboard = () => {
           }
         }
         return acc;
-      }, []).slice(0, 10) || [];
+      }, []).slice(0, 10);
 
       return {
-        metrics: calculateMetrics(metrics || []),
+        metrics: calculateMetrics(metrics as MetricRow[] || []),
         tacosData,
         keywordRankings: keywordData
       };
