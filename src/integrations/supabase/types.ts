@@ -11,334 +11,187 @@ export type Database = {
     Tables: {
       amazon_ads_metrics: {
         Row: {
-          account_id: string | null
-          account_name: string | null
-          account_type: string | null
-          acos: number | null
-          ad_group_created_date: string | null
-          ad_group_created_datetime: string | null
-          ad_group_creative_type: string | null
-          ad_group_delivery_reasons: string | null
-          ad_group_delivery_status: string | null
-          ad_group_id: string | null
           ad_group_name: string | null
-          ad_group_status: string | null
-          ad_group_updated_date: string | null
-          ad_group_updated_datetime: string | null
-          ad_id: string | null
-          ad_type: string | null
-          advertised_asin: string | null
-          advertised_product_brand: string | null
-          advertised_product_category: string | null
-          advertised_product_price: number | null
-          advertised_product_title: string | null
-          advertised_sku: string | null
-          amount_spent: number | null
-          best_seller_rank: string | null
-          bid_optimization: string | null
-          brands_creative_type: string | null
-          campaign_bid_strategy: string | null
-          campaign_budget: number | null
-          campaign_budget_type: string | null
-          campaign_cost_type: string | null
-          campaign_created_date: string | null
-          campaign_created_datetime: string | null
-          campaign_delivery_reasons: string | null
-          campaign_delivery_status: string | null
-          campaign_end_date: string | null
-          campaign_id: string | null
+          asin: string | null
           campaign_name: string | null
-          campaign_start_date: string | null
-          campaign_status: string | null
-          campaign_targeting_type: string | null
-          campaign_updated_date: string | null
-          campaign_updated_datetime: string | null
+          cart_adds_1d_shipping_speed: string | null
+          cart_adds_2d_shipping_speed: string | null
+          cart_adds_asin_count: number | null
+          cart_adds_asin_price_median: number | null
+          cart_adds_asin_share: number | null
+          cart_adds_price_median: number | null
+          cart_adds_rate: number | null
+          cart_adds_same_day_shipping_speed: string | null
+          cart_adds_total_count: number | null
+          click_thru_rate: number | null
           clicks: number | null
-          conversion_rate: number | null
-          country_code: string | null
-          cpc: number | null
-          ctr: number | null
-          currency_code: string | null
-          date: string | null
-          fourteen_days_acos: number | null
-          fourteen_days_acos_view_attributed: number | null
-          fourteen_days_cvr: number | null
-          fourteen_days_cvr_view_attributed: number | null
-          fourteen_days_roas: number | null
-          fourteen_days_roas_view_attributed: number | null
-          fourteen_days_total_orders: number | null
-          fourteen_days_total_orders_view_attributed: number | null
-          fourteen_days_total_sales: number | null
-          fourteen_days_total_sales_view_attributed: number | null
+          clicks_1d_shipping_speed: string | null
+          clicks_2d_shipping_speed: string | null
+          clicks_asin_count: number | null
+          clicks_asin_price_median: number | null
+          clicks_asin_share: number | null
+          clicks_price_median: number | null
+          clicks_rate: number | null
+          clicks_same_day_shipping_speed: string | null
+          clicks_total_count: number | null
+          cost_per_click: number | null
+          currency: string | null
+          customer_search_term: string | null
+          end_date: string | null
           id: number
           impressions: number | null
-          is_valid_payment_method: boolean | null
-          keyword: string | null
-          keyword_bid: number | null
-          keyword_id: string | null
-          keyword_status: string | null
-          keyword_type: string | null
-          marketplace_string_id: string | null
-          month: string | null
-          month_number: number | null
-          one_day_acos: number | null
-          one_day_cvr: number | null
-          one_day_roas: number | null
-          one_day_total_orders: number | null
-          one_day_total_sales: number | null
-          placement: string | null
-          portfolio_id: string | null
+          impressions_asin_count: number | null
+          impressions_asin_share: number | null
+          impressions_total_count: number | null
+          marketplace: string | null
+          match_type: string | null
           portfolio_name: string | null
-          portfolio_status: string | null
-          product_availability: string | null
-          product_image_url: string | null
-          profile_id: string | null
-          return_on_ad_spend: number | null
-          search_term: string | null
-          seven_days_acos: number | null
-          seven_days_cvr: number | null
-          seven_days_roas: number | null
-          seven_days_total_orders: number | null
-          seven_days_total_sales: number | null
-          target_id: string | null
-          targeting_expression: string | null
-          targeting_type: string | null
-          thirty_days_acos: number | null
-          thirty_days_cvr: number | null
-          thirty_days_roas: number | null
-          thirty_days_total_orders: number | null
-          thirty_days_total_sales: number | null
-          timezone: string | null
-          total_ad_orders: number | null
-          total_ad_sales: number | null
-          view_impressions: number | null
-          week_number_mon_sun: number | null
-          week_number_sun_sat: number | null
-          week_start_date_mon_sun: string | null
-          week_start_date_sun_sat: string | null
-          year: number | null
-          year_month: string | null
-          year_month_number: number | null
+          purchases_1d_shipping_speed: string | null
+          purchases_2d_shipping_speed: string | null
+          purchases_asin_count: number | null
+          purchases_asin_price_median: number | null
+          purchases_asin_share: number | null
+          purchases_price_median: number | null
+          purchases_rate: number | null
+          purchases_same_day_shipping_speed: string | null
+          purchases_total_count: number | null
+          reporting_date: string | null
+          search_query: string | null
+          search_query_score: number | null
+          search_query_volume: number | null
+          search_term_impression_rank: number | null
+          search_term_impression_share: number | null
+          seven_day_conversion_rate: number | null
+          seven_day_total_orders: number | null
+          seven_day_total_sales: number | null
+          spend: number | null
+          start_date: string | null
+          targeting: string | null
+          total_acos: number | null
+          total_roas: number | null
+          user_id: string | null
         }
         Insert: {
-          account_id?: string | null
-          account_name?: string | null
-          account_type?: string | null
-          acos?: number | null
-          ad_group_created_date?: string | null
-          ad_group_created_datetime?: string | null
-          ad_group_creative_type?: string | null
-          ad_group_delivery_reasons?: string | null
-          ad_group_delivery_status?: string | null
-          ad_group_id?: string | null
           ad_group_name?: string | null
-          ad_group_status?: string | null
-          ad_group_updated_date?: string | null
-          ad_group_updated_datetime?: string | null
-          ad_id?: string | null
-          ad_type?: string | null
-          advertised_asin?: string | null
-          advertised_product_brand?: string | null
-          advertised_product_category?: string | null
-          advertised_product_price?: number | null
-          advertised_product_title?: string | null
-          advertised_sku?: string | null
-          amount_spent?: number | null
-          best_seller_rank?: string | null
-          bid_optimization?: string | null
-          brands_creative_type?: string | null
-          campaign_bid_strategy?: string | null
-          campaign_budget?: number | null
-          campaign_budget_type?: string | null
-          campaign_cost_type?: string | null
-          campaign_created_date?: string | null
-          campaign_created_datetime?: string | null
-          campaign_delivery_reasons?: string | null
-          campaign_delivery_status?: string | null
-          campaign_end_date?: string | null
-          campaign_id?: string | null
+          asin?: string | null
           campaign_name?: string | null
-          campaign_start_date?: string | null
-          campaign_status?: string | null
-          campaign_targeting_type?: string | null
-          campaign_updated_date?: string | null
-          campaign_updated_datetime?: string | null
+          cart_adds_1d_shipping_speed?: string | null
+          cart_adds_2d_shipping_speed?: string | null
+          cart_adds_asin_count?: number | null
+          cart_adds_asin_price_median?: number | null
+          cart_adds_asin_share?: number | null
+          cart_adds_price_median?: number | null
+          cart_adds_rate?: number | null
+          cart_adds_same_day_shipping_speed?: string | null
+          cart_adds_total_count?: number | null
+          click_thru_rate?: number | null
           clicks?: number | null
-          conversion_rate?: number | null
-          country_code?: string | null
-          cpc?: number | null
-          ctr?: number | null
-          currency_code?: string | null
-          date?: string | null
-          fourteen_days_acos?: number | null
-          fourteen_days_acos_view_attributed?: number | null
-          fourteen_days_cvr?: number | null
-          fourteen_days_cvr_view_attributed?: number | null
-          fourteen_days_roas?: number | null
-          fourteen_days_roas_view_attributed?: number | null
-          fourteen_days_total_orders?: number | null
-          fourteen_days_total_orders_view_attributed?: number | null
-          fourteen_days_total_sales?: number | null
-          fourteen_days_total_sales_view_attributed?: number | null
+          clicks_1d_shipping_speed?: string | null
+          clicks_2d_shipping_speed?: string | null
+          clicks_asin_count?: number | null
+          clicks_asin_price_median?: number | null
+          clicks_asin_share?: number | null
+          clicks_price_median?: number | null
+          clicks_rate?: number | null
+          clicks_same_day_shipping_speed?: string | null
+          clicks_total_count?: number | null
+          cost_per_click?: number | null
+          currency?: string | null
+          customer_search_term?: string | null
+          end_date?: string | null
           id?: never
           impressions?: number | null
-          is_valid_payment_method?: boolean | null
-          keyword?: string | null
-          keyword_bid?: number | null
-          keyword_id?: string | null
-          keyword_status?: string | null
-          keyword_type?: string | null
-          marketplace_string_id?: string | null
-          month?: string | null
-          month_number?: number | null
-          one_day_acos?: number | null
-          one_day_cvr?: number | null
-          one_day_roas?: number | null
-          one_day_total_orders?: number | null
-          one_day_total_sales?: number | null
-          placement?: string | null
-          portfolio_id?: string | null
+          impressions_asin_count?: number | null
+          impressions_asin_share?: number | null
+          impressions_total_count?: number | null
+          marketplace?: string | null
+          match_type?: string | null
           portfolio_name?: string | null
-          portfolio_status?: string | null
-          product_availability?: string | null
-          product_image_url?: string | null
-          profile_id?: string | null
-          return_on_ad_spend?: number | null
-          search_term?: string | null
-          seven_days_acos?: number | null
-          seven_days_cvr?: number | null
-          seven_days_roas?: number | null
-          seven_days_total_orders?: number | null
-          seven_days_total_sales?: number | null
-          target_id?: string | null
-          targeting_expression?: string | null
-          targeting_type?: string | null
-          thirty_days_acos?: number | null
-          thirty_days_cvr?: number | null
-          thirty_days_roas?: number | null
-          thirty_days_total_orders?: number | null
-          thirty_days_total_sales?: number | null
-          timezone?: string | null
-          total_ad_orders?: number | null
-          total_ad_sales?: number | null
-          view_impressions?: number | null
-          week_number_mon_sun?: number | null
-          week_number_sun_sat?: number | null
-          week_start_date_mon_sun?: string | null
-          week_start_date_sun_sat?: string | null
-          year?: number | null
-          year_month?: string | null
-          year_month_number?: number | null
+          purchases_1d_shipping_speed?: string | null
+          purchases_2d_shipping_speed?: string | null
+          purchases_asin_count?: number | null
+          purchases_asin_price_median?: number | null
+          purchases_asin_share?: number | null
+          purchases_price_median?: number | null
+          purchases_rate?: number | null
+          purchases_same_day_shipping_speed?: string | null
+          purchases_total_count?: number | null
+          reporting_date?: string | null
+          search_query?: string | null
+          search_query_score?: number | null
+          search_query_volume?: number | null
+          search_term_impression_rank?: number | null
+          search_term_impression_share?: number | null
+          seven_day_conversion_rate?: number | null
+          seven_day_total_orders?: number | null
+          seven_day_total_sales?: number | null
+          spend?: number | null
+          start_date?: string | null
+          targeting?: string | null
+          total_acos?: number | null
+          total_roas?: number | null
+          user_id?: string | null
         }
         Update: {
-          account_id?: string | null
-          account_name?: string | null
-          account_type?: string | null
-          acos?: number | null
-          ad_group_created_date?: string | null
-          ad_group_created_datetime?: string | null
-          ad_group_creative_type?: string | null
-          ad_group_delivery_reasons?: string | null
-          ad_group_delivery_status?: string | null
-          ad_group_id?: string | null
           ad_group_name?: string | null
-          ad_group_status?: string | null
-          ad_group_updated_date?: string | null
-          ad_group_updated_datetime?: string | null
-          ad_id?: string | null
-          ad_type?: string | null
-          advertised_asin?: string | null
-          advertised_product_brand?: string | null
-          advertised_product_category?: string | null
-          advertised_product_price?: number | null
-          advertised_product_title?: string | null
-          advertised_sku?: string | null
-          amount_spent?: number | null
-          best_seller_rank?: string | null
-          bid_optimization?: string | null
-          brands_creative_type?: string | null
-          campaign_bid_strategy?: string | null
-          campaign_budget?: number | null
-          campaign_budget_type?: string | null
-          campaign_cost_type?: string | null
-          campaign_created_date?: string | null
-          campaign_created_datetime?: string | null
-          campaign_delivery_reasons?: string | null
-          campaign_delivery_status?: string | null
-          campaign_end_date?: string | null
-          campaign_id?: string | null
+          asin?: string | null
           campaign_name?: string | null
-          campaign_start_date?: string | null
-          campaign_status?: string | null
-          campaign_targeting_type?: string | null
-          campaign_updated_date?: string | null
-          campaign_updated_datetime?: string | null
+          cart_adds_1d_shipping_speed?: string | null
+          cart_adds_2d_shipping_speed?: string | null
+          cart_adds_asin_count?: number | null
+          cart_adds_asin_price_median?: number | null
+          cart_adds_asin_share?: number | null
+          cart_adds_price_median?: number | null
+          cart_adds_rate?: number | null
+          cart_adds_same_day_shipping_speed?: string | null
+          cart_adds_total_count?: number | null
+          click_thru_rate?: number | null
           clicks?: number | null
-          conversion_rate?: number | null
-          country_code?: string | null
-          cpc?: number | null
-          ctr?: number | null
-          currency_code?: string | null
-          date?: string | null
-          fourteen_days_acos?: number | null
-          fourteen_days_acos_view_attributed?: number | null
-          fourteen_days_cvr?: number | null
-          fourteen_days_cvr_view_attributed?: number | null
-          fourteen_days_roas?: number | null
-          fourteen_days_roas_view_attributed?: number | null
-          fourteen_days_total_orders?: number | null
-          fourteen_days_total_orders_view_attributed?: number | null
-          fourteen_days_total_sales?: number | null
-          fourteen_days_total_sales_view_attributed?: number | null
+          clicks_1d_shipping_speed?: string | null
+          clicks_2d_shipping_speed?: string | null
+          clicks_asin_count?: number | null
+          clicks_asin_price_median?: number | null
+          clicks_asin_share?: number | null
+          clicks_price_median?: number | null
+          clicks_rate?: number | null
+          clicks_same_day_shipping_speed?: string | null
+          clicks_total_count?: number | null
+          cost_per_click?: number | null
+          currency?: string | null
+          customer_search_term?: string | null
+          end_date?: string | null
           id?: never
           impressions?: number | null
-          is_valid_payment_method?: boolean | null
-          keyword?: string | null
-          keyword_bid?: number | null
-          keyword_id?: string | null
-          keyword_status?: string | null
-          keyword_type?: string | null
-          marketplace_string_id?: string | null
-          month?: string | null
-          month_number?: number | null
-          one_day_acos?: number | null
-          one_day_cvr?: number | null
-          one_day_roas?: number | null
-          one_day_total_orders?: number | null
-          one_day_total_sales?: number | null
-          placement?: string | null
-          portfolio_id?: string | null
+          impressions_asin_count?: number | null
+          impressions_asin_share?: number | null
+          impressions_total_count?: number | null
+          marketplace?: string | null
+          match_type?: string | null
           portfolio_name?: string | null
-          portfolio_status?: string | null
-          product_availability?: string | null
-          product_image_url?: string | null
-          profile_id?: string | null
-          return_on_ad_spend?: number | null
-          search_term?: string | null
-          seven_days_acos?: number | null
-          seven_days_cvr?: number | null
-          seven_days_roas?: number | null
-          seven_days_total_orders?: number | null
-          seven_days_total_sales?: number | null
-          target_id?: string | null
-          targeting_expression?: string | null
-          targeting_type?: string | null
-          thirty_days_acos?: number | null
-          thirty_days_cvr?: number | null
-          thirty_days_roas?: number | null
-          thirty_days_total_orders?: number | null
-          thirty_days_total_sales?: number | null
-          timezone?: string | null
-          total_ad_orders?: number | null
-          total_ad_sales?: number | null
-          view_impressions?: number | null
-          week_number_mon_sun?: number | null
-          week_number_sun_sat?: number | null
-          week_start_date_mon_sun?: string | null
-          week_start_date_sun_sat?: string | null
-          year?: number | null
-          year_month?: string | null
-          year_month_number?: number | null
+          purchases_1d_shipping_speed?: string | null
+          purchases_2d_shipping_speed?: string | null
+          purchases_asin_count?: number | null
+          purchases_asin_price_median?: number | null
+          purchases_asin_share?: number | null
+          purchases_price_median?: number | null
+          purchases_rate?: number | null
+          purchases_same_day_shipping_speed?: string | null
+          purchases_total_count?: number | null
+          reporting_date?: string | null
+          search_query?: string | null
+          search_query_score?: number | null
+          search_query_volume?: number | null
+          search_term_impression_rank?: number | null
+          search_term_impression_share?: number | null
+          seven_day_conversion_rate?: number | null
+          seven_day_total_orders?: number | null
+          seven_day_total_sales?: number | null
+          spend?: number | null
+          start_date?: string | null
+          targeting?: string | null
+          total_acos?: number | null
+          total_roas?: number | null
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -348,6 +201,7 @@ export type Database = {
           id: string
           key_type: string
           key_value: string
+          updated_at: string
           user_id: string
         }
         Insert: {
@@ -355,6 +209,7 @@ export type Database = {
           id?: string
           key_type: string
           key_value: string
+          updated_at?: string
           user_id: string
         }
         Update: {
@@ -362,214 +217,190 @@ export type Database = {
           id?: string
           key_type?: string
           key_value?: string
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
       }
-      campaign_targets: {
+      "auth.users": {
         Row: {
           created_at: string
-          current_value: number | null
-          end_date: string
-          id: string
-          name: string
-          start_date: string
-          target_type: string
-          target_value: number
-          updated_at: string
-          user_id: string
+          id: number
         }
         Insert: {
           created_at?: string
-          current_value?: number | null
-          end_date: string
-          id?: string
-          name: string
-          start_date: string
-          target_type: string
-          target_value: number
-          updated_at?: string
-          user_id: string
+          id?: number
         }
         Update: {
           created_at?: string
-          current_value?: number | null
-          end_date?: string
-          id?: string
+          id?: number
+        }
+        Relationships: []
+      }
+      cities: {
+        Row: {
+          country_id: number
+          created_at: string
+          id: number
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          country_id: number
+          created_at?: string
+          id?: never
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          country_id?: number
+          created_at?: string
+          id?: never
           name?: string
-          start_date?: string
-          target_type?: string
-          target_value?: number
           updated_at?: string
-          user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "fk_country"
+            columns: ["country_id"]
+            isOneToOne: false
+            referencedRelation: "countries"
+            referencedColumns: ["id"]
+          },
+        ]
       }
-      dashboard_settings: {
+      countries: {
         Row: {
           created_at: string
-          default_currency: string
-          default_date_range: string
-          id: string
-          notification_preferences: Json | null
-          theme: string
+          id: number
+          name: string
           updated_at: string
-          user_id: string
         }
         Insert: {
           created_at?: string
-          default_currency?: string
-          default_date_range?: string
-          id?: string
-          notification_preferences?: Json | null
-          theme?: string
+          id?: never
+          name: string
           updated_at?: string
-          user_id: string
         }
         Update: {
           created_at?: string
-          default_currency?: string
-          default_date_range?: string
-          id?: string
-          notification_preferences?: Json | null
-          theme?: string
+          id?: never
+          name?: string
           updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      google_workspace_settings: {
-        Row: {
-          auto_sync: boolean | null
-          created_at: string
-          id: string
-          last_synced_at: string | null
-          sheet_name: string | null
-          spreadsheet_id: string | null
-          sync_frequency: string | null
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          auto_sync?: boolean | null
-          created_at?: string
-          id?: string
-          last_synced_at?: string | null
-          sheet_name?: string | null
-          spreadsheet_id?: string | null
-          sync_frequency?: string | null
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          auto_sync?: boolean | null
-          created_at?: string
-          id?: string
-          last_synced_at?: string | null
-          sheet_name?: string | null
-          spreadsheet_id?: string | null
-          sync_frequency?: string | null
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      profile_creation_errors: {
-        Row: {
-          created_at: string | null
-          error_message: string | null
-          user_id: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          error_message?: string | null
-          user_id?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          error_message?: string | null
-          user_id?: string | null
         }
         Relationships: []
       }
       profiles: {
         Row: {
-          company_name: string | null
-          created_at: string | null
+          avatar_url: string | null
           id: string
+          user_id: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          id?: string
+          user_id?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          id?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      user_2fa: {
+        Row: {
+          backup_codes: string[] | null
+          id: number
+          is_enabled: boolean | null
+          secret: string | null
+          user_id: string
+        }
+        Insert: {
+          backup_codes?: string[] | null
+          id?: never
+          is_enabled?: boolean | null
+          secret?: string | null
+          user_id: string
+        }
+        Update: {
+          backup_codes?: string[] | null
+          id?: never
+          is_enabled?: boolean | null
+          secret?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_activity: {
+        Row: {
+          activity_timestamp: string | null
+          activity_type: string
+          details: Json | null
+          id: number
+          user_id: string
+        }
+        Insert: {
+          activity_timestamp?: string | null
+          activity_type: string
+          details?: Json | null
+          id?: never
+          user_id: string
+        }
+        Update: {
+          activity_timestamp?: string | null
+          activity_type?: string
+          details?: Json | null
+          id?: never
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_sessions: {
+        Row: {
+          created_at: string | null
+          expires_at: string
+          id: number
+          session_token: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          expires_at: string
+          id?: never
+          session_token: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          expires_at?: string
+          id?: never
+          session_token?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      users: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          password: string
           updated_at: string | null
         }
         Insert: {
-          company_name?: string | null
           created_at?: string | null
-          id: string
+          email: string
+          id?: string
+          password: string
           updated_at?: string | null
         }
         Update: {
-          company_name?: string | null
           created_at?: string | null
+          email?: string
           id?: string
+          password?: string
           updated_at?: string | null
-        }
-        Relationships: []
-      }
-      roles: {
-        Row: {
-          created_at: string
-          id: number
-          role: string
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          id?: never
-          role: string
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          id?: never
-          role?: string
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      sales_data: {
-        Row: {
-          ad_clicks: number
-          ad_impressions: number
-          ad_spend: number
-          created_at: string | null
-          date: string
-          id: string
-          orders: number
-          sales: number
-          user_id: string
-        }
-        Insert: {
-          ad_clicks?: number
-          ad_impressions?: number
-          ad_spend?: number
-          created_at?: string | null
-          date: string
-          id?: string
-          orders?: number
-          sales?: number
-          user_id: string
-        }
-        Update: {
-          ad_clicks?: number
-          ad_impressions?: number
-          ad_spend?: number
-          created_at?: string | null
-          date?: string
-          id?: string
-          orders?: number
-          sales?: number
-          user_id?: string
         }
         Relationships: []
       }
@@ -578,41 +409,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      calculate_metrics:
-        | {
-            Args: Record<PropertyKey, never>
-            Returns: undefined
-          }
-        | {
-            Args: {
-              p_sales: number
-              p_ad_spend: number
-              p_ad_clicks: number
-              p_ad_impressions: number
-            }
-            Returns: Json
-          }
-      pg_get_tabledef:
-        | {
-            Args: Record<PropertyKey, never>
-            Returns: string
-          }
-        | {
-            Args: {
-              input_table_name: string
-            }
-            Returns: string
-          }
-      upsert_sales_data: {
-        Args: {
-          p_user_id: string
-          p_date: string
-          p_sales: number
-          p_ad_spend: number
-          p_orders: number
-          p_ad_clicks: number
-          p_ad_impressions: number
-        }
+      calculate_metrics: {
+        Args: Record<PropertyKey, never>
         Returns: undefined
       }
     }
