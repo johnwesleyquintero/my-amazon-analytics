@@ -11,7 +11,9 @@ export type Database = {
     Tables: {
       amazon_ads_metrics: {
         Row: {
+          acos: number | null
           ad_group_name: string | null
+          amount_spent: number | null
           asin: string | null
           campaign_name: string | null
           cart_adds_1d_shipping_speed: string | null
@@ -37,12 +39,14 @@ export type Database = {
           cost_per_click: number | null
           currency: string | null
           customer_search_term: string | null
+          date: string | null
           end_date: string | null
           id: number
           impressions: number | null
           impressions_asin_count: number | null
           impressions_asin_share: number | null
           impressions_total_count: number | null
+          keyword: string | null
           marketplace: string | null
           match_type: string | null
           portfolio_name: string | null
@@ -68,11 +72,14 @@ export type Database = {
           start_date: string | null
           targeting: string | null
           total_acos: number | null
+          total_ad_sales: number | null
           total_roas: number | null
           user_id: string | null
         }
         Insert: {
+          acos?: number | null
           ad_group_name?: string | null
+          amount_spent?: number | null
           asin?: string | null
           campaign_name?: string | null
           cart_adds_1d_shipping_speed?: string | null
@@ -98,12 +105,14 @@ export type Database = {
           cost_per_click?: number | null
           currency?: string | null
           customer_search_term?: string | null
+          date?: string | null
           end_date?: string | null
           id?: never
           impressions?: number | null
           impressions_asin_count?: number | null
           impressions_asin_share?: number | null
           impressions_total_count?: number | null
+          keyword?: string | null
           marketplace?: string | null
           match_type?: string | null
           portfolio_name?: string | null
@@ -129,11 +138,14 @@ export type Database = {
           start_date?: string | null
           targeting?: string | null
           total_acos?: number | null
+          total_ad_sales?: number | null
           total_roas?: number | null
           user_id?: string | null
         }
         Update: {
+          acos?: number | null
           ad_group_name?: string | null
+          amount_spent?: number | null
           asin?: string | null
           campaign_name?: string | null
           cart_adds_1d_shipping_speed?: string | null
@@ -159,12 +171,14 @@ export type Database = {
           cost_per_click?: number | null
           currency?: string | null
           customer_search_term?: string | null
+          date?: string | null
           end_date?: string | null
           id?: never
           impressions?: number | null
           impressions_asin_count?: number | null
           impressions_asin_share?: number | null
           impressions_total_count?: number | null
+          keyword?: string | null
           marketplace?: string | null
           match_type?: string | null
           portfolio_name?: string | null
@@ -190,6 +204,7 @@ export type Database = {
           start_date?: string | null
           targeting?: string | null
           total_acos?: number | null
+          total_ad_sales?: number | null
           total_roas?: number | null
           user_id?: string | null
         }
@@ -290,20 +305,92 @@ export type Database = {
         }
         Relationships: []
       }
+      dashboard_settings: {
+        Row: {
+          created_at: string | null
+          default_currency: string
+          default_date_range: string
+          id: string
+          notification_preferences: Json
+          theme: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          default_currency?: string
+          default_date_range?: string
+          id?: string
+          notification_preferences?: Json
+          theme?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          default_currency?: string
+          default_date_range?: string
+          id?: string
+          notification_preferences?: Json
+          theme?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      google_workspace_settings: {
+        Row: {
+          auto_sync: boolean | null
+          created_at: string | null
+          id: string
+          sheet_name: string | null
+          spreadsheet_id: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          auto_sync?: boolean | null
+          created_at?: string | null
+          id?: string
+          sheet_name?: string | null
+          spreadsheet_id?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          auto_sync?: boolean | null
+          created_at?: string | null
+          id?: string
+          sheet_name?: string | null
+          spreadsheet_id?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
+          company_name: string | null
+          created_at: string | null
           id: string
+          updated_at: string | null
           user_id: string | null
         }
         Insert: {
           avatar_url?: string | null
+          company_name?: string | null
+          created_at?: string | null
           id?: string
+          updated_at?: string | null
           user_id?: string | null
         }
         Update: {
           avatar_url?: string | null
+          company_name?: string | null
+          created_at?: string | null
           id?: string
+          updated_at?: string | null
           user_id?: string | null
         }
         Relationships: []

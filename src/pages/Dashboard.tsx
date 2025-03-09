@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { DataImport } from "@/components/DataImport";
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -37,7 +36,7 @@ const Dashboard = () => {
       
       // Apply marketplace filter
       if (filters.marketplace !== 'all') {
-        query = query.eq('marketplace_string_id', filters.marketplace);
+        query = query.eq('marketplace', filters.marketplace);
       }
       
       // Apply category filter

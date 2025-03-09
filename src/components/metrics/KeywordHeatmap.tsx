@@ -25,11 +25,11 @@ export function KeywordHeatmap() {
       if (error) throw error;
 
       return data.map(item => ({
-        keyword: item.keyword,
-        impressions: item.impressions,
-        clicks: item.clicks,
-        spend: item.amount_spent,
-        sales: item.total_ad_sales,
+        keyword: item.keyword || '',
+        impressions: item.impressions || 0,
+        clicks: item.clicks || 0,
+        spend: item.amount_spent || 0,
+        sales: item.total_ad_sales || 0,
         conversion_rate: item.clicks > 0 ? (item.total_ad_sales / item.clicks) * 100 : 0
       }));
     }

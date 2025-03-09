@@ -19,6 +19,8 @@ interface Profile {
   company_name: string | null;
   created_at: string;
   updated_at: string | null;
+  avatar_url: string | null;
+  user_id: string | null;
 }
 
 export function UserManagement() {
