@@ -5,6 +5,14 @@ Rebuilding **full-scale web app + Chrome extension** - **My Amazon Analytics**
 This approach allows users to access the tool both as a **standalone web application** and as a **browser extension**, providing flexibility and enhancing the user experience. Below is a **comprehensive plan** to implement this dual-platform solution using **vite**, **React**, **Supabase**, and **Google Workspace APIs**.
 
 * * * * *
+**Reusable Links for Icons and Favicons**
+   ```
+<link rel="icon" href="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-32x32.jpeg" sizes="32x32" />
+<link rel="icon" href="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-192x192.jpeg" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-180x180.jpeg" />
+<meta name="msapplication-TileImage" content="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-270x270.jpeg" />
+   ```
+* * * * *
 
 **Color Palette for Webapp and Extention**
 
