@@ -1,6 +1,6 @@
 # My Amazon Analytics: Amazon Advertising Analytics Dashboard
 
-![Platform Overview](https://github.com/user-attachments/assets/b9e19cf5-0199-469b-93a5-c860b47b1098)
+https://myamazonguy.com/wp-content/uploads/2024/04/My-Amazon-Guy-Logo.png
 
 ## Completed Features ✅
 
