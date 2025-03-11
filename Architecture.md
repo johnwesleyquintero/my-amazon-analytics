@@ -540,7 +540,7 @@ Both platforms will share the same **backend (Supabase)** and **frontend logi
 
 2.  **Test Early and Often:**
 
-    -   Use tools like **Cypress** for end-to-end testing and **Vitetest*.
+    -   Use tools like **Cypress** for end-to-end testing and **Vitetest**.
 
 3.  **Document Everything:**
 
