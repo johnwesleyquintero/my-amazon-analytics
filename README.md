@@ -1,4 +1,4 @@
-# ASYND: Amazon Advertising Analytics Dashboard
+# My Amazon Analytics: Amazon Advertising Analytics Dashboard
 
 ![Platform Overview](https://github.com/user-attachments/assets/b9e19cf5-0199-469b-93a5-c860b47b1098)
 
