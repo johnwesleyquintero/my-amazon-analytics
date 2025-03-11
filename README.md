@@ -2,6 +2,13 @@
 
 https://myamazonguy.com/wp-content/uploads/2024/04/My-Amazon-Guy-Logo.png
 
+### Branches
+
+***main*** |
+***Documentation-Branch*** |
+***Security-Branch*** |
+***Features-Branch*** |
+
 ## Completed Features ✅
 
 ### Authentication & User Management
