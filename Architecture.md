@@ -1,6 +1,6 @@
 # Architecture
 
-Rebuilding **full-scale web app + Chrome extension** **My Amazon Analytics**.
+Rebuilding **full-scale web app + Chrome extension** - **My Amazon Analytics**.
 
 This approach allows users to access the tool both as a **standalone web application** and as a **browser extension**, providing flexibility and enhancing the user experience. Below is a **comprehensive plan** to implement this dual-platform solution using **vite**, **React**, **Supabase**, and **Google Workspace APIs**.
 
