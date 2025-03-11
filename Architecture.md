@@ -8,555 +8,118 @@ This approach allows users to access the tool both as a **standalone web applic
 
 **Color Palette for Webapp and Extention**
 
-White (#FFFFFF) - Used as the main background color for a clean and modern look.
-Black (#000000) - Used for text and some UI elements for contrast.
-Yellow (#FFD400 or similar) - Used as an accent color for call-to-action buttons and highlights.
-Dark Gray (#333333) - Used for secondary text and some background sections.
-Light Gray (#F5F5F5 or similar) - Used for subtle background differences and section breaks.
-Blue (#0073E6 or similar) - Possibly used for hyperlinks or emphasis.
-
-**Architecture Overview**
--------------------------
-
-The **My Amazon Analytics** will consist of:
-
-1.  **Web Application:**
-
-    -   A full-scale web app hosted on a platform **Netlify**.
-
-    -   Users can access it via a browser on any device.
-
-2.  **Chrome Extension:**
-
-    -   A browser extension that integrates directly with **Amazon Seller Central**.
-
-    -   Provides quick access to key features while working on Seller Central.
-
-Both platforms will share the same **backend (Supabase)** and **frontend logic (React)**, ensuring consistency and reducing development overhead.
+  - White (#FFFFFF) - Used as the main background color for a clean and modern look.
+  - Black (#000000) - Used for text and some UI elements for contrast.
+  - Yellow (#FFD400 or similar) - Used as an accent color for call-to-action buttons and highlights.
+  - Dark Gray (#333333) - Used for secondary text and some background sections.
+  - Light Gray (#F5F5F5 or similar) - Used for subtle background differences and section breaks.
+  - Blue (#0073E6 or similar) - Possibly used for hyperlinks or emphasis.
 
 * * * * *
 
-**Key Features**
-----------------
+**Revamped architecture** along with some **simplified features** for the **my-amazon-analyticse** and its companion extension.
+
+---
 
-### **Web Application**
+### **Revamped Architecture for my-amazon-analyticse**
+
+---
 
-1.  **Dashboard:**
+#### **1. Core Components:**
+- **Web Application (my-amazon-analyticse):**
+  - **Main Dashboard**: Displays KPIs, visual reports, and charts.
+  - **Google Sheets Integration**: Syncs campaign and performance data with Google Sheets for storage and further analysis.
+  - **Role-Based Access**: Permissions for users (Admin, User, Viewer) to control who can access and modify reports.
+  - **Reporting & Automation**: Simple automation to schedule report generation and send notifications to users (email/within app).
+  
+- **Browser Extension:**
+  - **Amazon Seller Central Integration**: Fetches data directly from Amazon Seller Central (e.g., Search Query Performance, Campaign Data).
+  - **Drag-and-Drop Bulk Upload**: Users can drag and drop files (CSV, XLS) from Amazon Seller Central and upload them into Google Sheets, facilitating easy data entry.
+  - **Real-Time Sync**: Data fetched via the extension is automatically synced with the web app and Google Sheets.
+  - **Simplified User Interface**: Small, lightweight extension to provide a quick overview and easy access to Amazon reports.
 
-    -   Display key metrics like TACOS charts, keyword rankings, and SQP/SCP reports.
+---
 
-2.  **Google Workspace Integration:**
+#### **2. Data Flow:**
+1. **User Authentication**:
+   - **OAuth**: Secure sign-in for both the web app and extension using **NextAuth.js** (Google, Amazon Seller Central authentication).
+   
+2. **Fetching Data**:
+   - **Amazon Seller Central Integration**:
+     - The extension can fetch campaign data, SQP data, and other key metrics from Seller Central.
+     - The user can click on specific campaign data or reports and either **view** in the extension or **sync** it with the web app and Google Sheets.
+   
+3. **Drag-and-Drop File Upload (via Extension)**:
+   - **User Action**: Drag files from Amazon Seller Central or their device.
+   - The extension will upload these files (CSV/XLS) to the **Google Sheets** linked to the user’s my-amazon-analyticse account.
 
-    -   Sync data with Google Sheets and Google Drive.
+4. **Real-Time Sync**:
+   - Data that is fetched via the extension will be **automatically synced** with the Google Sheets linked to the user’s account in the web app.
+   - Updates from the web app will also be reflected back into the extension for quick reference.
+   
+5. **Notifications & Alerts**:
+   - The web app and extension will notify users of new uploads, sync status, or any issues.
 
-3.  **Advanced Analytics:**
+---
 
-    -   Provide in-depth market research and competitor analysis tools.
+#### **3. Simplified Features (for both Web App & Extension)**:
 
-4.  **User Management:**
+1. **Web App**:
+   - **Dashboard Overview**: Visualize key metrics like **Search Query Performance**, **Campaign Metrics**, and **Product Sales**.
+   - **Simple Reporting**: Generate weekly/monthly performance reports that automatically populate Google Sheets.
+   - **Basic Automation**: Set up scheduled tasks to fetch updated campaign data from Amazon at regular intervals.
+   - **Google Sheets Sync**: Directly sync all data to Google Sheets for users who prefer working with spreadsheets.
+   - **Role-Based Permissions**: Easy-to-manage access for different user roles (Admin, User, Viewer).
 
-    -   Allow users to manage their profiles, preferences, and subscriptions.
+2. **Extension**:
+   - **Quick Data Fetch**: Click to pull live data (Campaign Performance, SQP, etc.) directly from Seller Central.
+   - **Drag-and-Drop File Upload**: Drag files (CSV/XLS) into the extension to upload into Google Sheets, saving time and reducing manual entry.
+   - **Live Sync**: Real-time data sync with the web app and Google Sheets.
+   - **Compact Dashboard**: View key metrics at a glance, like the top-performing campaigns or products, without opening the web app.
 
-### **Chrome Extension**
+---
 
-1.  **Quick Access:**
+### **Revised User Flow (Simplified)**:
 
-    -   Provide a popup for quick access to key features like keyword tracking and report downloads.
+1. **User Signs In:**
+   - Authentication via **OAuth** for both the **web app** and **extension** (Google and Amazon Seller Central).
+   
+2. **Using the Extension**:
+   - User installs the extension, links their **Amazon Seller Central account**, and can **fetch campaign data** or **export files** directly from Amazon.
+   - **Drag-and-drop** files into the extension for quick bulk upload into **Google Sheets** linked to their my-amazon-analyticse account.
 
-2.  **Content Scripts:**
+3. **Data Sync**:
+   - Extension automatically **syncs data** with the **web app** in real time, reflecting all new changes, campaign updates, and performance metrics.
 
-    -   Inject React components into Amazon Seller Central pages (e.g., Parent-Child Table).
+4. **Web App Interaction**:
+   - The user views updated **KPIs** and **reports** on the web app’s dashboard.
+   - They can schedule automated tasks to pull and update performance data without manual effort.
 
-3.  **Real-Time Updates:**
+5. **Notifications**:
+   - The system will notify users in both the extension and web app when tasks are completed or require attention (e.g., file upload complete, new report generated).
 
-    -   Sync data with the web app in real-time using Supabase.
+---
 
-* * * * *
+### **Suggestions for Simplicity:**
 
-**Implementation Plan**
------------------------
+1. **Lightweight Features**: 
+   - Avoid overwhelming users with too many features. Focus on **data fetching**, **file upload**, and **real-time sync**.
+   - Limit the dashboard to just essential KPIs, with easy-to-understand charts and metrics.
 
-### **1\. Set Up the Project**
+2. **User-Friendly UI**:
+   - Both the **web app** and **extension** should have an intuitive, minimalistic UI, focusing on usability over complex functionality.
 
-1.  **Initialize a Vite Project:**
+3. **Quick Access to Reports**:
+   - Enable **one-click report generation** for campaign data directly from Amazon Seller Central, with the option to automatically update Google Sheets.
 
-    bash
+4. **Automation**:
+   - Focus on **simple automation**: Automate data syncs, report updates, and file uploads without requiring complex user interaction.
 
- ```   
+5. **Seamless Integration**:
+   - Keep the web app and extension synchronized at all times to ensure a smooth user experience, with no manual syncing needed.
 
-    npx create-next-app my-amazon-analytics
-    cd my-amazon-analytics
-```
-2.  **Install Dependencies:**
+---
 
-    bash
+### **Final Thoughts**:
+By streamlining the features, we're making sure the app stays **easy to use** while maintaining powerful integration with **Amazon Seller Central**. The browser extension works as a lightweight companion tool, giving users quick access to data, while the web app centralizes reporting and syncs with **Google Sheets** for data storage.
 
-```    
-
-    npm install @supabase/supabase-js react-chartjs-2 chart.js googleapis next-auth
-```
-3.  **Set Up Supabase:**
-
-    -   Create a Supabase project at [supabase.io](https://supabase.io/).
-
-    -   Initialize the Supabase client:
-
-        javascript
-
-   ```     
-
-        // utils/supabaseClient.js
-        import { createClient } from '@supabase/supabase-js';
-        const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_KEY);
-        export default supabase;
-```
-* * * * *
-
-### **2\. Web Application**
-
-#### **Frontend (React)**
-
-1.  **Dashboard:**
-
-    -   Create a dashboard page (`pages/dashboard.js`) to display key metrics.
-
-    -   Use React components for modularity (e.g., `TacosChart.js`, `KeywordRankingTable.js`).
-
-2.  **Google Workspace Integration:**
-
-    -   Add a settings page for connecting Google Sheets and Drive.
-
-    -   Example:
-
-        javascript
-
-        
-```
-        const SettingsPage = () => {
-          const [spreadsheetId, setSpreadsheetId] = useState('');
-          const [folderId, setFolderId] = useState('');
-
-          const handleSaveSettings = async () => {
-            await fetch('/api/save-settings', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ spreadsheetId, folderId }),
-            });
-          };
-
-          return (
-            <div>
-              <h2>Google Workspace Integration</h2>
-              <label>
-                Spreadsheet ID:
-                <input
-                  type="text"
-                  value={spreadsheetId}
-                  onChange={(e) => setSpreadsheetId(e.target.value)}
-                />
-              </label>
-              <label>
-                Drive Folder ID:
-                <input
-                  type="text"
-                  value={folderId}
-                  onChange={(e) => setFolderId(e.target.value)}
-                />
-              </label>
-              <button onClick={handleSaveSettings}>Save Settings</button>
-            </div>
-          );
-        };
-```
-#### **Backend (Vite API Routes)**
-
-1.  **Google Sheets API:**
-
-    -   Create API routes for fetching and updating Google Sheets data.
-
-2.  **Google Drive API:**
-
-    -   Create API routes for uploading files to Google Drive.
-
-3.  **Supabase Integration:**
-
-    -   Use Supabase to store user data, preferences, and metadata.
-
-* * * * *
-
-### **3\. Chrome Extension**
-
-#### **Manifest File**
-
-1.  Create a `manifest.json` file:
-
-    json
-
- ```   
-
-    {
-      "manifest_version": 3,
-      "name": "Seller Suite",
-      "version": "1.0",
-      "permissions": ["activeTab", "storage"],
-      "background": {
-        "service_worker": "background.js"
-      },
-      "content_scripts": [
-        {
-          "matches": ["https://sellercentral.amazon.com/*"],
-          "js": ["content.js"]
-        }
-      ],
-      "action": {
-        "default_popup": "index.html"
-      }
-    }
-```
-#### **Content Scripts**
-
-1.  Inject React components into Amazon Seller Central pages:
-
-    javascript
-
-    
-```
-    // content.js
-    const root = document.createElement('div');
-    root.id = 'my-amazon-analytics-root';
-    document.body.appendChild(root);
-    import('./path/to/nextjs/build/static/js/content.js');
-```
-#### **Popup**
-
-1.  Use the Vite app as the extension's popup by building it and serving the static files.
-
-* * * * *
-
-### **4\. Shared Backend (Supabase)**
-
-1.  **Database Schema:**
-
-    sql
-
- ```   
-
-    CREATE TABLE users (
-      id UUID PRIMARY KEY,
-      email TEXT UNIQUE NOT NULL,
-      google_access_token TEXT,
-      google_refresh_token TEXT,
-      created_at TIMESTAMP DEFAULT NOW()
-    );
-
-    CREATE TABLE user_settings (
-      id SERIAL PRIMARY KEY,
-      user_id UUID REFERENCES users(id),
-      spreadsheet_id TEXT,
-      drive_folder_id TEXT
-    );
-```
-2.  **Real-Time Updates:**
-
-    -   Use Supabase's real-time capabilities to sync data between the web app and Chrome extension.
-
-* * * * *
-
-### **5\. Deployment**
-
-1.  **Web Application:**
-
-    -   Deploy the Vite app to  **Netlify**.
-
-2.  **Chrome Extension:**
-
-    -   Build the Vite app (`npm run build`) and package the static files as a Chrome extension.
-
-3.  **Supabase:**
-
-    -   Use Supabase's built-in hosting and database services.
-
-* * * * *
-
-### **6\. Beta Testing**
-
-1.  **Offer Free Beta:**
-
-    -   Provide a free beta to Google Workspace users.
-
-2.  **Collect Feedback:**
-
-    -   Use tools like Google Forms or Supabase to collect user feedback.
-
-3.  **Iterate:**
-
-    -   Continuously improve the app based on user input.
-
-* * * * *
-
-**Advantages of This Approach**
--------------------------------
-
-1.  **Flexibility:** Users can access the tool as a web app or Chrome extension.
-
-2.  **Consistency:** Shared backend and frontend logic ensure a consistent experience across platforms.
-
-3.  **Scalability:** The architecture is designed to handle growing user bases and data volumes.
-
-4.  **User Adoption:** Seamless Google Workspace integration encourages adoption during the beta phase.
-
-* * * * *
-
-
-
-**Rebuild Roadmap**
--------------------
-
-### **1\. Define the Scope**
-
--   **Web Application:** A full-scale web app for advanced analytics, user management, and Google Workspace integration.
-
--   **Chrome Extension:** A lightweight extension for quick access to key features while working on Amazon Seller Central.
-
--   **Shared Backend:** Use **Supabase** for authentication, database, and real-time updates.
-
-* * * * *
-
-### **2\. Set Up the Development Environment**
-
-1.  **Initialize the Project:**
-
-    bash
-
-    
-```
-    npx create-next-app my-amazon-analytics
-    cd my-amazon-analytics
-```
-2.  **Install Dependencies:**
-
-    bash
-
-```    
-
-    npm install @supabase/supabase-js react-chartjs-2 chart.js googleapis next-auth
-```
-3.  **Set Up Supabase:**
-
-    -   Create a Supabase project at [supabase.io](https://supabase.io/).
-
-    -   Initialize the Supabase client:
-
-        javascript
-```
-        
-
-        // utils/supabaseClient.js
-        import { createClient } from '@supabase/supabase-js';
-        const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_KEY);
-        export default supabase;
-```
-* * * * *
-
-### **3\. Build the Web Application**
-
-#### **Frontend (React)**
-
-1.  **Dashboard:**
-
-    -   Create a dashboard page (`pages/dashboard.js`) to display key metrics.
-
-    -   Use React components for modularity (e.g., `TacosChart.js`, `KeywordRankingTable.js`).
-
-2.  **Google Workspace Integration:**
-
-    -   Add a settings page for connecting Google Sheets and Drive.
-
-    -   Example:
-
-        javascript
-
-        
-```
-        const SettingsPage = () => {
-          const [spreadsheetId, setSpreadsheetId] = useState('');
-          const [folderId, setFolderId] = useState('');
-
-          const handleSaveSettings = async () => {
-            await fetch('/api/save-settings', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ spreadsheetId, folderId }),
-            });
-          };
-
-          return (
-            <div>
-              <h2>Google Workspace Integration</h2>
-              <label>
-                Spreadsheet ID:
-                <input
-                  type="text"
-                  value={spreadsheetId}
-                  onChange={(e) => setSpreadsheetId(e.target.value)}
-                />
-              </label>
-              <label>
-                Drive Folder ID:
-                <input
-                  type="text"
-                  value={folderId}
-                  onChange={(e) => setFolderId(e.target.value)}
-                />
-              </label>
-              <button onClick={handleSaveSettings}>Save Settings</button>
-            </div>
-          );
-        };
-```
-#### **Backend (Vite API Routes)**
-
-1.  **Google Sheets API:**
-
-    -   Create API routes for fetching and updating Google Sheets data.
-
-2.  **Google Drive API:**
-
-    -   Create API routes for uploading files to Google Drive.
-
-3.  **Supabase Integration:**
-
-    -   Use Supabase to store user data, preferences, and metadata.
-
-* * * * *
-
-### **4\. Build the Chrome Extension**
-
-#### **Manifest File**
-
-1.  Create a `manifest.json` file:
-
-    json
-```
-    
-
-    {
-      "manifest_version": 3,
-      "name": "Seller Suite",
-      "version": "1.0",
-      "permissions": ["activeTab", "storage"],
-      "background": {
-        "service_worker": "background.js"
-      },
-      "content_scripts": [
-        {
-          "matches": ["https://sellercentral.amazon.com/*"],
-          "js": ["content.js"]
-        }
-      ],
-      "action": {
-        "default_popup": "index.html"
-      }
-    }
-```
-#### **Content Scripts**
-
-1.  Inject React components into Amazon Seller Central pages:
-
-    javascript
-```
-    
-
-    // content.js
-    const root = document.createElement('div');
-    root.id = 'my-amazon-analytics-root';
-    document.body.appendChild(root);
-    import('./path/to/nextjs/build/static/js/content.js');
-```
-#### **Popup**
-
-1.  Use the Vite app as the extension's popup by building it and serving the static files.
-
-* * * * *
-
-### **5\. Shared Backend (Supabase)**
-
-1.  **Database Schema:**
-
-    sql
-
-```    
-
-    CREATE TABLE users (
-      id UUID PRIMARY KEY,
-      email TEXT UNIQUE NOT NULL,
-      google_access_token TEXT,
-      google_refresh_token TEXT,
-      created_at TIMESTAMP DEFAULT NOW()
-    );
-
-    CREATE TABLE user_settings (
-      id SERIAL PRIMARY KEY,
-      user_id UUID REFERENCES users(id),
-      spreadsheet_id TEXT,
-      drive_folder_id TEXT
-    );
-```
-2.  **Real-Time Updates:**
-
-    -   Use Supabase's real-time capabilities to sync data between the web app and Chrome extension.
-
-* * * * *
-
-### **6\. Deployment**
-
-1.  **Web Application:**
-
-    -   Deploy the Vite app to **Netlify**.
-
-2.  **Chrome Extension:**
-
-    -   Build the Vite app (`npm run build`) and package the static files as a Chrome extension.
-
-3.  **Supabase:**
-
-    -   Use Supabase's built-in hosting and database services.
-
-* * * * *
-
-### **7\. Beta Testing**
-
-1.  **Offer Free Beta:**
-
-    -   Provide a free beta to Google Workspace users.
-
-2.  **Collect Feedback:**
-
-    -   Use tools like Google Forms or Supabase to collect user feedback.
-
-3.  **Iterate:**
-
-    -   Continuously improve the app based on user input.
-
-* * * * *
-
-**Tips for Success**
---------------------
-
-1.  **Start Small:**
-
-    -   Focus on the core features first (e.g., Google Sheets integration, keyword tracking).
-
-2.  **Test Early and Often:**
-
-    -   Use tools like **Cypress** for end-to-end testing and **Vitetest**.
-
-3.  **Document Everything:**
-
-    -   Keep detailed documentation for your code, APIs, and deployment process.
-
-4.  **Engage with Users:**
-
-    -   Actively seek feedback from beta testers to prioritize features and improvements.
-
-* * * * *
