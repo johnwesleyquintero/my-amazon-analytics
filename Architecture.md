@@ -6,10 +6,19 @@ This approach allows users to access the tool both as a **standalone web applic
 
 * * * * *
 
+**Color Palette for Webapp and Extention**
+
+White (#FFFFFF) - Used as the main background color for a clean and modern look.
+Black (#000000) - Used for text and some UI elements for contrast.
+Yellow (#FFD400 or similar) - Used as an accent color for call-to-action buttons and highlights.
+Dark Gray (#333333) - Used for secondary text and some background sections.
+Light Gray (#F5F5F5 or similar) - Used for subtle background differences and section breaks.
+Blue (#0073E6 or similar) - Possibly used for hyperlinks or emphasis.
+
 **Architecture Overview**
 -------------------------
 
-The **Seller Suite** will consist of:
+The **My Amazon Analytics** will consist of:
 
 1.  **Web Application:**
 
