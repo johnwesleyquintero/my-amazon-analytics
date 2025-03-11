@@ -4,10 +4,10 @@ https://myamazonguy.com/wp-content/uploads/2024/04/My-Amazon-Guy-Logo.png
 
 ### Branches
 
-    ***main***
-    ***Documentation-Branch***
-    ***Security-Branch***
-    ***Features-Branch***
+- main
+- Documentation-Branch
+- Security-Branch
+- Features-Branch
 
 ## Completed Features ✅
 
@@ -39,7 +39,7 @@ https://myamazonguy.com/wp-content/uploads/2024/04/My-Amazon-Guy-Logo.png
 - Google Workspace Integration (Settings Page)
 
 ## Architecture Overview
-- Web Application (Next.js, Vercel)
+- Web Application (Vite + React + Supabase + Netlify)
 - Chrome Extension (Integrates with Amazon Seller Central)
 - Shared Backend (Supabase)
 
