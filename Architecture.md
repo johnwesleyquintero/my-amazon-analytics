@@ -25,16 +25,16 @@ This approach allows users to access the tool both as a **standalone web applic
 
 * * * * *
 
-**Revamped architecture** along with some **simplified features** for the **my-amazon-analyticse** and its companion extension.
+**Revamped architecture** along with some **simplified features** for the ****My Amazon Analytics**** and its companion extension.
 
 ---
 
-### **Revamped Architecture for my-amazon-analyticse**
+### **Revamped Architecture for **My Amazon Analytics****
 
 ---
 
 #### **1. Core Components:**
-- **Web Application (my-amazon-analyticse):**
+- **Web Application (**My Amazon Analytics**):**
   - **Main Dashboard**: Displays KPIs, visual reports, and charts.
   - **Google Sheets Integration**: Syncs campaign and performance data with Google Sheets for storage and further analysis.
   - **Role-Based Access**: Permissions for users (Admin, User, Viewer) to control who can access and modify reports.
@@ -59,7 +59,7 @@ This approach allows users to access the tool both as a **standalone web applic
    
 3. **Drag-and-Drop File Upload (via Extension)**:
    - **User Action**: Drag files from Amazon Seller Central or their device.
-   - The extension will upload these files (CSV/XLS) to the **Google Sheets** linked to the user’s my-amazon-analyticse account.
+   - The extension will upload these files (CSV/XLS) to the **Google Sheets** linked to the user’s **My Amazon Analytics** account.
 
 4. **Real-Time Sync**:
    - Data that is fetched via the extension will be **automatically synced** with the Google Sheets linked to the user’s account in the web app.
@@ -94,7 +94,7 @@ This approach allows users to access the tool both as a **standalone web applic
    
 2. **Using the Extension**:
    - User installs the extension, links their **Amazon Seller Central account**, and can **fetch campaign data** or **export files** directly from Amazon.
-   - **Drag-and-drop** files into the extension for quick bulk upload into **Google Sheets** linked to their my-amazon-analyticse account.
+   - **Drag-and-drop** files into the extension for quick bulk upload into **Google Sheets** linked to their **My Amazon Analytics** account.
 
 3. **Data Sync**:
    - Extension automatically **syncs data** with the **web app** in real time, reflecting all new changes, campaign updates, and performance metrics.
