@@ -75,8 +75,8 @@ Both platforms will share the same **backend (Supabase)** and **frontend logi
 
  ```   
 
-    npx create-next-app seller-suite
-    cd seller-suite
+    npx create-next-app my-amazon-analytics
+    cd my-amazon-analytics
 ```
 2.  **Install Dependencies:**
 
@@ -214,7 +214,7 @@ Both platforms will share the same **backend (Supabase)** and **frontend logi
 ```
     // content.js
     const root = document.createElement('div');
-    root.id = 'seller-suite-root';
+    root.id = 'my-amazon-analytics-root';
     document.body.appendChild(root);
     import('./path/to/nextjs/build/static/js/content.js');
 ```
@@ -321,8 +321,8 @@ Both platforms will share the same **backend (Supabase)** and **frontend logi
 
     
 ```
-    npx create-next-app seller-suite
-    cd seller-suite
+    npx create-next-app my-amazon-analytics
+    cd my-amazon-analytics
 ```
 2.  **Install Dependencies:**
 
@@ -460,7 +460,7 @@ Both platforms will share the same **backend (Supabase)** and **frontend logi
 
     // content.js
     const root = document.createElement('div');
-    root.id = 'seller-suite-root';
+    root.id = 'my-amazon-analytics-root';
     document.body.appendChild(root);
     import('./path/to/nextjs/build/static/js/content.js');
 ```
