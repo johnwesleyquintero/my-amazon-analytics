@@ -1,6 +1,6 @@
 # My Amazon Analytics: Amazon Advertising Analytics Dashboard
 
-https://myamazonguy.com/wp-content/uploads/2024/04/My-Amazon-Guy-Logo.png
+- https://myamazonguy.com/wp-content/uploads/2024/04/My-Amazon-Guy-Logo.png
 
 ```
 <link rel="icon" href="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-32x32.jpeg" sizes="32x32" />
@@ -8,6 +8,8 @@ https://myamazonguy.com/wp-content/uploads/2024/04/My-Amazon-Guy-Logo.png
 <link rel="apple-touch-icon" href="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-180x180.jpeg" />
 <meta name="msapplication-TileImage" content="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-270x270.jpeg" />
 ```
+**Live Demo:**
+- https://my-amazon-analytics.lovable.app/
 
 ### Branches
 
