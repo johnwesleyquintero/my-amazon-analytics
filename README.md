@@ -2,6 +2,13 @@
 
 https://myamazonguy.com/wp-content/uploads/2024/04/My-Amazon-Guy-Logo.png
 
+```
+<link rel="icon" href="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-32x32.jpeg" sizes="32x32" />
+<link rel="icon" href="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-192x192.jpeg" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-180x180.jpeg" />
+<meta name="msapplication-TileImage" content="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-270x270.jpeg" />
+```
+
 ### Branches
 
 - main
