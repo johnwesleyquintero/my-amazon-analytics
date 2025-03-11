@@ -1,8 +1,8 @@
-# PLAN B
+# Architecture
 
-Rebuilding **full-scale web app + Chrome extension** **SellSmart**.
+Rebuilding **full-scale web app + Chrome extension** **My Amazon Analytics**.
 
-This approach allows users to access the tool both as a **standalone web application** and as a **browser extension**, providing flexibility and enhancing the user experience. Below is a **comprehensive plan** to implement this dual-platform solution using **Next.js**, **Supabase**, **React**, and **Google Workspace APIs**.
+This approach allows users to access the tool both as a **standalone web application** and as a **browser extension**, providing flexibility and enhancing the user experience. Below is a **comprehensive plan** to implement this dual-platform solution using **vite**, **React**, **Supabase**, and **Google Workspace APIs**.
 
 * * * * *
 
@@ -13,7 +13,7 @@ The **Seller Suite** will consist of:
 
 1.  **Web Application:**
 
-    -   A full-scale web app hosted on a platform **Vercel**.
+    -   A full-scale web app hosted on a platform **Netlify**.
 
     -   Users can access it via a browser on any device.
 
@@ -69,7 +69,7 @@ Both platforms will share the same **backend (Supabase)** and **frontend logi
 
 ### **1\. Set Up the Project**
 
-1.  **Initialize a Next.js Project:**
+1.  **Initialize a Vite Project:**
 
     bash
 
@@ -159,7 +159,7 @@ Both platforms will share the same **backend (Supabase)** and **frontend logi
           );
         };
 ```
-#### **Backend (Next.js API Routes)**
+#### **Backend (Vite API Routes)**
 
 1.  **Google Sheets API:**
 
@@ -220,7 +220,7 @@ Both platforms will share the same **backend (Supabase)** and **frontend logi
 ```
 #### **Popup**
 
-1.  Use the Next.js app as the extension's popup by building it and serving the static files.
+1.  Use the Vite app as the extension's popup by building it and serving the static files.
 
 * * * * *
 
@@ -257,11 +257,11 @@ Both platforms will share the same **backend (Supabase)** and **frontend logi
 
 1.  **Web Application:**
 
-    -   Deploy the Next.js app to **Vercel** or **Netlify**.
+    -   Deploy the Vite app to  **Netlify**.
 
 2.  **Chrome Extension:**
 
-    -   Build the Next.js app (`npm run build`) and package the static files as a Chrome extension.
+    -   Build the Vite app (`npm run build`) and package the static files as a Chrome extension.
 
 3.  **Supabase:**
 
@@ -405,7 +405,7 @@ Both platforms will share the same **backend (Supabase)** and **frontend logi
           );
         };
 ```
-#### **Backend (Next.js API Routes)**
+#### **Backend (Vite API Routes)**
 
 1.  **Google Sheets API:**
 
@@ -466,7 +466,7 @@ Both platforms will share the same **backend (Supabase)** and **frontend logi
 ```
 #### **Popup**
 
-1.  Use the Next.js app as the extension's popup by building it and serving the static files.
+1.  Use the Vite app as the extension's popup by building it and serving the static files.
 
 * * * * *
 
@@ -503,11 +503,11 @@ Both platforms will share the same **backend (Supabase)** and **frontend logi
 
 1.  **Web Application:**
 
-    -   Deploy the Next.js app to **Vercel**.
+    -   Deploy the Vite app to **Netlify**.
 
 2.  **Chrome Extension:**
 
-    -   Build the Next.js app (`npm run build`) and package the static files as a Chrome extension.
+    -   Build the Vite app (`npm run build`) and package the static files as a Chrome extension.
 
 3.  **Supabase:**
 
@@ -540,7 +540,7 @@ Both platforms will share the same **backend (Supabase)** and **frontend logi
 
 2.  **Test Early and Often:**
 
-    -   Use tools like **Cypress** for end-to-end testing and **Jest** for unit testing.
+    -   Use tools like **Cypress** for end-to-end testing and **Vitetest*.
 
 3.  **Document Everything:**
 
