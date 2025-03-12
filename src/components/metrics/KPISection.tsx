@@ -1,3 +1,4 @@
+
 import { DollarSign, TrendingUp, ShoppingCart, BarChart } from "lucide-react";
 import { KPICard } from "./KPICard";
 
