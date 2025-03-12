@@ -15,7 +15,7 @@ import DashboardHistory from "./pages/DashboardHistory";
 import DashboardDSP from "./pages/DashboardDSP";
 import DashboardImport from "./pages/DashboardImport";
 import DashboardReports from "./pages/DashboardReports";
-import DashboardSettings from "./pages/DashboardSettings";
+import DashboardSettings from "./pages/DashboardSettings.tsx";
 import Admin from "./pages/Admin";
 
 const queryClient = new QueryClient({
