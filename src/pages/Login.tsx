@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -54,9 +55,22 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-spotify-darker via-[#1a2c1a] to-spotify-darker p-4">
-      <Card className="w-full max-w-md p-8 bg-black/40 border-0">
-        <h1 className="text-2xl font-bold text-white mb-6 text-center">Login</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white to-catskill-white p-4">
+      <Card className="w-full max-w-md p-8 bg-white shadow-lg border-0">
+        <div className="flex justify-center mb-6">
+          <div className="flex items-center space-x-2">
+            <div className="flex">
+              <div className="h-6 w-2 bg-burnt-sienna rounded-sm"></div>
+              <div className="h-6 w-2 bg-shakespeare rounded-sm ml-0.5"></div>
+              <div className="h-6 w-2 bg-gold rounded-sm ml-0.5"></div>
+            </div>
+            <div className="text-2xl font-bold font-manrope text-gray-900">
+              My Amazon Guy
+            </div>
+          </div>
+        </div>
+        
+        <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center font-manrope">Login</h1>
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <Input
@@ -64,7 +78,7 @@ const Login = () => {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="bg-white/10 border-0 text-white placeholder:text-gray-400"
+              className="border-gray-300 focus:border-shakespeare focus:ring-shakespeare"
               disabled={isLoading}
               required
             />
@@ -75,21 +89,21 @@ const Login = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="bg-white/10 border-0 text-white placeholder:text-gray-400"
+              className="border-gray-300 focus:border-shakespeare focus:ring-shakespeare"
               disabled={isLoading}
               required
             />
           </div>
           <Button 
             type="submit" 
-            className="w-full bg-green-600 hover:bg-green-700" 
+            className="w-full bg-burnt-sienna hover:bg-burnt-sienna/90 text-white" 
             disabled={isLoading}
           >
             {isLoading ? "Logging in..." : "Login"}
           </Button>
-          <p className="text-center text-sm text-gray-400">
+          <p className="text-center text-sm text-gray-600 font-roboto">
             Don't have an account?{" "}
-            <Link to="/register" className="text-white hover:underline">
+            <Link to="/register" className="text-shakespeare hover:underline font-medium">
               Register
             </Link>
           </p>

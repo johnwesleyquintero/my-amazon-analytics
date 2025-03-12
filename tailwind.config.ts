@@ -19,18 +19,27 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        manrope: ['Manrope', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        spotify: {
-          green: "#1ED760",
-          dark: "#121212",
-          darker: "#030303",
-          light: "#282828",
-        },
+        // Primary colors
+        "burnt-sienna": "#ED595B",
+        "shakespeare": "#4FBBDA",
+        "gold": "#FFD600",
+        // Secondary colors
+        "apricot": "#EA7A6C",
+        "java": "#EB7D3E",
+        "iceberg": "#CBEAF1",
+        "hampton": "#E4D8AE",
+        "butterfly-bush": "#7554A2",
+        "catskill-white": "#EDF2F7",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

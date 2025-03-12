@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,16 +14,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
  
-    --primary: 221.2 83.2% 53.3%;
+    --primary: 359 83% 56%;
     --primary-foreground: 210 40% 98%;
  
-    --secondary: 217.9 10.6% 64.9%;
+    --secondary: 192 64% 58%;
     --secondary-foreground: 222.2 47.4% 11.2%;
  
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
  
-    --accent: 210 40% 96.1%;
+    --accent: 52 100% 50%;
     --accent-foreground: 222.2 47.4% 11.2%;
  
     --destructive: 0 84.2% 60.2%;
@@ -30,7 +31,7 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --ring: 222.2 84% 54.9%;
  
     --radius: 0.5rem;
   }
@@ -45,16 +46,16 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
  
-    --primary: 217.2 91.2% 59.8%;
+    --primary: 359 83% 56%;
     --primary-foreground: 222.2 47.4% 11.2%;
  
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 192 64% 58%;
     --secondary-foreground: 210 40% 98%;
  
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
  
-    --accent: 217.2 32.6% 17.5%;
+    --accent: 52 100% 50%;
     --accent-foreground: 210 40% 98%;
  
     --destructive: 0 62.8% 30.6%;
@@ -62,7 +63,7 @@
  
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --ring: 212.7 26.8% 83.9%;
   }
 }
  
@@ -71,6 +72,43 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-manrope;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-manrope font-bold;
+  }
+  p, span, div, li, a {
+    @apply font-roboto;
+  }
+}
+
+/* Custom utility classes for My Amazon Guy theme */
+@layer components {
+  .mag-gradient {
+    @apply bg-gradient-to-r from-burnt-sienna via-shakespeare to-gold;
+  }
+  
+  .mag-card {
+    @apply bg-white shadow-md rounded-lg border border-catskill-white hover:shadow-lg transition-all duration-300;
+  }
+  
+  .mag-button-primary {
+    @apply bg-burnt-sienna text-white hover:bg-burnt-sienna/90;
+  }
+  
+  .mag-button-secondary {
+    @apply bg-shakespeare text-white hover:bg-shakespeare/90;
+  }
+  
+  .mag-button-accent {
+    @apply bg-gold text-black hover:bg-gold/90;
+  }
+  
+  .mag-heading {
+    @apply text-2xl font-bold text-gray-800 mb-4 font-manrope;
+  }
+  
+  .mag-section {
+    @apply p-6 rounded-lg bg-white shadow-sm border border-gray-100;
   }
 }

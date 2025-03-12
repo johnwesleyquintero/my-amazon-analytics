@@ -79,6 +79,7 @@ export function useSettings() {
     toast({
       title: "Settings saved",
       description: "Your dashboard settings have been updated.",
+      className: "bg-shakespeare border-shakespeare text-white",
     });
   };
 
