@@ -1,5 +1,9 @@
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
+/**
+ * Sample data for the ad spend chart
+ * Each data point represents monthly ad spend values
+ */
 const data = [
   { name: "Jan", value: 4000 },
   { name: "Feb", value: 3000 },
@@ -10,6 +14,26 @@ const data = [
   { name: "Jul", value: 3490 },
 ];
 
+/**
+ * AdSpendChart Component
+ * 
+ * A responsive area chart component that visualizes advertising spend over time.
+ * Uses Recharts library to create a gradient-filled area chart with monthly data points.
+ * 
+ * Features:
+ * - Responsive container that adapts to parent width
+ * - Gradient fill effect for visual appeal
+ * - Dollar value formatting for Y-axis
+ * - Interactive tooltip for data point inspection
+ * 
+ * @component
+ * @example
+ * return (
+ *   <div className="dashboard-widget">
+ *     <AdSpendChart />
+ *   </div>
+ * )
+ */
 export function AdSpendChart() {
   return (
     <div className="h-[300px] w-full">

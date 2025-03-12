@@ -1,6 +1,9 @@
 import { KPISection } from "./metrics/KPISection";
 import { MetricsTabs } from "./metrics/MetricsTabs";
 
+/**
+ * Interface for the metrics data structure used in the AmazonMetricsDisplay component
+ */
 interface MetricsDisplayProps {
   metrics: {
     performance: {
@@ -71,6 +74,35 @@ interface MetricsDisplayProps {
   };
 }
 
+/**
+ * AmazonMetricsDisplay Component
+ * 
+ * A comprehensive display component for Amazon advertising and sales metrics.
+ * Renders a dashboard layout with KPI summary and detailed metric tabs.
+ * 
+ * Features:
+ * - KPI section showing key performance indicators
+ * - Tabbed interface for weekly, monthly, and detailed metrics
+ * - Detailed breakdowns by ASIN, search terms, and SKU
+ * - Null-safe data handling with fallback values
+ * 
+ * @component
+ * @param {MetricsDisplayProps} props - The metrics data to display
+ * @param {Object} props.metrics - Complete metrics object containing performance, sales, and detailed data
+ * 
+ * @example
+ * const metrics = {
+ *   performance: { impressions: 1000, clicks: 100, ... },
+ *   sales: { totalSales: 5000, totalOrders: 50 },
+ *   weeklyMetrics: [...],
+ *   monthlyMetrics: [...],
+ *   detailedMetrics: { ... }
+ * };
+ * 
+ * return (
+ *   <AmazonMetricsDisplay metrics={metrics} />
+ * )
+ */
 export function AmazonMetricsDisplay({ metrics }: MetricsDisplayProps) {
   const totalSales = metrics?.sales?.totalSales ?? 0;
   const totalOrders = metrics?.sales?.totalOrders ?? 0;
