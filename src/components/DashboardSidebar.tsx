@@ -59,32 +59,39 @@ export function DashboardSidebar() {
   return (
     <Sidebar>
       <SidebarContent>
-        <SidebarGroup>
-          <DashboardGroupLabel label="Analytics" />
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {navigationItems.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <DashboardMenuItem
-                    key={item.title}
-                    title={item.title}
-                    icon={<Icon className="w-4 h-4" />}
-                    path={item.path}
-                    description={item.description}
-                  />
-                );
-              })}
-              <DashboardMenuItem
-                key="settings"
-                title="Settings"
-                icon={<Settings className="w-4 h-4" />}
-                path="/dashboard/settings"
-                description="Settings"
-              />
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        <nav aria-label="Main Navigation">
+          <SidebarGroup>
+            <DashboardGroupLabel label="Analytics" />
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {navigationItems.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = location.pathname === item.path;
+                  return (
+                    <DashboardMenuItem
+                      key={item.title}
+                      title={item.title}
+                      icon={<Icon className="w-4 h-4" aria-hidden="true" />}
+                      path={item.path}
+                      description={item.description}
+                      aria-current={isActive ? "page" : undefined}
+                      className={`transition-colors duration-200 ${isActive ? 'bg-primary/10' : 'hover:bg-gray-100 dark:hover:bg-gray-800'}`}
+                    />
+                  );
+                })}
+                <DashboardMenuItem
+                  key="settings"
+                  title="Settings"
+                  icon={<Settings className="w-4 h-4" aria-hidden="true" />}
+                  path="/dashboard/settings"
+                  description="Account and application settings"
+                  aria-current={location.pathname === "/dashboard/settings" ? "page" : undefined}
+                  className={`transition-colors duration-200 ${location.pathname === "/dashboard/settings" ? 'bg-primary/10' : 'hover:bg-gray-100 dark:hover:bg-gray-800'}`}
+                />
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </nav>
       </SidebarContent>
     </Sidebar>
   );
