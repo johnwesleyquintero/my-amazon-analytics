@@ -60,7 +60,10 @@ export function useSettings() {
       .from('dashboard_settings')
       .upsert({
         user_id: user.id,
-        ...data,
+        default_date_range: data.default_date_range,
+        default_currency: data.default_currency,
+        notification_preferences: data.notification_preferences,
+        theme: data.theme
       });
 
     if (error) {

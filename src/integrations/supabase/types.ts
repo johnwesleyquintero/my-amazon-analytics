@@ -9,6 +9,96 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      amazon_ads_metrics: {
+        Row: {
+          account_id: string | null
+          acos: number | null
+          ad_group_name: string | null
+          advertised_asin: string | null
+          advertised_product_category: string | null
+          advertised_sku: string | null
+          amount_spent: number | null
+          campaign_name: string | null
+          clicks: number | null
+          created_at: string | null
+          date: string | null
+          id: string
+          impressions: number | null
+          keyword: string | null
+          marketplace: string | null
+          search_term: string | null
+          total_ad_orders: number | null
+          total_ad_sales: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          account_id?: string | null
+          acos?: number | null
+          ad_group_name?: string | null
+          advertised_asin?: string | null
+          advertised_product_category?: string | null
+          advertised_sku?: string | null
+          amount_spent?: number | null
+          campaign_name?: string | null
+          clicks?: number | null
+          created_at?: string | null
+          date?: string | null
+          id?: string
+          impressions?: number | null
+          keyword?: string | null
+          marketplace?: string | null
+          search_term?: string | null
+          total_ad_orders?: number | null
+          total_ad_sales?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          account_id?: string | null
+          acos?: number | null
+          ad_group_name?: string | null
+          advertised_asin?: string | null
+          advertised_product_category?: string | null
+          advertised_sku?: string | null
+          amount_spent?: number | null
+          campaign_name?: string | null
+          clicks?: number | null
+          created_at?: string | null
+          date?: string | null
+          id?: string
+          impressions?: number | null
+          keyword?: string | null
+          marketplace?: string | null
+          search_term?: string | null
+          total_ad_orders?: number | null
+          total_ad_sales?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      api_keys: {
+        Row: {
+          created_at: string | null
+          id: string
+          key_type: string
+          key_value: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          key_type: string
+          key_value: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          key_type?: string
+          key_value?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       Chat: {
         Row: {
           createdAt: string
@@ -65,8 +155,11 @@ export type Database = {
       dashboard_settings: {
         Row: {
           created_at: string
+          default_currency: string | null
+          default_date_range: string | null
           default_view: string
           id: string
+          notification_preferences: Json | null
           show_welcome_message: boolean
           theme: string
           updated_at: string
@@ -74,8 +167,11 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          default_currency?: string | null
+          default_date_range?: string | null
           default_view?: string
           id?: string
+          notification_preferences?: Json | null
           show_welcome_message?: boolean
           theme?: string
           updated_at?: string
@@ -83,8 +179,11 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          default_currency?: string | null
+          default_date_range?: string | null
           default_view?: string
           id?: string
+          notification_preferences?: Json | null
           show_welcome_message?: boolean
           theme?: string
           updated_at?: string
@@ -134,6 +233,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      google_workspace_settings: {
+        Row: {
+          auto_sync: boolean | null
+          created_at: string | null
+          id: string
+          sheet_name: string | null
+          spreadsheet_id: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          auto_sync?: boolean | null
+          created_at?: string | null
+          id?: string
+          sheet_name?: string | null
+          spreadsheet_id?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          auto_sync?: boolean | null
+          created_at?: string | null
+          id?: string
+          sheet_name?: string | null
+          spreadsheet_id?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
       }
       Message: {
         Row: {
