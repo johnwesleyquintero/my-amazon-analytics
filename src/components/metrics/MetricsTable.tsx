@@ -7,6 +7,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
+import { TableFilter } from "@/components/ui/table-filter";
+import { useState } from "react";
 
 interface MetricsTableProps {
   headers: string[];
@@ -15,8 +17,15 @@ interface MetricsTableProps {
 }
 
 export function MetricsTable({ headers, rows, className }: MetricsTableProps) {
+  const [filteredRows, setFilteredRows] = useState(rows);
+
   return (
-    <div className={cn("overflow-x-auto", className)}>
+    <div className={cn("overflow-x-auto space-y-4", className)}>
+      <TableFilter
+        headers={headers}
+        data={rows}
+        onFilter={setFilteredRows}
+      />
       <Table>
         <TableHeader>
           <TableRow>

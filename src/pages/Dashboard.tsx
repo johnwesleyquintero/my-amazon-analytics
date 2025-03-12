@@ -11,7 +11,7 @@ import { DashboardTabs } from "@/components/dashboard/DashboardTabs";
 import { KPISection } from "@/components/metrics/KPISection";
 import { TACOSChart } from "@/components/metrics/TACOSChart";
 import { KeywordRankingTable } from "@/components/metrics/KeywordRankingTable";
-import { WorkspaceIntegration } from "@/components/google/WorkspaceIntegration";
+
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { Tables } from "@/integrations/supabase/types";
 
@@ -132,8 +132,6 @@ const Dashboard = () => {
               <TACOSChart data={metricsData.tacosData} />
               <KeywordRankingTable rankings={metricsData.keywordRankings} />
             </div>
-
-            <WorkspaceIntegration />
 
             <AmazonMetricsDisplay metrics={metricsData.metrics} />
             
