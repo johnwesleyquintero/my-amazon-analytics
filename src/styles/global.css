@@ -1,0 +1,14 @@
+:root {
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-yellow: #FFD400;
+  --color-dark-gray: #333333;
+  --color-light-gray: #F5F5F5;
+  --color-blue: #0073E6;
+  --color-primary: var(--color-yellow);
+  --color-text: var(--color-black);
+  --color-background: var(--color-white);
+  --color-secondary-text: var(--color-dark-gray);
+  --color-section-background: var(--color-light-gray);
+  --color-link: var(--color-blue);
+}
