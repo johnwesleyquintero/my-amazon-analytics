@@ -1,3 +1,4 @@
+
 import {
   Table,
   TableBody,
@@ -21,7 +22,7 @@ export function MetricsTable({ headers, rows, className }: MetricsTableProps) {
         <TableHeader>
           <TableRow>
             {headers.map((header, index) => (
-              <TableHead key={index} className="text-gray-400">
+              <TableHead key={index} className="text-gray-600">
                 {header}
               </TableHead>
             ))}
@@ -31,7 +32,7 @@ export function MetricsTable({ headers, rows, className }: MetricsTableProps) {
           {rows.map((row, index) => (
             <TableRow key={index}>
               {Object.values(row).map((value, cellIndex) => (
-                <TableCell key={cellIndex} className="font-medium">
+                <TableCell key={cellIndex} className="font-medium text-gray-800">
                   {typeof value === 'number' ? value.toLocaleString() : value}
                 </TableCell>
               ))}

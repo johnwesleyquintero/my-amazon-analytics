@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -23,7 +24,7 @@ interface KeywordRankingTableProps {
 
 export function KeywordRankingTable({ rankings }: KeywordRankingTableProps) {
   return (
-    <Card>
+    <Card className="bg-white text-gray-800">
       <CardHeader>
         <CardTitle>Keyword Rankings</CardTitle>
       </CardHeader>
@@ -31,20 +32,20 @@ export function KeywordRankingTable({ rankings }: KeywordRankingTableProps) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Keyword</TableHead>
-              <TableHead className="text-right">Rank</TableHead>
-              <TableHead className="text-right">Previous</TableHead>
-              <TableHead className="text-right">Search Volume</TableHead>
-              <TableHead className="text-right">Change</TableHead>
+              <TableHead className="text-gray-600">Keyword</TableHead>
+              <TableHead className="text-right text-gray-600">Rank</TableHead>
+              <TableHead className="text-right text-gray-600">Previous</TableHead>
+              <TableHead className="text-right text-gray-600">Search Volume</TableHead>
+              <TableHead className="text-right text-gray-600">Change</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {rankings.map((ranking) => (
               <TableRow key={ranking.keyword}>
-                <TableCell>{ranking.keyword}</TableCell>
-                <TableCell className="text-right">{ranking.rank}</TableCell>
-                <TableCell className="text-right">{ranking.previousRank}</TableCell>
-                <TableCell className="text-right">{ranking.searchVolume.toLocaleString()}</TableCell>
+                <TableCell className="text-gray-800">{ranking.keyword}</TableCell>
+                <TableCell className="text-right text-gray-800">{ranking.rank}</TableCell>
+                <TableCell className="text-right text-gray-800">{ranking.previousRank}</TableCell>
+                <TableCell className="text-right text-gray-800">{ranking.searchVolume.toLocaleString()}</TableCell>
                 <TableCell className={`text-right ${ranking.change > 0 ? 'text-green-600' : 'text-red-600'}`}>
                   {ranking.change > 0 ? '+' : ''}{ranking.change}
                 </TableCell>

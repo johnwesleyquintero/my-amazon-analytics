@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -12,7 +13,7 @@ interface TACOSChartProps {
 
 export function TACOSChart({ data }: TACOSChartProps) {
   return (
-    <Card className="w-full">
+    <Card className="w-full bg-white text-gray-800">
       <CardHeader>
         <CardTitle>TACOS Analysis</CardTitle>
       </CardHeader>
@@ -23,9 +24,9 @@ export function TACOSChart({ data }: TACOSChartProps) {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date" />
               <YAxis />
-              <Tooltip />
-              <Line type="monotone" dataKey="acos" stroke="#2563eb" name="ACoS" />
-              <Line type="monotone" dataKey="tacos" stroke="#64748b" name="TACoS" />
+              <Tooltip contentStyle={{ backgroundColor: 'white', color: '#333', borderColor: '#ddd' }} />
+              <Line type="monotone" dataKey="acos" stroke="#ED595B" name="ACoS" />
+              <Line type="monotone" dataKey="tacos" stroke="#4FBBDA" name="TACoS" />
             </LineChart>
           </ResponsiveContainer>
         </div>
