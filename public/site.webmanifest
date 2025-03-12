@@ -5,17 +5,22 @@
     {
       "src": "/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/android-chrome-512x512.png", 
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "theme_color": "#232f3e",
   "background_color": "#ffffff",
   "display": "standalone",
   "start_url": "/",
-  "description": "Amazon Analytics Dashboard"
+  "description": "Amazon Analytics Dashboard",
+  "orientation": "portrait",
+  "scope": "/",
+  "prefer_related_applications": false
 }
