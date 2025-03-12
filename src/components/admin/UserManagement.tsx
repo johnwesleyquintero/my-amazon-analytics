@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Profile } from "@/types/api";
 import { supabase } from "@/integrations/supabase/client";
@@ -7,7 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, UserX, RefreshCw } from "lucide-react";
+import { Loader2, UserX, RefreshCw, Settings as SettingsIcon } from "lucide-react";
 
 export function UserManagement() {
   const [users, setUsers] = useState<Profile[]>([]);
@@ -26,7 +27,7 @@ export function UserManagement() {
       // Cast the data to match the Profile interface
       const typedData = data.map(user => ({
         ...user,
-        user_id: user.user_id || user.id // Use user_id if available, otherwise use id
+        user_id: user.id // Map id to user_id for consistency
       })) as Profile[];
       
       setUsers(typedData);
@@ -51,12 +52,12 @@ export function UserManagement() {
       const { error } = await supabase
         .from("profiles")
         .update({ is_suspended: true })
-        .eq("user_id", userId);
+        .eq("id", userId);
 
       if (error) throw error;
 
       setUsers(users.map(user =>
-        user.user_id === userId ? { ...user, is_suspended: true } : user
+        user.id === userId ? { ...user, is_suspended: true } : user
       ));
 
       toast({
@@ -77,7 +78,7 @@ export function UserManagement() {
     <Card className="shadow-md border-shakespeare/20">
       <CardHeader>
         <CardTitle className="text-lg font-semibold flex items-center">
-          <Settings className="mr-2 h-4 w-4" /> User Management
+          <SettingsIcon className="mr-2 h-4 w-4" /> User Management
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -98,7 +99,7 @@ export function UserManagement() {
             </TableHeader>
             <TableBody>
               {users.map((user) => (
-                <TableRow key={user.user_id}>
+                <TableRow key={user.id}>
                   <TableCell>
                     <Avatar>
                       <AvatarImage src={user.avatar_url} />
@@ -119,7 +120,7 @@ export function UserManagement() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => suspendUser(user.user_id)}
+                        onClick={() => suspendUser(user.id)}
                       >
                         <UserX className="mr-2 h-4 w-4" />
                         Suspend

@@ -1,3 +1,4 @@
+
 export interface APIKey {
   id: string;
   user_id: string;
@@ -16,4 +17,5 @@ export interface Profile {
   company_name: string;
   created_at: string;
   updated_at: string;
+  is_suspended?: boolean;
 }
