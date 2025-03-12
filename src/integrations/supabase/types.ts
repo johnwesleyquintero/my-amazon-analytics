@@ -9,497 +9,452 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      amazon_ads_metrics: {
+      Chat: {
         Row: {
-          acos: number | null
-          ad_group_name: string | null
-          amount_spent: number | null
-          asin: string | null
-          campaign_name: string | null
-          cart_adds_1d_shipping_speed: string | null
-          cart_adds_2d_shipping_speed: string | null
-          cart_adds_asin_count: number | null
-          cart_adds_asin_price_median: number | null
-          cart_adds_asin_share: number | null
-          cart_adds_price_median: number | null
-          cart_adds_rate: number | null
-          cart_adds_same_day_shipping_speed: string | null
-          cart_adds_total_count: number | null
-          click_thru_rate: number | null
-          clicks: number | null
-          clicks_1d_shipping_speed: string | null
-          clicks_2d_shipping_speed: string | null
-          clicks_asin_count: number | null
-          clicks_asin_price_median: number | null
-          clicks_asin_share: number | null
-          clicks_price_median: number | null
-          clicks_rate: number | null
-          clicks_same_day_shipping_speed: string | null
-          clicks_total_count: number | null
-          cost_per_click: number | null
-          currency: string | null
-          customer_search_term: string | null
-          date: string | null
-          end_date: string | null
-          id: number
-          impressions: number | null
-          impressions_asin_count: number | null
-          impressions_asin_share: number | null
-          impressions_total_count: number | null
-          keyword: string | null
-          marketplace: string | null
-          match_type: string | null
-          portfolio_name: string | null
-          purchases_1d_shipping_speed: string | null
-          purchases_2d_shipping_speed: string | null
-          purchases_asin_count: number | null
-          purchases_asin_price_median: number | null
-          purchases_asin_share: number | null
-          purchases_price_median: number | null
-          purchases_rate: number | null
-          purchases_same_day_shipping_speed: string | null
-          purchases_total_count: number | null
-          reporting_date: string | null
-          search_query: string | null
-          search_query_score: number | null
-          search_query_volume: number | null
-          search_term_impression_rank: number | null
-          search_term_impression_share: number | null
-          seven_day_conversion_rate: number | null
-          seven_day_total_orders: number | null
-          seven_day_total_sales: number | null
-          spend: number | null
-          start_date: string | null
-          targeting: string | null
-          total_acos: number | null
-          total_ad_sales: number | null
-          total_roas: number | null
-          user_id: string | null
-        }
-        Insert: {
-          acos?: number | null
-          ad_group_name?: string | null
-          amount_spent?: number | null
-          asin?: string | null
-          campaign_name?: string | null
-          cart_adds_1d_shipping_speed?: string | null
-          cart_adds_2d_shipping_speed?: string | null
-          cart_adds_asin_count?: number | null
-          cart_adds_asin_price_median?: number | null
-          cart_adds_asin_share?: number | null
-          cart_adds_price_median?: number | null
-          cart_adds_rate?: number | null
-          cart_adds_same_day_shipping_speed?: string | null
-          cart_adds_total_count?: number | null
-          click_thru_rate?: number | null
-          clicks?: number | null
-          clicks_1d_shipping_speed?: string | null
-          clicks_2d_shipping_speed?: string | null
-          clicks_asin_count?: number | null
-          clicks_asin_price_median?: number | null
-          clicks_asin_share?: number | null
-          clicks_price_median?: number | null
-          clicks_rate?: number | null
-          clicks_same_day_shipping_speed?: string | null
-          clicks_total_count?: number | null
-          cost_per_click?: number | null
-          currency?: string | null
-          customer_search_term?: string | null
-          date?: string | null
-          end_date?: string | null
-          id?: never
-          impressions?: number | null
-          impressions_asin_count?: number | null
-          impressions_asin_share?: number | null
-          impressions_total_count?: number | null
-          keyword?: string | null
-          marketplace?: string | null
-          match_type?: string | null
-          portfolio_name?: string | null
-          purchases_1d_shipping_speed?: string | null
-          purchases_2d_shipping_speed?: string | null
-          purchases_asin_count?: number | null
-          purchases_asin_price_median?: number | null
-          purchases_asin_share?: number | null
-          purchases_price_median?: number | null
-          purchases_rate?: number | null
-          purchases_same_day_shipping_speed?: string | null
-          purchases_total_count?: number | null
-          reporting_date?: string | null
-          search_query?: string | null
-          search_query_score?: number | null
-          search_query_volume?: number | null
-          search_term_impression_rank?: number | null
-          search_term_impression_share?: number | null
-          seven_day_conversion_rate?: number | null
-          seven_day_total_orders?: number | null
-          seven_day_total_sales?: number | null
-          spend?: number | null
-          start_date?: string | null
-          targeting?: string | null
-          total_acos?: number | null
-          total_ad_sales?: number | null
-          total_roas?: number | null
-          user_id?: string | null
-        }
-        Update: {
-          acos?: number | null
-          ad_group_name?: string | null
-          amount_spent?: number | null
-          asin?: string | null
-          campaign_name?: string | null
-          cart_adds_1d_shipping_speed?: string | null
-          cart_adds_2d_shipping_speed?: string | null
-          cart_adds_asin_count?: number | null
-          cart_adds_asin_price_median?: number | null
-          cart_adds_asin_share?: number | null
-          cart_adds_price_median?: number | null
-          cart_adds_rate?: number | null
-          cart_adds_same_day_shipping_speed?: string | null
-          cart_adds_total_count?: number | null
-          click_thru_rate?: number | null
-          clicks?: number | null
-          clicks_1d_shipping_speed?: string | null
-          clicks_2d_shipping_speed?: string | null
-          clicks_asin_count?: number | null
-          clicks_asin_price_median?: number | null
-          clicks_asin_share?: number | null
-          clicks_price_median?: number | null
-          clicks_rate?: number | null
-          clicks_same_day_shipping_speed?: string | null
-          clicks_total_count?: number | null
-          cost_per_click?: number | null
-          currency?: string | null
-          customer_search_term?: string | null
-          date?: string | null
-          end_date?: string | null
-          id?: never
-          impressions?: number | null
-          impressions_asin_count?: number | null
-          impressions_asin_share?: number | null
-          impressions_total_count?: number | null
-          keyword?: string | null
-          marketplace?: string | null
-          match_type?: string | null
-          portfolio_name?: string | null
-          purchases_1d_shipping_speed?: string | null
-          purchases_2d_shipping_speed?: string | null
-          purchases_asin_count?: number | null
-          purchases_asin_price_median?: number | null
-          purchases_asin_share?: number | null
-          purchases_price_median?: number | null
-          purchases_rate?: number | null
-          purchases_same_day_shipping_speed?: string | null
-          purchases_total_count?: number | null
-          reporting_date?: string | null
-          search_query?: string | null
-          search_query_score?: number | null
-          search_query_volume?: number | null
-          search_term_impression_rank?: number | null
-          search_term_impression_share?: number | null
-          seven_day_conversion_rate?: number | null
-          seven_day_total_orders?: number | null
-          seven_day_total_sales?: number | null
-          spend?: number | null
-          start_date?: string | null
-          targeting?: string | null
-          total_acos?: number | null
-          total_ad_sales?: number | null
-          total_roas?: number | null
-          user_id?: string | null
-        }
-        Relationships: []
-      }
-      api_keys: {
-        Row: {
-          created_at: string
+          createdAt: string
           id: string
-          key_type: string
-          key_value: string
-          updated_at: string
-          user_id: string
+          title: string
+          userId: string
+          visibility: string
         }
         Insert: {
-          created_at?: string
+          createdAt: string
           id?: string
-          key_type: string
-          key_value: string
-          updated_at?: string
-          user_id: string
+          title: string
+          userId: string
+          visibility?: string
         }
         Update: {
-          created_at?: string
+          createdAt?: string
           id?: string
-          key_type?: string
-          key_value?: string
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      "auth.users": {
-        Row: {
-          created_at: string
-          id: number
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-        }
-        Update: {
-          created_at?: string
-          id?: number
-        }
-        Relationships: []
-      }
-      cities: {
-        Row: {
-          country_id: number
-          created_at: string
-          id: number
-          name: string
-          updated_at: string
-        }
-        Insert: {
-          country_id: number
-          created_at?: string
-          id?: never
-          name: string
-          updated_at?: string
-        }
-        Update: {
-          country_id?: number
-          created_at?: string
-          id?: never
-          name?: string
-          updated_at?: string
+          title?: string
+          userId?: string
+          visibility?: string
         }
         Relationships: [
           {
-            foreignKeyName: "fk_country"
-            columns: ["country_id"]
+            foreignKeyName: "Chat_userId_User_id_fk"
+            columns: ["userId"]
             isOneToOne: false
-            referencedRelation: "countries"
+            referencedRelation: "User"
             referencedColumns: ["id"]
           },
         ]
       }
-      countries: {
+      configurations: {
         Row: {
-          created_at: string
+          category: string
           id: number
-          name: string
-          updated_at: string
+          value: string
+          variable: string
         }
         Insert: {
-          created_at?: string
+          category: string
           id?: never
-          name: string
-          updated_at?: string
+          value: string
+          variable: string
         }
         Update: {
-          created_at?: string
+          category?: string
           id?: never
-          name?: string
-          updated_at?: string
+          value?: string
+          variable?: string
         }
         Relationships: []
       }
       dashboard_settings: {
         Row: {
-          created_at: string | null
-          default_currency: string
-          default_date_range: string
+          created_at: string
+          default_view: string
           id: string
-          notification_preferences: Json
+          show_welcome_message: boolean
           theme: string
-          updated_at: string | null
+          updated_at: string
           user_id: string
         }
         Insert: {
-          created_at?: string | null
-          default_currency?: string
-          default_date_range?: string
+          created_at?: string
+          default_view?: string
           id?: string
-          notification_preferences?: Json
+          show_welcome_message?: boolean
           theme?: string
-          updated_at?: string | null
+          updated_at?: string
           user_id: string
         }
         Update: {
-          created_at?: string | null
-          default_currency?: string
-          default_date_range?: string
+          created_at?: string
+          default_view?: string
           id?: string
-          notification_preferences?: Json
+          show_welcome_message?: boolean
           theme?: string
-          updated_at?: string | null
+          updated_at?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "dashboard_settings_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
-      google_workspace_settings: {
+      Document: {
         Row: {
-          auto_sync: boolean | null
-          created_at: string | null
+          content: string | null
+          createdAt: string
           id: string
-          sheet_name: string | null
-          spreadsheet_id: string | null
-          updated_at: string | null
+          text: string
+          title: string
+          userId: string
+        }
+        Insert: {
+          content?: string | null
+          createdAt: string
+          id?: string
+          text?: string
+          title: string
+          userId: string
+        }
+        Update: {
+          content?: string | null
+          createdAt?: string
+          id?: string
+          text?: string
+          title?: string
+          userId?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Document_userId_User_id_fk"
+            columns: ["userId"]
+            isOneToOne: false
+            referencedRelation: "User"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      Message: {
+        Row: {
+          chatId: string
+          content: Json
+          createdAt: string
+          id: string
+          role: string
+        }
+        Insert: {
+          chatId: string
+          content: Json
+          createdAt: string
+          id?: string
+          role: string
+        }
+        Update: {
+          chatId?: string
+          content?: Json
+          createdAt?: string
+          id?: string
+          role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Message_chatId_Chat_id_fk"
+            columns: ["chatId"]
+            isOneToOne: false
+            referencedRelation: "Chat"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      milestones: {
+        Row: {
+          completed_tasks: number
+          created_at: string
+          id: string
+          milestone_id: string
+          name: string
+          status: string
+          target_date: string
+          total_tasks: number
+          updated_at: string
           user_id: string
         }
         Insert: {
-          auto_sync?: boolean | null
-          created_at?: string | null
+          completed_tasks?: number
+          created_at?: string
           id?: string
-          sheet_name?: string | null
-          spreadsheet_id?: string | null
-          updated_at?: string | null
+          milestone_id?: string
+          name: string
+          status: string
+          target_date: string
+          total_tasks?: number
+          updated_at?: string
           user_id: string
         }
         Update: {
-          auto_sync?: boolean | null
-          created_at?: string | null
+          completed_tasks?: number
+          created_at?: string
           id?: string
-          sheet_name?: string | null
-          spreadsheet_id?: string | null
-          updated_at?: string | null
+          milestone_id?: string
+          name?: string
+          status?: string
+          target_date?: string
+          total_tasks?: number
+          updated_at?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "milestones_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          active: boolean
+          category: string | null
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          inventory: number
+          name: string
+          price: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          active?: boolean
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          inventory?: number
+          name: string
+          price: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          active?: boolean
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          inventory?: number
+          name?: string
+          price?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
           avatar_url: string | null
           company_name: string | null
-          created_at: string | null
+          created_at: string
+          email: string
+          first_name: string | null
           id: string
-          updated_at: string | null
-          user_id: string | null
+          last_name: string | null
+          updated_at: string
         }
         Insert: {
           avatar_url?: string | null
           company_name?: string | null
-          created_at?: string | null
-          id?: string
-          updated_at?: string | null
-          user_id?: string | null
+          created_at?: string
+          email: string
+          first_name?: string | null
+          id: string
+          last_name?: string | null
+          updated_at?: string
         }
         Update: {
           avatar_url?: string | null
           company_name?: string | null
-          created_at?: string | null
+          created_at?: string
+          email?: string
+          first_name?: string | null
           id?: string
-          updated_at?: string | null
-          user_id?: string | null
+          last_name?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
-      user_2fa: {
+      project_metrics: {
         Row: {
-          backup_codes: string[] | null
-          id: number
-          is_enabled: boolean | null
-          secret: string | null
+          assignee: string
+          created_at: string
+          dependencies: string[] | null
+          documentation_link: string | null
+          id: string
+          last_updated: string
+          progress_percent: number
+          status: string
+          task_id: string
+          task_name: string
           user_id: string
         }
         Insert: {
-          backup_codes?: string[] | null
-          id?: never
-          is_enabled?: boolean | null
-          secret?: string | null
+          assignee: string
+          created_at?: string
+          dependencies?: string[] | null
+          documentation_link?: string | null
+          id?: string
+          last_updated?: string
+          progress_percent: number
+          status: string
+          task_id?: string
+          task_name: string
           user_id: string
         }
         Update: {
-          backup_codes?: string[] | null
-          id?: never
-          is_enabled?: boolean | null
-          secret?: string | null
+          assignee?: string
+          created_at?: string
+          dependencies?: string[] | null
+          documentation_link?: string | null
+          id?: string
+          last_updated?: string
+          progress_percent?: number
+          status?: string
+          task_id?: string
+          task_name?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "project_metrics_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
-      user_activity: {
+      Suggestion: {
         Row: {
-          activity_timestamp: string | null
-          activity_type: string
-          details: Json | null
-          id: number
-          user_id: string
+          createdAt: string
+          description: string | null
+          documentCreatedAt: string
+          documentId: string
+          id: string
+          isResolved: boolean
+          originalText: string
+          suggestedText: string
+          userId: string
         }
         Insert: {
-          activity_timestamp?: string | null
-          activity_type: string
-          details?: Json | null
-          id?: never
-          user_id: string
+          createdAt: string
+          description?: string | null
+          documentCreatedAt: string
+          documentId: string
+          id?: string
+          isResolved?: boolean
+          originalText: string
+          suggestedText: string
+          userId: string
         }
         Update: {
-          activity_timestamp?: string | null
-          activity_type?: string
-          details?: Json | null
-          id?: never
-          user_id?: string
+          createdAt?: string
+          description?: string | null
+          documentCreatedAt?: string
+          documentId?: string
+          id?: string
+          isResolved?: boolean
+          originalText?: string
+          suggestedText?: string
+          userId?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "Suggestion_documentId_documentCreatedAt_Document_id_createdAt_f"
+            columns: ["documentId", "documentCreatedAt"]
+            isOneToOne: false
+            referencedRelation: "Document"
+            referencedColumns: ["id", "createdAt"]
+          },
+          {
+            foreignKeyName: "Suggestion_userId_User_id_fk"
+            columns: ["userId"]
+            isOneToOne: false
+            referencedRelation: "User"
+            referencedColumns: ["id"]
+          },
+        ]
       }
-      user_sessions: {
+      User: {
         Row: {
-          created_at: string | null
-          expires_at: string
-          id: number
-          session_token: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string | null
-          expires_at: string
-          id?: never
-          session_token: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string | null
-          expires_at?: string
-          id?: never
-          session_token?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      users: {
-        Row: {
-          created_at: string | null
           email: string
           id: string
-          password: string
-          updated_at: string | null
+          password: string | null
         }
         Insert: {
-          created_at?: string | null
           email: string
           id?: string
-          password: string
-          updated_at?: string | null
+          password?: string | null
         }
         Update: {
-          created_at?: string | null
           email?: string
           id?: string
-          password?: string
-          updated_at?: string | null
+          password?: string | null
         }
         Relationships: []
+      }
+      Vote: {
+        Row: {
+          chatId: string
+          isUpvoted: boolean
+          messageId: string
+        }
+        Insert: {
+          chatId: string
+          isUpvoted: boolean
+          messageId: string
+        }
+        Update: {
+          chatId?: string
+          isUpvoted?: boolean
+          messageId?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Vote_chatId_Chat_id_fk"
+            columns: ["chatId"]
+            isOneToOne: false
+            referencedRelation: "Chat"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Vote_messageId_Message_id_fk"
+            columns: ["messageId"]
+            isOneToOne: false
+            referencedRelation: "Message"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      calculate_metrics: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never
