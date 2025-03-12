@@ -1,70 +1,106 @@
-# My Amazon Analytics: Amazon Advertising Analytics Dashboard
+<div align="center">
+  <img src="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-32x32.jpeg" sizes="32x32" alt="My Amazon Analytics Favicon" />
 
+  # My Amazon Analytics
+  ### Professional Amazon Advertising Analytics Dashboard
 
+  [![Netlify Status](https://api.netlify.com/api/v1/badges/34f3e58c-3ed5-4b15-bb26-d2bc3ffb6ee4/deploy-status)](https://app.netlify.com/sites/my-amazon-analytics/deploys)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-4.9.5-blue.svg)](https://www.typescriptlang.org/)
+  [![React](https://img.shields.io/badge/React-18.2.0-blue.svg)](https://reactjs.org/)
+  [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-```
-<link rel="icon" href="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-32x32.jpeg" sizes="32x32" />
-<link rel="icon" href="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-192x192.jpeg" sizes="192x192" />
-<link rel="apple-touch-icon" href="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-180x180.jpeg" />
-<meta name="msapplication-TileImage" content="https://myamazonguy.com/wp-content/uploads/2022/03/cropped-MAG-FAVICON-270x270.jpeg" />
-```
+  [Documentation](https://xxxxxxx) | [Report Bug](https://github.com/johnwesleyquintero/my-amazon-analytics/issues) | [Request Feature](https://github.com/johnwesleyquintero/my-amazon-analytics/issues)
 
-**Live Demo:**
+  **Experience the Power of Data-Driven Amazon Advertising**
 
-- [My Amazon Analytics](https://my-amazon-analytics.lovable.app/)
-
----
-
-## Branches
-
-- `main`
-- `Documentation-Branch`
-- `Security-Branch`
-- `Features-Branch`
-
-## Completed Features ✅
-
-### Authentication & User Management
-
-- Supabase authentication integration
-- User profile management
-- Role-based access control
-
-### Dashboard Infrastructure
-
-- Responsive layout system
-- Dark theme implementation
-- Navigation structure
-- Basic metrics display
-
-### Data Management
-
-- Amazon Ads metrics table structure
-- Sales data tracking
-- Campaign targets system
-- Data import functionality
-
-### Analytics
-
-- Basic performance metrics
-- Campaign overview statistics
-- Historical data viewing
-- Initial charts and graphs
-
-### Integration
-
-- Chrome Extension
-- Google Workspace Integration (Settings Page)
+  [Launch Preview](https://my-amazon-analytics.lovable.app/) • [Production App](https://my-amazon-analytics.netlify.app/)
+</div>
 
 ---
 
-## Architecture Overview
+## 🎯 Project Overview
+
+My Amazon Analytics is a sophisticated Amazon Advertising analytics dashboard that empowers sellers with comprehensive insights into campaign performance, sales data, and key metrics. Built with enterprise-grade security and scalability in mind, it leverages Supabase for robust authentication and data storage, while utilizing a cutting-edge tech stack including React, TypeScript, and Tailwind CSS.
+
+---
+
+## 🌿 Branch Strategy
+
+| Branch               | Purpose                     |
+| -------------------- | --------------------------- |
+| `main`               | Production-ready code       |
+| `Documentation-Branch` | Documentation updates       |
+| `Security-Branch`    | Security enhancements       |
+| `Features-Branch`    | Feature development         |
+
+---
+
+## ✨ Features
+
+### Completed Features ✅
+
+<details>
+<summary><b>Authentication & User Management</b></summary>
+
+- 🔐 Supabase authentication integration
+- 👤 User profile management
+- 🎭 Role-based access control
+</details>
+
+<details>
+<summary><b>Dashboard Infrastructure</b></summary>
+
+- 📱 Responsive layout system
+- 🌙 Dark theme implementation
+- 🧭 Navigation structure
+- 📊 Basic metrics display
+</details>
+
+<details>
+<summary><b>Data Management</b></summary>
+
+- 📈 Amazon Ads metrics table structure
+- 💹 Sales data tracking
+- 🎯 Campaign targets system
+- 📥 Data import functionality
+</details>
+
+<details>
+<summary><b>Analytics</b></summary>
+
+- 📊 Basic performance metrics
+- 📈 Campaign overview statistics
+- 📅 Historical data viewing
+- 📉 Initial charts and graphs
+</details>
+
+<details>
+<summary><b>Integration</b></summary>
+
+- 🔌 Chrome Extension
+- 🔄 Google Workspace Integration
+</details>
+
+### In Progress 🚧
+
+<details>
+<summary><b>Campaign Management</b></summary>
+
+- 🔄 Real-time SP/SD/SB campaign monitoring
+- 🤖 Automated rule suggestions
+- 🎯 Bid adjustment calculator
+</details>
+
+---
+
+## 🏛️ Architecture Overview
 
 - **Web Application:** Vite + React + Supabase + Netlify
 - **Chrome Extension:** Integrates with Amazon Seller Central
 - **Shared Backend:** Supabase
 
-## Key Features
+## 🔑 Key Features
 
 ### Web Application
 
@@ -81,7 +117,7 @@
 
 ---
 
-## In Progress 🚧
+## 🚀 In Progress 🚧
 
 ### Campaign Management
 
@@ -104,23 +140,20 @@
 
 ---
 
-## Pending Implementation 📋
+## ⏳ Pending Implementation 📋
 
 ### Amazon API Integration
-
--
+- TBD
 
 ### Advanced Features
-
--
+- TBD
 
 ### Performance Optimization
-
--
+- TBD
 
 ---
 
-## Implementation Plan
+## 🛠️ Implementation Plan
 
 ### Set Up the Project
 
@@ -154,7 +187,7 @@
 
 ---
 
-## Technical Stack
+## 💻 Technical Stack
 
 ### Frontend
 
@@ -171,7 +204,7 @@
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
 1. Clone the repository
 2. Install dependencies: `npm install`
@@ -180,13 +213,13 @@
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
-Please read our contributing guidelines before submitting pull requests.
+Please read our [contributing guidelines](CONTRIBUTING.md) before submitting pull requests.
 
 ---
 
-## Tips for Success
+## 💡 Tips for Success
 
 - Start Small
 - Test Early and Often
