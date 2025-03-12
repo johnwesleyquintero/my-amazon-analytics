@@ -27,7 +27,8 @@ export function UserManagement() {
       // Cast the data to match the Profile interface
       const typedData = data.map(user => ({
         ...user,
-        user_id: user.id // Map id to user_id for consistency
+        id: user.id,
+        is_suspended: user.is_suspended || false
       })) as Profile[];
       
       setUsers(typedData);

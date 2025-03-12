@@ -14,15 +14,18 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
  
+    /* Burnt Sienna - Primary color */
     --primary: 359 83% 56%;
     --primary-foreground: 210 40% 98%;
  
+    /* Shakespeare - Secondary color */
     --secondary: 192 64% 58%;
     --secondary-foreground: 222.2 47.4% 11.2%;
  
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
  
+    /* Gold - Accent color */
     --accent: 52 100% 50%;
     --accent-foreground: 222.2 47.4% 11.2%;
  
@@ -46,15 +49,18 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
  
+    /* Burnt Sienna - Primary color */
     --primary: 359 83% 56%;
     --primary-foreground: 222.2 47.4% 11.2%;
  
+    /* Shakespeare - Secondary color */
     --secondary: 192 64% 58%;
     --secondary-foreground: 210 40% 98%;
  
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
  
+    /* Gold - Accent color */
     --accent: 52 100% 50%;
     --accent-foreground: 210 40% 98%;
  
@@ -85,14 +91,17 @@
 
 /* Custom utility classes for My Amazon Guy theme */
 @layer components {
+  /* Gradient using primary My Amazon Guy colors */
   .mag-gradient {
     @apply bg-gradient-to-r from-burnt-sienna via-shakespeare to-gold;
   }
   
+  /* Card with My Amazon Guy styling */
   .mag-card {
     @apply bg-white dark:bg-gray-800 shadow-md rounded-lg border border-catskill-white dark:border-gray-700 hover:shadow-lg transition-all duration-300;
   }
   
+  /* Button variants for My Amazon Guy colors */
   .mag-button-primary {
     @apply bg-burnt-sienna text-white hover:bg-burnt-sienna/90;
   }
@@ -105,10 +114,12 @@
     @apply bg-gold text-black hover:bg-gold/90;
   }
   
+  /* Typography styles */
   .mag-heading {
     @apply text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4 font-manrope;
   }
   
+  /* Section styling */
   .mag-section {
     @apply p-6 rounded-lg bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700;
   }

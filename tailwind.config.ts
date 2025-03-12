@@ -29,17 +29,17 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        // Primary colors
-        "burnt-sienna": "#ED595B",
-        "shakespeare": "#4FBBDA",
-        "gold": "#FFD600",
-        // Secondary colors
-        "apricot": "#EA7A6C",
-        "java": "#EB7D3E",
-        "iceberg": "#CBEAF1",
-        "hampton": "#E4D8AE",
-        "butterfly-bush": "#7554A2",
-        "catskill-white": "#EDF2F7",
+        // Primary colors - exact hex codes from brand guide
+        "burnt-sienna": "#ED595B", // 237,89,91
+        "shakespeare": "#4FBBDA", // 79,187,218
+        "gold": "#FFD600", // 255,214,0
+        // Secondary colors - exact hex codes from brand guide
+        "apricot": "#EA7A6C", // 234,122,108
+        "java": "#EB7D3E", // 235,125,62
+        "iceberg": "#CBEAF1", // 203,234,241
+        "hampton": "#E4D8AE", // 228,219,174
+        "butterfly-bush": "#7554A2", // 117,84,162
+        "catskill-white": "#EDF2F7", // 237,242,247
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
