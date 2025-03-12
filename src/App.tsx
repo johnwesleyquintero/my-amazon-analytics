@@ -17,6 +17,7 @@ import DashboardImport from "./pages/DashboardImport";
 import DashboardReports from "./pages/DashboardReports";
 import DashboardSettings from "./pages/DashboardSettings";
 import Admin from "./pages/Admin";
+import DashboardConfiguration from "./pages/DashboardConfiguration";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -61,11 +62,12 @@ const App = () => {
   return (
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
+        <ThemeProvider>
+          <AuthProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Landing />} />
                 <Route path="/login" element={<Login />} />
@@ -134,6 +136,7 @@ const App = () => {
                     </ProtectedRoute>
                   }
                 />
+                <Route path="/dashboard/configuration" element={<ProtectedRoute><DashboardConfiguration /></ProtectedRoute>} />
                 <Route
                   path="/admin"
                   element={
@@ -143,9 +146,10 @@ const App = () => {
                   }
                 />
               </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
-        </AuthProvider>
+              </BrowserRouter>
+            </TooltipProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </QueryClientProvider>
     </React.StrictMode>
   );

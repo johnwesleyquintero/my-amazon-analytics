@@ -47,10 +47,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
       setUser(session?.user ?? null);
       setIsAdmin(session?.user?.email === "johnwesleyquintero@gmail.com");
       setIsLoading(false);
+      if (error) {
+        console.error("Error getting session:", error);
+        // Optionally, handle the error (e.g., show an error message)
+      }
+    }).catch(error => {
+      console.error("Error getting session:", error);
+      setIsLoading(false);
+      // Optionally, handle the error (e.g., show an error message)
     });
 
     // Listen for auth changes

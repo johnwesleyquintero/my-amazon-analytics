@@ -1,53 +1,41 @@
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { cn } from "@/lib/utils";
-import { TableFilter } from "@/components/ui/table-filter";
-import { useState } from "react";
 
 interface MetricsTableProps {
-  headers: string[];
-  rows: Array<Record<string, string | number>>;
-  className?: string;
+  metrics: Array<{ [key: string]: number | string }>;
 }
 
-export function MetricsTable({ headers, rows, className }: MetricsTableProps) {
-  const [filteredRows, setFilteredRows] = useState(rows);
+export function MetricsTable({ metrics }: MetricsTableProps) {
+  if (!metrics || metrics.length === 0) {
+    return <p>No data available.</p>;
+  }
+
+  const headers = Object.keys(metrics[0]);
 
   return (
-    <div className={cn("overflow-x-auto space-y-4", className)}>
-      <TableFilter
-        headers={headers}
-        data={rows}
-        onFilter={setFilteredRows}
-      />
-      <Table>
-        <TableHeader>
-          <TableRow>
-            {headers.map((header, index) => (
-              <TableHead key={index} className="text-gray-400">
-                {header}
-              </TableHead>
+    <Table>
+      <TableCaption>A list of your expenses.</TableCaption>
+      <TableHeader>
+        {headers.map((header) => (
+          <TableHead key={header}>{header}</TableHead>
+        ))}
+      </TableHeader>
+      <TableBody>
+        {metrics.map((metric, index) => (
+          <TableRow key={index}>
+            {headers.map((header) => (
+              <TableCell key={header}>{metric[header]}</TableCell>
             ))}
           </TableRow>
-        </TableHeader>
-        <TableBody>
-          {rows.map((row, index) => (
-            <TableRow key={index}>
-              {Object.values(row).map((value, cellIndex) => (
-                <TableCell key={cellIndex} className="font-medium">
-                  {typeof value === 'number' ? value.toLocaleString() : value}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+        ))}
+      </TableBody>
+    </Table>
   );
 }

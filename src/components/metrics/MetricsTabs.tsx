@@ -1,11 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { WeeklyAnalysis } from "./tabs/WeeklyAnalysis";
-import { MonthlyAnalysis } from "./tabs/MonthlyAnalysis";
 import { CampaignAnalysis } from "./CampaignAnalysis";
 import { KeywordAnalysis } from "./KeywordAnalysis";
 import { ASINAnalysis } from "./tabs/ASINAnalysis";
 import { SearchTermAnalysis } from "./tabs/SearchTermAnalysis";
 import { SKUAnalysis } from "./tabs/SKUAnalysis";
+import { MetricsTable } from "./MetricsTable";
 
 interface MetricsTabsProps {
   weeklyMetrics: Array<any>;
@@ -31,11 +30,11 @@ export function MetricsTabs({ weeklyMetrics, monthlyMetrics, detailedMetrics }: 
       </TabsList>
 
       <TabsContent value="weekly">
-        <WeeklyAnalysis weeklyMetrics={weeklyMetrics} />
+        <MetricsTable metrics={weeklyMetrics} />
       </TabsContent>
 
       <TabsContent value="monthly">
-        <MonthlyAnalysis monthlyMetrics={monthlyMetrics} />
+        <MetricsTable metrics={monthlyMetrics} />
       </TabsContent>
 
       <TabsContent value="campaigns">
