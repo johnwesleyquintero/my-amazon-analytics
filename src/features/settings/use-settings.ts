@@ -18,6 +18,13 @@ export function useSettings() {
 
   useEffect(() => {
     const loadSettings = async () => {
+      // First try to load settings from localStorage for non-authenticated users
+      const themeFromLocalStorage = localStorage.getItem('theme');
+      if (themeFromLocalStorage) {
+        form.setValue('theme', themeFromLocalStorage as 'light' | 'dark' | 'system');
+      }
+      
+      // If authenticated, load settings from database
       if (!user) return;
       
       const { data, error } = await supabase
@@ -47,6 +54,22 @@ export function useSettings() {
           theme: data.theme as 'light' | 'dark' | 'system',
         };
         form.reset(formattedData);
+        
+        // Save theme to localStorage for persistence across sessions
+        localStorage.setItem('theme', formattedData.theme);
+        
+        // Apply theme
+        const root = document.documentElement;
+        root.classList.remove('light', 'dark');
+        
+        if (formattedData.theme === 'system') {
+          const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches 
+            ? 'dark' 
+            : 'light';
+          root.classList.add(systemTheme);
+        } else {
+          root.classList.add(formattedData.theme);
+        }
       }
     };
 
@@ -54,7 +77,17 @@ export function useSettings() {
   }, [user, form, toast]);
 
   const onSubmit = async (data: SettingsFormValues) => {
-    if (!user) return;
+    // Save theme to localStorage for persistence across sessions
+    localStorage.setItem('theme', data.theme);
+    
+    if (!user) {
+      toast({
+        title: "Settings saved locally",
+        description: "Your theme preference has been saved.",
+        className: "bg-shakespeare border-shakespeare text-white",
+      });
+      return;
+    }
 
     const { error } = await supabase
       .from('dashboard_settings')

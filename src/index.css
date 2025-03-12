@@ -73,6 +73,7 @@
   }
   body {
     @apply bg-background text-foreground font-manrope;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-manrope font-bold;
@@ -89,7 +90,7 @@
   }
   
   .mag-card {
-    @apply bg-white shadow-md rounded-lg border border-catskill-white hover:shadow-lg transition-all duration-300;
+    @apply bg-white dark:bg-gray-800 shadow-md rounded-lg border border-catskill-white dark:border-gray-700 hover:shadow-lg transition-all duration-300;
   }
   
   .mag-button-primary {
@@ -105,10 +106,10 @@
   }
   
   .mag-heading {
-    @apply text-2xl font-bold text-gray-800 mb-4 font-manrope;
+    @apply text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4 font-manrope;
   }
   
   .mag-section {
-    @apply p-6 rounded-lg bg-white shadow-sm border border-gray-100;
+    @apply p-6 rounded-lg bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700;
   }
 }

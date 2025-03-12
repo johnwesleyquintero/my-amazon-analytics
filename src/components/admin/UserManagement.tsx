@@ -1,135 +1,136 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Profile } from "@/types/api";
+import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
-import { useQuery } from "@tanstack/react-query";
-import { Users } from "lucide-react";
-
-interface Profile {
-  id: string;
-  company_name: string | null;
-  created_at: string;
-  updated_at: string | null;
-  avatar_url: string | null;
-  user_id: string | null;
-}
+import { Loader2, UserX, RefreshCw } from "lucide-react";
 
 export function UserManagement() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all");
+  const [users, setUsers] = useState<Profile[]>([]);
+  const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
-  const { data: profiles, isLoading } = useQuery({
-    queryKey: ['admin-profiles'],
-    queryFn: async () => {
+  const fetchUsers = async () => {
+    setLoading(true);
+    try {
       const { data, error } = await supabase
-        .from('profiles')
-        .select('*');
+        .from("profiles")
+        .select("*");
       
       if (error) throw error;
-      return data as Profile[];
-    },
-  });
+      
+      // Cast the data to match the Profile interface
+      const typedData = data.map(user => ({
+        ...user,
+        user_id: user.user_id || user.id // Use user_id if available, otherwise use id
+      })) as Profile[];
+      
+      setUsers(typedData);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      toast({
+        title: "Error",
+        description: "Could not fetch users",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  // Filter profiles based on search and status
-  const filteredProfiles = profiles?.filter(profile => {
-    const matchesSearch = profile.company_name?.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = statusFilter === "all";
-    return matchesSearch && matchesStatus;
-  });
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
-  const handleDeleteUser = async (userId: string) => {
+  const suspendUser = async (userId: string) => {
     try {
       const { error } = await supabase
-        .from('profiles')
-        .delete()
-        .eq('id', userId);
-      
+        .from("profiles")
+        .update({ is_suspended: true })
+        .eq("user_id", userId);
+
       if (error) throw error;
-      
+
+      setUsers(users.map(user =>
+        user.user_id === userId ? { ...user, is_suspended: true } : user
+      ));
+
       toast({
-        title: "User deleted successfully",
-        description: "The user has been removed from the system.",
+        title: "User Suspended",
+        description: "User has been successfully suspended.",
       });
-    } catch (error: any) {
+    } catch (error) {
+      console.error("Error suspending user:", error);
       toast({
-        title: "Error deleting user",
-        description: error.message,
+        title: "Error",
+        description: "Could not suspend user",
         variant: "destructive",
       });
     }
   };
 
   return (
-    <Card className="bg-white border-gray-200">
+    <Card className="shadow-md border-shakespeare/20">
       <CardHeader>
-        <CardTitle className="text-black text-2xl font-spotify flex items-center gap-2">
-          <Users className="w-6 h-6" />
-          User Management
+        <CardTitle className="text-lg font-semibold flex items-center">
+          <Settings className="mr-2 h-4 w-4" /> User Management
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="flex gap-4 mb-6">
-          <Input
-            placeholder="Search users..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-white border-gray-200 text-black"
-          />
-          <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-[180px] bg-white border-gray-200 text-black">
-              <SelectValue placeholder="Filter by status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Users</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-200">
-                <th className="text-left py-3 px-4 text-black font-spotify">Company</th>
-                <th className="text-left py-3 px-4 text-black font-spotify">Joined</th>
-                <th className="text-left py-3 px-4 text-black font-spotify">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {isLoading ? (
-                <tr>
-                  <td colSpan={3} className="text-center py-4 text-gray-600">Loading users...</td>
-                </tr>
-              ) : filteredProfiles?.map((profile) => (
-                <tr key={profile.id} className="border-b border-gray-100">
-                  <td className="py-3 px-4 text-black">{profile.company_name || 'N/A'}</td>
-                  <td className="py-3 px-4 text-gray-600">
-                    {new Date(profile.created_at).toLocaleDateString()}
-                  </td>
-                  <td className="py-3 px-4">
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      className="text-red-500 hover:text-red-600 hover:bg-red-50"
-                      onClick={() => handleDeleteUser(profile.id)}
-                    >
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
+        {loading ? (
+          <div className="flex justify-center">
+            <Loader2 className="h-6 w-6 animate-spin" />
+          </div>
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Avatar</TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {users.map((user) => (
+                <TableRow key={user.user_id}>
+                  <TableCell>
+                    <Avatar>
+                      <AvatarImage src={user.avatar_url} />
+                      <AvatarFallback>{user.first_name?.[0]}{user.last_name?.[0]}</AvatarFallback>
+                    </Avatar>
+                  </TableCell>
+                  <TableCell>{user.first_name} {user.last_name}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>
+                    {user.is_suspended ? (
+                      <Badge variant="destructive">Suspended</Badge>
+                    ) : (
+                      <Badge variant="secondary">Active</Badge>
+                    )}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    {!user.is_suspended && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => suspendUser(user.user_id)}
+                      >
+                        <UserX className="mr-2 h-4 w-4" />
+                        Suspend
+                      </Button>
+                    )}
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
-        </div>
+            </TableBody>
+          </Table>
+        )}
       </CardContent>
     </Card>
   );
