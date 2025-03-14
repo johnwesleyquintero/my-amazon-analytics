@@ -1,3 +1,4 @@
+
 import { KPISection } from "./metrics/KPISection";
 import { MetricsTabs } from "./metrics/MetricsTabs";
 
@@ -110,7 +111,7 @@ export function AmazonMetricsDisplay({ metrics }: MetricsDisplayProps) {
   const conversionRate = metrics?.performance?.conversionRate ?? 0;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-gray-900">
       <KPISection
         totalSales={totalSales}
         totalOrders={totalOrders}
