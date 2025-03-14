@@ -19,7 +19,7 @@ interface KeywordHeatmapProps {
 
 export function KeywordHeatmap({ campaignId }: KeywordHeatmapProps) {
   const { data: keywordData, isLoading, error } = useQuery({
-    queryKey: ['keywords', campaignId],
+    queryKey: ['amazon_ads_metrics', campaignId],
     queryFn: async () => {
       const query = supabase
         .from('amazon_ads_metrics')
@@ -49,7 +49,8 @@ export function KeywordHeatmap({ campaignId }: KeywordHeatmapProps) {
   });
 
   const getHeatmapColor = (value: number, metric: keyof KeywordData) => {
-    const metrics: Record<keyof KeywordData, { min: number, max: number }> = {
+    // Define min/max ranges for each metric type separately to avoid type recursion
+    const metricsRanges: Record<string, { min: number, max: number }> = {
       keyword: { min: 0, max: 0 }, // Not applicable for keyword
       impressions: { min: 0, max: 10000 },
       clicks: { min: 0, max: 1000 },
@@ -58,7 +59,7 @@ export function KeywordHeatmap({ campaignId }: KeywordHeatmapProps) {
       conversion_rate: { min: 0, max: 20 }
     };
 
-    const range = metrics[metric];
+    const range = metricsRanges[metric];
     const normalized = Math.min(Math.max((value - range.min) / (range.max - range.min), 0), 1);
     const hue = 120 * normalized; // Green (120) to Red (0)
     return `hsl(${hue}, 70%, 50%)`;
