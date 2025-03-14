@@ -49,7 +49,8 @@ export function KeywordHeatmap({ campaignId }: KeywordHeatmapProps) {
   });
 
   const getHeatmapColor = (value: number, metric: keyof KeywordData) => {
-    const metrics = {
+    const metrics: Record<keyof KeywordData, { min: number, max: number }> = {
+      keyword: { min: 0, max: 0 }, // Not applicable for keyword
       impressions: { min: 0, max: 10000 },
       clicks: { min: 0, max: 1000 },
       spend: { min: 0, max: 5000 },
@@ -57,7 +58,7 @@ export function KeywordHeatmap({ campaignId }: KeywordHeatmapProps) {
       conversion_rate: { min: 0, max: 20 }
     };
 
-    const range = metrics[metric as keyof typeof metrics];
+    const range = metrics[metric];
     const normalized = Math.min(Math.max((value - range.min) / (range.max - range.min), 0), 1);
     const hue = 120 * normalized; // Green (120) to Red (0)
     return `hsl(${hue}, 70%, 50%)`;

@@ -34,6 +34,7 @@ export function SearchTermAnalysis({ searchTermMetrics }: SearchTermAnalysisProp
             convRate: `${term.conversionRate.toFixed(2)}%`,
             orders: term.orders?.toString() || "0"
           }))}
+          metrics={[]} // Pass an empty array instead of empty object
         />
       </CardContent>
     </Card>

@@ -34,6 +34,7 @@ export function SKUAnalysis({ skuMetrics }: SKUAnalysisProps) {
             convRate: `${sku.conversionRate.toFixed(2)}%`,
             orders: sku.orders.toString()
           }))}
+          metrics={[]} // Pass an empty array instead of empty object
         />
       </CardContent>
     </Card>

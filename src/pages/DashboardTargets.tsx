@@ -72,7 +72,7 @@ const DashboardTargets = () => {
                     sales: `$${term.sales.toLocaleString()}`,
                     convRate: `${term.conversionRate.toFixed(2)}%`
                   }))}
-                  metrics={{}} // Add empty metrics object to satisfy the type
+                  metrics={[]} // Pass an empty array instead of empty object
                 />
               </>
             ) : (

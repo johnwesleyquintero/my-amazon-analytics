@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 
 interface MetricsTableProps {
-  metrics?: Array<{ [key: string]: number | string }>;
+  metrics?: Array<{ [key: string]: number | string }> | {};
   headers?: string[];
   rows?: Array<{ [key: string]: number | string }>;
 }
@@ -41,12 +41,13 @@ export function MetricsTable({ metrics, headers, rows }: MetricsTableProps) {
     );
   }
 
-  // Fallback to original implementation
-  if (!metrics || metrics.length === 0) {
+  // Ensure metrics is an array and not empty
+  const metricsArray = Array.isArray(metrics) ? metrics : [];
+  if (metricsArray.length === 0) {
     return <p className="text-gray-800">No data available.</p>;
   }
 
-  const tableHeaders = Object.keys(metrics[0]);
+  const tableHeaders = Object.keys(metricsArray[0]);
 
   return (
     <Table className="bg-white">
@@ -59,7 +60,7 @@ export function MetricsTable({ metrics, headers, rows }: MetricsTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {metrics.map((metric, index) => (
+        {metricsArray.map((metric, index) => (
           <TableRow key={index} className="border-b border-gray-200">
             {tableHeaders.map((header) => (
               <TableCell key={header} className="text-gray-800">{metric[header]}</TableCell>
