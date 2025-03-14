@@ -1,8 +1,10 @@
+
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
-interface KeywordMetrics {
+interface KeywordData {
   keyword: string;
   impressions: number;
   clicks: number;
@@ -11,23 +13,31 @@ interface KeywordMetrics {
   conversion_rate: number;
 }
 
-export function KeywordHeatmap() {
-  const { data, loading, error } = useSupabase<KeywordData[]>((client) =>
-    client
-      .from('keywords')
-      .select('*')
-      .eq('campaign_id', campaignId)
-  );
+interface KeywordHeatmapProps {
+  campaignId?: string;
+}
 
-  const [keywords, setKeywords] = useState<KeywordData[]>([]);
+export function KeywordHeatmap({ campaignId }: KeywordHeatmapProps = {}) {
+  const { data: keywordData, isLoading, error } = useQuery({
+    queryKey: ['keywords', campaignId],
+    queryFn: async () => {
+      const query = supabase
+        .from('keywords')
+        .select('*');
+      
+      if (campaignId) {
+        query.eq('campaign_id', campaignId);
+      }
+      
+      const { data, error } = await query;
+      
+      if (error) throw error;
+      return data as KeywordData[];
+    },
+    enabled: !!supabase,
+  });
 
-  useEffect(() => {
-    if (!loading && !error) {
-      setKeywords(data || []);
-    }
-  }, [data, loading, error]);
-
-  const getHeatmapColor = (value: number, metric: keyof KeywordMetrics) => {
+  const getHeatmapColor = (value: number, metric: keyof KeywordData) => {
     const metrics = {
       impressions: { min: 0, max: 10000 },
       clicks: { min: 0, max: 1000 },

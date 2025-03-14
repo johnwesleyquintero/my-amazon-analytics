@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { getSupabaseClient } from '../utils/supabase';
 import type { PostgrestError, PostgrestResponse } from '@supabase/supabase-js';
@@ -25,7 +26,7 @@ export function useSupabase<T>(
         throw error;
       }
 
-      setData(result);
+      setData(result as T);
       setError(null);
     } catch (err) {
       setError(err as PostgrestError);
@@ -37,7 +38,7 @@ export function useSupabase<T>(
 
   useEffect(() => {
     executeQuery();
-  }, [queryFn]);
+  }, []);
 
   return {
     data,

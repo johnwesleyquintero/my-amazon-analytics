@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -12,10 +13,12 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setAuthError(null);
     
     const emailTrimmed = email.trim();
     const passwordTrimmed = password.trim();
@@ -46,6 +49,7 @@ const Login = () => {
         } else {
           toast.error(error.message);
         }
+        setAuthError(error.message);
         setIsLoading(false);
         return;
       }
@@ -91,6 +95,9 @@ const Login = () => {
               required
             />
           </div>
+          {authError && (
+            <div className="text-red-500 text-sm">{authError}</div>
+          )}
           <Button 
             type="submit" 
             className="w-full bg-green-600 hover:bg-green-700" 

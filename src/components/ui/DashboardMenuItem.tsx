@@ -1,3 +1,4 @@
+
 import { SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ReactNode } from "react";
@@ -7,9 +8,11 @@ interface DashboardMenuItemProps {
   icon: ReactNode;
   path: string;
   description: string;
+  className?: string;
+  "aria-current"?: string;
 }
 
-export function DashboardMenuItem({ title, icon, path, description }: DashboardMenuItemProps) {
+export function DashboardMenuItem({ title, icon, path, description, className, "aria-current": ariaCurrent }: DashboardMenuItemProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -22,8 +25,9 @@ export function DashboardMenuItem({ title, icon, path, description }: DashboardM
       <SidebarMenuButton
         onClick={handleNavigation}
         isActive={location.pathname === path}
-        className="flex items-center gap-2"
+        className={`flex items-center gap-2 ${className || ''}`}
         title={description}
+        aria-current={ariaCurrent}
       >
         {icon && <>{icon}</>}
         <span>{title}</span>

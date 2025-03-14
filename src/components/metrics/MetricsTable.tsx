@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 
 interface MetricsTableProps {
-  metrics: Array<{ [key: string]: number | string }>;
+  metrics?: Array<{ [key: string]: number | string }>;
   headers?: string[];
   rows?: Array<{ [key: string]: number | string }>;
 }

@@ -1,16 +1,19 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MetricsTable } from "../MetricsTable";
 
+interface ASINData {
+  asin: string;
+  title: string;
+  category: string;
+  spend: number;
+  sales: number;
+  conversionRate: number;
+  orders: number;
+}
+
 interface ASINAnalysisProps {
-  asinMetrics: Array<{
-    asin: string;
-    title: string;
-    category: string;
-    spend: number;
-    sales: number;
-    conversionRate: number;
-    orders: number;
-  }>;
+  asinMetrics: Array<ASINData>;
 }
 
 export function ASINAnalysis({ asinMetrics }: ASINAnalysisProps) {
@@ -29,7 +32,7 @@ export function ASINAnalysis({ asinMetrics }: ASINAnalysisProps) {
             spend: `$${asin.spend.toLocaleString()}`,
             sales: `$${asin.sales.toLocaleString()}`,
             convRate: `${asin.conversionRate.toFixed(2)}%`,
-            orders: asin.orders
+            orders: asin.orders.toString()
           }))}
         />
       </CardContent>

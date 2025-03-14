@@ -1,3 +1,4 @@
+
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { vi } from 'vitest';
@@ -44,7 +45,16 @@ describe('Registration Component', () => {
   it('handles successful registration', async () => {
     const mockSignUp = vi.mocked(supabase.auth.signUp);
     mockSignUp.mockResolvedValueOnce({
-      data: { user: { id: '123' } },
+      data: { 
+        user: { 
+          id: '123',
+          app_metadata: {},
+          user_metadata: {},
+          aud: 'authenticated',
+          created_at: '2023-01-01T00:00:00.000Z'
+        },
+        session: null
+      },
       error: null
     });
 

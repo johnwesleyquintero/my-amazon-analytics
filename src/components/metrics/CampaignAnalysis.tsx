@@ -1,18 +1,21 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MetricsTable } from "./MetricsTable";
 import { LineChart } from "recharts";
 
+interface CampaignData {
+  campaign_name: string;
+  impressions: number;
+  clicks: number;
+  spend: number;
+  sales: number;
+  orders: number;
+  roas: number;
+  acos: number;
+}
+
 interface CampaignAnalysisProps {
-  data: Array<{
-    campaign_name: string;
-    impressions: number;
-    clicks: number;
-    spend: number;
-    sales: number;
-    orders: number;
-    roas: number;
-    acos: number;
-  }>;
+  data: Array<CampaignData>;
 }
 
 export function CampaignAnalysis({ data }: CampaignAnalysisProps) {

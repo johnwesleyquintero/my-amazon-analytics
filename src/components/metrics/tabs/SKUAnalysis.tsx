@@ -1,16 +1,19 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MetricsTable } from "../MetricsTable";
 
+interface SKUData {
+  sku: string;
+  impressions: number;
+  clicks: number;
+  spend: number;
+  sales: number;
+  conversionRate: number;
+  orders: number;
+}
+
 interface SKUAnalysisProps {
-  skuMetrics: Array<{
-    sku: string;
-    impressions: number;
-    clicks: number;
-    spend: number;
-    sales: number;
-    conversionRate: number;
-    orders: number;
-  }>;
+  skuMetrics: Array<SKUData>;
 }
 
 export function SKUAnalysis({ skuMetrics }: SKUAnalysisProps) {
@@ -29,7 +32,7 @@ export function SKUAnalysis({ skuMetrics }: SKUAnalysisProps) {
             spend: `$${sku.spend.toLocaleString()}`,
             sales: `$${sku.sales.toLocaleString()}`,
             convRate: `${sku.conversionRate.toFixed(2)}%`,
-            orders: sku.orders
+            orders: sku.orders.toString()
           }))}
         />
       </CardContent>

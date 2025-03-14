@@ -1,16 +1,19 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MetricsTable } from "../MetricsTable";
 
+interface SearchTermData {
+  searchTerm: string;
+  impressions: number;
+  clicks: number;
+  spend: number;
+  sales: number;
+  conversionRate: number;
+  orders?: number;
+}
+
 interface SearchTermAnalysisProps {
-  searchTermMetrics: Array<{
-    searchTerm: string;
-    impressions: number;
-    clicks: number;
-    spend: number;
-    sales: number;
-    conversionRate: number;
-    orders: number;
-  }>;
+  searchTermMetrics: Array<SearchTermData>;
 }
 
 export function SearchTermAnalysis({ searchTermMetrics }: SearchTermAnalysisProps) {
@@ -29,7 +32,7 @@ export function SearchTermAnalysis({ searchTermMetrics }: SearchTermAnalysisProp
             spend: `$${term.spend.toLocaleString()}`,
             sales: `$${term.sales.toLocaleString()}`,
             convRate: `${term.conversionRate.toFixed(2)}%`,
-            orders: term.orders
+            orders: term.orders?.toString() || "0"
           }))}
         />
       </CardContent>

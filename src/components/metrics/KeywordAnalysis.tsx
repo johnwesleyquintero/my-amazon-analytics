@@ -1,17 +1,20 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MetricsTable } from "./MetricsTable";
 import { KeywordHeatmap } from "./KeywordHeatmap";
 
+interface KeywordData {
+  keyword: string;
+  impressions: number;
+  clicks: number;
+  spend: number;
+  sales: number;
+  orders: number;
+  conversion_rate: number;
+}
+
 interface KeywordAnalysisProps {
-  data: Array<{
-    keyword: string;
-    impressions: number;
-    clicks: number;
-    spend: number;
-    sales: number;
-    orders: number;
-    conversion_rate: number;
-  }>;
+  data: Array<KeywordData>;
 }
 
 export function KeywordAnalysis({ data }: KeywordAnalysisProps) {
