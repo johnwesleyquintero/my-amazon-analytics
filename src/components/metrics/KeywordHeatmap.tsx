@@ -17,12 +17,12 @@ interface KeywordHeatmapProps {
   campaignId?: string;
 }
 
-export function KeywordHeatmap({ campaignId }: KeywordHeatmapProps = {}) {
+export function KeywordHeatmap({ campaignId }: KeywordHeatmapProps) {
   const { data: keywordData, isLoading, error } = useQuery({
     queryKey: ['keywords', campaignId],
     queryFn: async () => {
       const query = supabase
-        .from('keywords')
+        .from('amazon_ads_metrics')
         .select('*');
       
       if (campaignId) {
@@ -32,7 +32,18 @@ export function KeywordHeatmap({ campaignId }: KeywordHeatmapProps = {}) {
       const { data, error } = await query;
       
       if (error) throw error;
-      return data as KeywordData[];
+      
+      // Transform the data to match KeywordData interface
+      const transformedData: KeywordData[] = (data || []).map((item: any) => ({
+        keyword: item.keyword || 'Unknown',
+        impressions: item.impressions || 0,
+        clicks: item.clicks || 0,
+        spend: item.amount_spent || 0,
+        sales: item.total_ad_sales || 0,
+        conversion_rate: item.clicks > 0 ? ((item.total_ad_orders || 0) / item.clicks) * 100 : 0
+      }));
+      
+      return transformedData;
     },
     enabled: !!supabase,
   });
@@ -67,6 +78,22 @@ export function KeywordHeatmap({ campaignId }: KeywordHeatmapProps = {}) {
     );
   }
 
+  if (error) {
+    console.error("Error loading keyword data:", error);
+    return (
+      <Card className="bg-spotify-light text-white">
+        <CardHeader>
+          <CardTitle>Keyword Performance Heatmap</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="p-4 text-center">
+            <p>Error loading keyword data. Please try again later.</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card className="bg-spotify-light text-white">
       <CardHeader>
@@ -86,51 +113,57 @@ export function KeywordHeatmap({ campaignId }: KeywordHeatmapProps = {}) {
               </tr>
             </thead>
             <tbody>
-              {keywordData?.map((row, index) => (
-                <tr key={index}>
-                  <td className="p-2">{row.keyword}</td>
-                  <td className="p-2">
-                    <div
-                      className="px-2 py-1 rounded"
-                      style={{ backgroundColor: getHeatmapColor(row.impressions, 'impressions') }}
-                    >
-                      {row.impressions.toLocaleString()}
-                    </div>
-                  </td>
-                  <td className="p-2">
-                    <div
-                      className="px-2 py-1 rounded"
-                      style={{ backgroundColor: getHeatmapColor(row.clicks, 'clicks') }}
-                    >
-                      {row.clicks.toLocaleString()}
-                    </div>
-                  </td>
-                  <td className="p-2">
-                    <div
-                      className="px-2 py-1 rounded"
-                      style={{ backgroundColor: getHeatmapColor(row.spend, 'spend') }}
-                    >
-                      ${row.spend.toLocaleString()}
-                    </div>
-                  </td>
-                  <td className="p-2">
-                    <div
-                      className="px-2 py-1 rounded"
-                      style={{ backgroundColor: getHeatmapColor(row.sales, 'sales') }}
-                    >
-                      ${row.sales.toLocaleString()}
-                    </div>
-                  </td>
-                  <td className="p-2">
-                    <div
-                      className="px-2 py-1 rounded"
-                      style={{ backgroundColor: getHeatmapColor(row.conversion_rate, 'conversion_rate') }}
-                    >
-                      {row.conversion_rate.toFixed(2)}%
-                    </div>
-                  </td>
+              {keywordData && keywordData.length > 0 ? (
+                keywordData.map((row, index) => (
+                  <tr key={index}>
+                    <td className="p-2">{row.keyword}</td>
+                    <td className="p-2">
+                      <div
+                        className="px-2 py-1 rounded"
+                        style={{ backgroundColor: getHeatmapColor(row.impressions, 'impressions') }}
+                      >
+                        {row.impressions.toLocaleString()}
+                      </div>
+                    </td>
+                    <td className="p-2">
+                      <div
+                        className="px-2 py-1 rounded"
+                        style={{ backgroundColor: getHeatmapColor(row.clicks, 'clicks') }}
+                      >
+                        {row.clicks.toLocaleString()}
+                      </div>
+                    </td>
+                    <td className="p-2">
+                      <div
+                        className="px-2 py-1 rounded"
+                        style={{ backgroundColor: getHeatmapColor(row.spend, 'spend') }}
+                      >
+                        ${row.spend.toLocaleString()}
+                      </div>
+                    </td>
+                    <td className="p-2">
+                      <div
+                        className="px-2 py-1 rounded"
+                        style={{ backgroundColor: getHeatmapColor(row.sales, 'sales') }}
+                      >
+                        ${row.sales.toLocaleString()}
+                      </div>
+                    </td>
+                    <td className="p-2">
+                      <div
+                        className="px-2 py-1 rounded"
+                        style={{ backgroundColor: getHeatmapColor(row.conversion_rate, 'conversion_rate') }}
+                      >
+                        {row.conversion_rate.toFixed(2)}%
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={6} className="p-4 text-center">No keyword data available</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>

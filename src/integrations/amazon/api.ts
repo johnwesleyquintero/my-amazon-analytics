@@ -4,6 +4,7 @@ import { getAccessToken } from './auth';
 import { getSupabaseClient } from "@/utils/supabase";
 import axios from 'axios';
 import { toast } from '@/components/ui/use-toast';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Constants
 const API_BASE_URL = 'https://advertising-api.amazon.com';
@@ -54,6 +55,18 @@ class RateLimiter {
 
 // Create a rate limiter: 10 requests per minute (1 token per 6000ms)
 const rateLimiter = new RateLimiter(10, 1/6000);
+
+// Process webhook data
+const processWebhookData = async (webhookData: any) => {
+  try {
+    console.log('Processing webhook data:', webhookData);
+    // Implement the actual processing logic here
+    return true;
+  } catch (error) {
+    console.error('Error processing webhook data:', error);
+    return false;
+  }
+};
 
 // Initialize the Gemini API client
 const initGeminiClient = async () => {
@@ -206,18 +219,6 @@ async function syncCampaignsToSupabase() {
     console.error('Error syncing campaigns:', error);
   }
 }
-
-// Add proper webhookHandler implementation
-const processWebhookData = async (webhookData: any) => {
-  try {
-    console.log('Processing webhook data:', webhookData);
-    // Implement the actual processing logic here
-    return true;
-  } catch (error) {
-    console.error('Error processing webhook data:', error);
-    return false;
-  }
-};
 
 // Improved webhook handler with Node.js crypto module
 const handleWebhookNotification = async (notification: any) => {

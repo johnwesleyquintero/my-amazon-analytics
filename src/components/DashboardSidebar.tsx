@@ -74,7 +74,7 @@ export function DashboardSidebar() {
                       icon={<Icon className="w-4 h-4" aria-hidden="true" />}
                       path={item.path}
                       description={item.description}
-                      aria-current={isActive ? "page" : undefined}
+                      aria-current={isActive ? "page" : false}
                       className={`transition-colors duration-200 ${isActive ? 'bg-primary/10' : 'hover:bg-gray-100 dark:hover:bg-gray-800'}`}
                     />
                   );
@@ -85,7 +85,7 @@ export function DashboardSidebar() {
                   icon={<Settings className="w-4 h-4" aria-hidden="true" />}
                   path="/dashboard/settings"
                   description="Account and application settings"
-                  aria-current={location.pathname === "/dashboard/settings" ? "page" : undefined}
+                  aria-current={location.pathname === "/dashboard/settings" ? "page" : false}
                   className={`transition-colors duration-200 ${location.pathname === "/dashboard/settings" ? 'bg-primary/10' : 'hover:bg-gray-100 dark:hover:bg-gray-800'}`}
                 />
               </SidebarMenu>

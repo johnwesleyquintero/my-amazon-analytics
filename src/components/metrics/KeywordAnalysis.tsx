@@ -73,6 +73,7 @@ export function KeywordAnalysis({ data }: KeywordAnalysisProps) {
               orders: keyword.orders.toLocaleString(),
               convRate: `${keyword.conversion_rate.toFixed(2)}%`
             }))}
+            metrics={{}} // Add empty metrics object to satisfy the type
           />
         </CardContent>
       </Card>

@@ -34,6 +34,7 @@ export function ASINAnalysis({ asinMetrics }: ASINAnalysisProps) {
             convRate: `${asin.conversionRate.toFixed(2)}%`,
             orders: asin.orders.toString()
           }))}
+          metrics={{}} // Add empty metrics object to satisfy the type
         />
       </CardContent>
     </Card>

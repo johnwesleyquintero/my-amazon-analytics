@@ -9,7 +9,7 @@ interface DashboardMenuItemProps {
   path: string;
   description: string;
   className?: string;
-  "aria-current"?: string;
+  "aria-current"?: "page" | "step" | "location" | "date" | "time" | "true" | "false" | boolean;
 }
 
 export function DashboardMenuItem({ title, icon, path, description, className, "aria-current": ariaCurrent }: DashboardMenuItemProps) {
