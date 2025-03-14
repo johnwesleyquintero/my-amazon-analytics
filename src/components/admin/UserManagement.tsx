@@ -24,7 +24,7 @@ interface Profile {
   email: string;
   first_name: string;
   last_name: string;
-  is_suspended?: boolean;
+  is_suspended: boolean;
 }
 
 export function UserManagement() {
@@ -32,7 +32,7 @@ export function UserManagement() {
   const [statusFilter, setStatusFilter] = useState("all");
   const { toast } = useToast();
 
-  const { data: profiles, isLoading } = useQuery({
+  const { data: profiles, isLoading, refetch } = useQuery({
     queryKey: ['admin-profiles'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -49,8 +49,9 @@ export function UserManagement() {
 
   // Filter profiles based on search and status
   const filteredProfiles = profiles?.filter(profile => {
-    const matchesSearch = profile.company_name?.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          profile.email?.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = 
+      (profile.company_name?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      profile.email?.toLowerCase().includes(searchQuery.toLowerCase()));
     
     const matchesStatus = statusFilter === "all" || 
                          (statusFilter === "active" && !profile.is_suspended) ||
@@ -72,6 +73,8 @@ export function UserManagement() {
         title: "User deleted successfully",
         description: "The user has been removed from the system.",
       });
+      
+      refetch();
     } catch (error: any) {
       toast({
         title: "Error deleting user",
@@ -96,6 +99,8 @@ export function UserManagement() {
           ? "The user has been reactivated." 
           : "The user has been suspended.",
       });
+      
+      refetch();
     } catch (error: any) {
       toast({
         title: "Action failed",

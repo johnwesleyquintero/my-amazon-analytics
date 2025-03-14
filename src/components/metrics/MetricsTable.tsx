@@ -15,14 +15,14 @@ interface MetricsTableProps {
 
 export function MetricsTable({ metrics }: MetricsTableProps) {
   if (!metrics || metrics.length === 0) {
-    return <p className="text-gray-700">No data available.</p>;
+    return <p className="text-gray-800">No data available.</p>;
   }
 
   const headers = Object.keys(metrics[0]);
 
   return (
     <Table className="bg-white">
-      <TableCaption className="text-gray-700">A list of your metrics.</TableCaption>
+      <TableCaption className="text-gray-800">A list of your metrics.</TableCaption>
       <TableHeader>
         <TableRow>
           {headers.map((header) => (

@@ -401,6 +401,7 @@ export type Database = {
           email: string
           first_name: string | null
           id: string
+          is_suspended: boolean | null
           last_name: string | null
           updated_at: string
         }
@@ -411,6 +412,7 @@ export type Database = {
           email: string
           first_name?: string | null
           id: string
+          is_suspended?: boolean | null
           last_name?: string | null
           updated_at?: string
         }
@@ -421,6 +423,7 @@ export type Database = {
           email?: string
           first_name?: string | null
           id?: string
+          is_suspended?: boolean | null
           last_name?: string | null
           updated_at?: string
         }
