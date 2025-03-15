@@ -3,17 +3,9 @@ import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
 import { vi } from 'vitest';
 
-// Validate test environment variables
-try {
-  if (!process.env.VITE_SUPABASE_URL || !process.env.VITE_SUPABASE_KEY) {
-    throw new Error('Required environment variables are missing for tests:\n' +
-      (!process.env.VITE_SUPABASE_URL ? '- VITE_SUPABASE_URL\n' : '') +
-      (!process.env.VITE_SUPABASE_KEY ? '- VITE_SUPABASE_KEY\n' : ''));
-  }
-} catch (error) {
-  console.error('Test environment setup failed:', error);
-  process.exit(1);
-}
+// Mock environment variables for tests to prevent errors
+vi.stubEnv('VITE_SUPABASE_URL', 'https://example.supabase.co');
+vi.stubEnv('VITE_SUPABASE_KEY', 'fake-supabase-key');
 
 beforeEach(() => {
   cleanup();

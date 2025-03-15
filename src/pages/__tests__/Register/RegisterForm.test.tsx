@@ -1,5 +1,6 @@
 
 import { render } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
 import { BrowserRouter } from 'react-router-dom';
 import Register from '../../Register';
 import { vi, describe, it, expect } from 'vitest';

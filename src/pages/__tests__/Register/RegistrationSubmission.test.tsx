@@ -1,19 +1,6 @@
 
-/**
- * Test suite for registration submission functionality
- * @group auth
- * @group integration
- * 
- * Tests cover:
- * - Successful user registration flow
- * - Error handling for failed registrations
- * - Toast notifications for user feedback
- * - Supabase auth integration
- * 
- * @example
- * npm test RegistrationSubmission
- */
 import { render } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import Register from '../../Register';
