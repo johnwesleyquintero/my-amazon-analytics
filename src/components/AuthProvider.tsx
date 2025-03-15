@@ -9,11 +9,14 @@ interface AuthContextType {
   isLoading: boolean;
 }
 
-const AuthContext = createContext<AuthContextType>({
+const defaultAuthContext: AuthContextType = {
   user: null,
   isAdmin: false,
   isLoading: true,
-});
+};
+
+// Create context with default values
+const AuthContext = createContext<AuthContextType>(defaultAuthContext);
 
 /**
  * Hook to access authentication context
@@ -47,19 +50,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session }, error }) => {
-      setUser(session?.user ?? null);
-      setIsAdmin(session?.user?.email === "johnwesleyquintero@gmail.com");
-      setIsLoading(false);
-      if (error) {
+    const initializeAuth = async () => {
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession();
+        
+        if (error) {
+          console.error("Error getting session:", error);
+          setIsLoading(false);
+          return;
+        }
+        
+        setUser(session?.user ?? null);
+        setIsAdmin(session?.user?.email === "johnwesleyquintero@gmail.com");
+        setIsLoading(false);
+      } catch (error) {
         console.error("Error getting session:", error);
-        // Optionally, handle the error (e.g., show an error message)
+        setIsLoading(false);
       }
-    }).catch(error => {
-      console.error("Error getting session:", error);
-      setIsLoading(false);
-      // Optionally, handle the error (e.g., show an error message)
-    });
+    };
+
+    initializeAuth();
 
     // Listen for auth changes
     const {

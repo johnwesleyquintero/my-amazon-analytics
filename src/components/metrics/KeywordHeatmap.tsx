@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -16,6 +16,18 @@ interface KeywordData {
 interface KeywordHeatmapProps {
   campaignId?: string;
 }
+
+// Define color range configuration outside component to avoid type recursion
+const metricRanges = {
+  keyword: { min: 0, max: 0 }, // Not applicable for keyword
+  impressions: { min: 0, max: 10000 },
+  clicks: { min: 0, max: 1000 },
+  spend: { min: 0, max: 5000 },
+  sales: { min: 0, max: 10000 },
+  conversion_rate: { min: 0, max: 20 }
+};
+
+type MetricType = keyof typeof metricRanges;
 
 export function KeywordHeatmap({ campaignId }: KeywordHeatmapProps) {
   const { data: keywordData, isLoading, error } = useQuery({
@@ -48,19 +60,15 @@ export function KeywordHeatmap({ campaignId }: KeywordHeatmapProps) {
     enabled: !!supabase,
   });
 
-  // Fixed function to avoid circular type references
-  const getHeatmapColor = (value: number, metricType: string) => {
-    // Define ranges as a simple object without type references
-    const ranges = {
-      keyword: { min: 0, max: 0 }, // Not applicable for keyword
-      impressions: { min: 0, max: 10000 },
-      clicks: { min: 0, max: 1000 },
-      spend: { min: 0, max: 5000 },
-      sales: { min: 0, max: 10000 },
-      conversion_rate: { min: 0, max: 20 }
-    };
+  // Safe function to get heatmap color
+  const getHeatmapColor = (value: number, metricType: string): string => {
+    // Check if the metric type exists in our ranges
+    if (!(metricType in metricRanges)) {
+      console.warn(`Unknown metric type: ${metricType}`);
+      return 'hsl(0, 0%, 80%)'; // Default gray
+    }
 
-    const range = ranges[metricType as keyof typeof ranges];
+    const range = metricRanges[metricType as MetricType];
     const normalized = Math.min(Math.max((value - range.min) / (range.max - range.min), 0), 1);
     const hue = 120 * normalized; // Green (120) to Red (0)
     return `hsl(${hue}, 70%, 50%)`;
