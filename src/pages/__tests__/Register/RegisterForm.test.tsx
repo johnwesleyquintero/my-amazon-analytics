@@ -7,16 +7,16 @@ import { vi, describe, it, expect } from 'vitest';
 
 describe('Register Form Rendering', () => {
   it('renders registration form with all fields', () => {
-    const { getByPlaceholderText, getByRole } = render(
+    render(
       <BrowserRouter>
         <Register />
       </BrowserRouter>
     );
 
-    expect(getByPlaceholderText(/email/i)).toBeInTheDocument();
-    expect(getByPlaceholderText(/company name/i)).toBeInTheDocument();
-    expect(getByPlaceholderText(/^password$/i)).toBeInTheDocument();
-    expect(getByPlaceholderText(/confirm password/i)).toBeInTheDocument();
-    expect(getByRole('button', { name: /create account/i })).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/email/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/company name/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/^password$/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/confirm password/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /create account/i })).toBeInTheDocument();
   });
 });

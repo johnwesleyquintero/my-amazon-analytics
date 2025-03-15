@@ -17,17 +17,22 @@ interface KeywordHeatmapProps {
   campaignId?: string;
 }
 
-// Define color range configuration outside component to avoid type recursion
-const metricRanges = {
-  keyword: { min: 0, max: 0 }, // Not applicable for keyword
+// Define color range configuration
+type MetricKey = "impressions" | "clicks" | "spend" | "sales" | "conversion_rate";
+
+interface MetricRange {
+  min: number;
+  max: number;
+}
+
+// Define ranges separately without circular references
+const metricRanges: Record<MetricKey, MetricRange> = {
   impressions: { min: 0, max: 10000 },
   clicks: { min: 0, max: 1000 },
   spend: { min: 0, max: 5000 },
   sales: { min: 0, max: 10000 },
   conversion_rate: { min: 0, max: 20 }
 };
-
-type MetricType = keyof typeof metricRanges;
 
 export function KeywordHeatmap({ campaignId }: KeywordHeatmapProps) {
   const { data: keywordData, isLoading, error } = useQuery({
@@ -68,7 +73,7 @@ export function KeywordHeatmap({ campaignId }: KeywordHeatmapProps) {
       return 'hsl(0, 0%, 80%)'; // Default gray
     }
 
-    const range = metricRanges[metricType as MetricType];
+    const range = metricRanges[metricType as MetricKey];
     const normalized = Math.min(Math.max((value - range.min) / (range.max - range.min), 0), 1);
     const hue = 120 * normalized; // Green (120) to Red (0)
     return `hsl(${hue}, 70%, 50%)`;

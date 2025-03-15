@@ -1,7 +1,7 @@
 
 import { render } from '@testing-library/react';
 import { screen, waitFor } from '@testing-library/dom';
-import { vi } from 'vitest';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 import App from '../App';
 
 // Mock AuthProvider to avoid the actual import
@@ -14,7 +14,7 @@ describe('Authentication Flow', () => {
     vi.clearAllMocks();
   });
 
-  test('successful login redirects to dashboard', async () => {
+  it('successful login redirects to dashboard', async () => {
     render(<App />);
 
     await waitFor(() => {
@@ -22,7 +22,7 @@ describe('Authentication Flow', () => {
     });
   });
 
-  test('failed login shows error message', async () => {
+  it('failed login shows error message', async () => {
     vi.spyOn(console, 'error').mockImplementation(() => {});
     
     // Mock a failed login attempt

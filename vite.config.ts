@@ -1,40 +1,86 @@
 
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import path from "path";
+import viteCompression from "vite-plugin-compression";
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
+export default defineConfig(({ mode }) => ({
+  plugins: [
+    react(),
+    viteCompression({
+      algorithm: 'gzip',
+      ext: '.gz',
+      threshold: 10240 // Only compress files larger than 10KB
+    })
+  ],
+  server: {
+    hmr: {
+      overlay: false
+    },
+    host: true,
+    port: 8080
+  },
+  preview: {
+    port: 8080
+  },
+  
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      "@": path.resolve(__dirname, "./src"),
     },
+    extensions: [
+      ".mts",
+      ".ts",
+      ".tsx",
+      ".js",
+      ".jsx",
+      ".json"
+    ]
   },
   build: {
-    outDir: 'dist',
-    sourcemap: true,
-    chunkSizeWarningLimit: 1000,
+    sourcemap: mode === 'development',
+    minify: mode === 'production' ? 'terser' : false,
+    chunkSizeWarningLimit: 1500,
+    terserOptions: {
+      compress: {
+        drop_console: mode === 'production',
+        drop_debugger: mode === 'production'
+      }
+    },
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
-          ui: [
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-tabs',
-            '@radix-ui/react-toast',
-          ],
-          charts: ['recharts'],
+        manualChunks: (id) => {
+          if (id.includes('node_modules')) {
+            if (id.includes('@radix-ui')) return 'radix-ui';
+            if (id.includes('@supabase')) return 'supabase';
+            if (id.includes('react')) return 'react-vendor';
+            return 'vendor';
+          }
+          if (id.includes('src/components')) return 'components';
+          if (id.includes('src/features')) return 'features';
         },
-      },
-    },
-  },
-  server: {
-    port: 8080,
-    open: true,
-    cors: true,
+        entryFileNames: 'assets/[name].[hash].js',
+        chunkFileNames: 'assets/[name].[hash].js',
+        assetFileNames: 'assets/[name].[hash][extname]'
+      }
+    }
   },
   optimizeDeps: {
-    include: ['@supabase/supabase-js', 'recharts', 'lodash'],
+    include: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      '@supabase/supabase-js',
+      'recharts',
+      'lodash'
+    ],
+    esbuildOptions: {
+      target: 'es2020'
+    }
   },
-});
+  // TypeScript checking
+  typescript: {
+    tsconfig: './tsconfig.json'
+  }
+}));

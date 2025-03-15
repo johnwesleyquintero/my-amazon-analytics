@@ -10,7 +10,12 @@ const config: Config.InitialOptions = {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
   },
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.json',
+      },
+    ],
   },
   coverageDirectory: 'coverage',
   collectCoverageFrom: [
@@ -20,11 +25,6 @@ const config: Config.InitialOptions = {
     '!src/vite-env.d.ts',
   ],
   testMatch: ['<rootDir>/src/**/__tests__/**/*.{ts,tsx}', '<rootDir>/src/**/*.{spec,test}.{ts,tsx}'],
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.json',
-    },
-  },
 };
 
 export default config;
