@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -30,9 +29,6 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       staleTime: 5 * 60 * 1000, // 5 minutes
       gcTime: 10 * 60 * 1000, // 10 minutes (renamed from cacheTime)
-      onError: (error) => {
-        console.error('Query error:', error);
-      },
     },
   },
 });
@@ -170,7 +166,6 @@ const App = () => {
                         </AdminRoute>
                       }
                     />
-                    {/* Fallback route for any unmatched routes */}
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </BrowserRouter>
