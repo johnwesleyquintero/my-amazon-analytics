@@ -21,7 +21,11 @@ export default defineConfig(({ mode }) => ({
       overlay: false
     },
     host: true,
-    port: 8080
+    port: 8080,
+    allowedHosts: [
+      'localhost',
+      '183b05a1-f757-48de-89da-fb5e0449a514.lovableproject.com'
+    ]
   },
   preview: {
     port: 8080
