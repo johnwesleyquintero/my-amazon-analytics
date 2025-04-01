@@ -1,13 +1,14 @@
 
 import { groupBy, sumBy } from 'lodash';
+import { AmazonMetric, KPIData } from '../types/metrics';
 
 /**
  * Calculates common KPIs from Amazon metrics data
  * @param data Raw metrics data
  * @returns Calculated KPIs
  */
-export const calculateKPIs = (data: any[]) => {
-  if (!data || data.length === 0) {
+export const calculateKPIs = (data: AmazonMetric[] | any[]): KPIData | null => {
+  if (!data || !Array.isArray(data) || data.length === 0) {
     return null;
   }
 
@@ -42,7 +43,11 @@ export const calculateKPIs = (data: any[]) => {
  * @param period Time period to group by ('day', 'week', 'month')
  * @returns Metrics grouped by time period
  */
-export const groupMetricsByTimePeriod = (data: any[], period: 'day' | 'week' | 'month') => {
+export const groupMetricsByTimePeriod = (data: AmazonMetric[] | any[], period: 'day' | 'week' | 'month') => {
+  if (!data || !Array.isArray(data) || data.length === 0) {
+    return [];
+  }
+  
   const groupedData = groupBy(data, (item) => {
     const date = new Date(item.date);
     if (!isNaN(date.getTime())) {
@@ -65,7 +70,7 @@ export const groupMetricsByTimePeriod = (data: any[], period: 'day' | 'week' | '
     const metrics = calculateKPIs(itemsArray);
     return {
       period: periodKey,
-      ...metrics
+      ...(metrics || {impressions: 0, clicks: 0, spend: 0, totalSales: 0, totalOrders: 0, ctr: 0, conversionRate: 0, roas: 0, acos: 0})
     };
   });
 };
@@ -78,19 +83,24 @@ export const groupMetricsByTimePeriod = (data: any[], period: 'day' | 'week' | '
  * @returns Metrics grouped by the specified dimension
  */
 export const groupMetricsByDimension = (
-  data: any[], 
+  data: AmazonMetric[] | any[], 
   dimension: string, 
   dimensionLabel: string
 ) => {
+  if (!data || !Array.isArray(data) || data.length === 0) {
+    return [];
+  }
+  
   const grouped = groupBy(data, dimension);
   
   return Object.entries(grouped).map(([key, items]) => {
     // Ensure items is treated as an array
     const itemsArray = Array.isArray(items) ? items : [];
     const metrics = calculateKPIs(itemsArray);
+    
     return {
       [dimensionLabel]: key,
-      ...metrics,
+      ...(metrics || {impressions: 0, clicks: 0, spend: 0, totalSales: 0, totalOrders: 0, ctr: 0, conversionRate: 0, roas: 0, acos: 0}),
       // Include any additional properties from the first item that might be relevant
       ...(itemsArray.length > 0 && itemsArray[0]?.title ? { title: itemsArray[0].title } : {}),
       ...(itemsArray.length > 0 && itemsArray[0]?.category ? { category: itemsArray[0].category } : {})
