@@ -1,32 +1,20 @@
 
 import React from 'react';
 import { DashboardSidebar } from '../DashboardSidebar';
-import { useAuth } from '@/components/AuthProvider';
-import { Loader2 } from 'lucide-react';
+import { Outlet } from 'react-router-dom';
 import { SidebarProvider } from '@/components/ui/sidebar';
 
 interface DashboardLayoutProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 /**
- * Provides the main dashboard layout structure with authentication-aware loading state
+ * Provides the main dashboard layout structure with navigation sidebar
  * @component
  * @param {Object} props - Component props
  * @param {React.ReactNode} props.children - Dashboard content components
  */
 export function DashboardLayout({ children }: DashboardLayoutProps) {
-  const { isLoading } = useAuth();
-
-  if (isLoading) {
-    return (
-      <div className="flex h-screen items-center justify-center" role="status" aria-label="Loading dashboard">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" aria-hidden="true" />
-        <span className="sr-only">Loading dashboard...</span>
-      </div>
-    );
-  }
-
   return (
     <SidebarProvider>
       <div className="min-h-screen flex flex-col md:flex-row w-full bg-gray-50 transition-all duration-300">
@@ -37,7 +25,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           aria-label="Dashboard content"
         >
           <div className="max-w-7xl mx-auto w-full">
-            {children}
+            {children || <Outlet />}
           </div>
         </main>
       </div>

@@ -1,8 +1,8 @@
 
 import { useState, useEffect } from 'react';
 import { getProcessedMetrics, filterMetricsData } from '../services/metricsService';
-import { MetricsState, AmazonMetric } from '../types/metrics';
-import { calculateKPIs, groupMetricsByTimePeriod, groupMetricsByDimension } from '../utils/metricsCalculationUtils';
+import { MetricsState, MetricsFilter, AmazonMetric } from '../lib/amazon-types';
+import { calculateKPIs, groupMetricsByTimePeriod, groupMetricsByDimension } from '../lib/amazon-algorithms';
 
 // Default state for metrics
 const defaultMetricsState: MetricsState = {
@@ -23,14 +23,7 @@ const defaultMetricsState: MetricsState = {
  */
 export const useMetrics = () => {
   const [state, setState] = useState<MetricsState>(defaultMetricsState);
-  const [filters, setFilters] = useState<{
-    startDate?: string;
-    endDate?: string;
-    marketplace?: string;
-    campaignName?: string;
-    asin?: string;
-    sku?: string;
-  }>({});
+  const [filters, setFilters] = useState<MetricsFilter>({});
 
   // Fetch metrics data
   const fetchMetrics = async () => {

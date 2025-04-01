@@ -1,7 +1,7 @@
 
 import { localDataService } from './localDataService';
-import { AmazonMetric, KPIData, PeriodMetrics, DimensionMetrics } from '../types/metrics';
-import { calculateKPIs, groupMetricsByTimePeriod, groupMetricsByDimension } from '../utils/metricsCalculationUtils';
+import { AmazonMetric, KPIData, PeriodMetrics, DimensionMetrics, MetricsFilter } from '../lib/amazon-types';
+import { calculateKPIs, groupMetricsByTimePeriod, groupMetricsByDimension, processMetricsForDisplay } from '../lib/amazon-algorithms';
 
 /**
  * Simulates fetching metrics data from an API
@@ -43,19 +43,11 @@ export const getProcessedMetrics = async () => {
 
 /**
  * Filters metrics data based on specified criteria
- * @param data The raw metrics data to filter
  * @param filters An object containing filter criteria
  * @returns Filtered metrics data
  */
 export const filterMetricsData = async (
-  filters: {
-    startDate?: string;
-    endDate?: string;
-    marketplace?: string;
-    campaignName?: string;
-    asin?: string;
-    sku?: string;
-  }
+  filters: MetricsFilter
 ): Promise<AmazonMetric[]> => {
   return localDataService.filterMetrics(filters);
 };
@@ -68,4 +60,13 @@ export const importMetricsData = async (
   data: AmazonMetric[]
 ): Promise<void> => {
   return localDataService.importData(data);
+};
+
+/**
+ * Gets metrics data in a display-ready format
+ * @returns Metrics data formatted for display components
+ */
+export const getDisplayMetrics = async () => {
+  const data = await fetchMetricsData();
+  return processMetricsForDisplay(data);
 };

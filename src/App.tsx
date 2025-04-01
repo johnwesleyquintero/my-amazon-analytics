@@ -5,7 +5,6 @@ import { ThemeProvider } from './components/ui/theme-provider';
 import { DashboardLayout } from './components/dashboard/DashboardLayout';
 import { DashboardContent } from './components/DashboardContent';
 import { DataImport } from './components/DataImport';
-import Dashboard from './pages/Dashboard';
 
 function App() {
   // For now, we'll bypass authentication and route directly to the dashboard

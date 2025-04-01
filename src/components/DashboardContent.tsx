@@ -2,10 +2,10 @@
 import React from 'react';
 import { AmazonMetricsDisplay } from './AmazonMetricsDisplay';
 import { useMetrics } from '../hooks/useMetrics';
+import { DimensionMetrics } from '../lib/amazon-types';
 
 /**
  * Main dashboard content component that displays Amazon metrics data
- * without requiring authentication
  */
 export const DashboardContent: React.FC = () => {
   const { 
@@ -94,9 +94,9 @@ export const DashboardContent: React.FC = () => {
     weeklyMetrics: transformedWeeklyMetrics,
     monthlyMetrics: transformedMonthlyMetrics,
     detailedMetrics: {
-      asinMetrics,
-      searchTermMetrics,
-      skuMetrics
+      asinMetrics: asinMetrics as DimensionMetrics[],
+      searchTermMetrics: searchTermMetrics as DimensionMetrics[],
+      skuMetrics: skuMetrics as DimensionMetrics[]
     }
   };
 
