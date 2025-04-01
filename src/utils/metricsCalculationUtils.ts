@@ -60,7 +60,9 @@ export const groupMetricsByTimePeriod = (data: any[], period: 'day' | 'week' | '
   });
 
   return Object.entries(groupedData).map(([periodKey, items]) => {
-    const metrics = calculateKPIs(items);
+    // Ensure items is treated as an array
+    const itemsArray = Array.isArray(items) ? items : [];
+    const metrics = calculateKPIs(itemsArray);
     return {
       period: periodKey,
       ...metrics
@@ -83,13 +85,15 @@ export const groupMetricsByDimension = (
   const grouped = groupBy(data, dimension);
   
   return Object.entries(grouped).map(([key, items]) => {
-    const metrics = calculateKPIs(items);
+    // Ensure items is treated as an array
+    const itemsArray = Array.isArray(items) ? items : [];
+    const metrics = calculateKPIs(itemsArray);
     return {
       [dimensionLabel]: key,
       ...metrics,
       // Include any additional properties from the first item that might be relevant
-      ...(items[0]?.title ? { title: items[0].title } : {}),
-      ...(items[0]?.category ? { category: items[0].category } : {})
+      ...(itemsArray.length > 0 && itemsArray[0]?.title ? { title: itemsArray[0].title } : {}),
+      ...(itemsArray.length > 0 && itemsArray[0]?.category ? { category: itemsArray[0].category } : {})
     };
   });
 };
