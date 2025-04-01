@@ -10,8 +10,8 @@ if (!supabaseUrl || !supabaseKey) {
 }
 
 export const supabase = createClient<Database>(
-  supabaseUrl,
-  supabaseKey,
+  supabaseUrl || '',
+  supabaseKey || '',
   {
     auth: {
       persistSession: true,
@@ -19,8 +19,10 @@ export const supabase = createClient<Database>(
       detectSessionInUrl: true,
     },
     global: {
-      fetch: (...args) => fetch(...args),
-    },
+      headers: {
+        'X-Client-Info': 'my-amazon-analytics'
+      }
+    }
   }
 );
 

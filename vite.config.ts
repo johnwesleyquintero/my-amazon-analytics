@@ -2,18 +2,20 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
+import { componentTagger } from "lovable-tagger";
 import viteCompression from "vite-plugin-compression";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
+    mode === "development" && componentTagger(),
     viteCompression({
       algorithm: 'gzip',
       ext: '.gz',
       threshold: 10240 // Only compress files larger than 10KB
     })
-  ],
+  ].filter(Boolean),
   server: {
     hmr: {
       overlay: false
