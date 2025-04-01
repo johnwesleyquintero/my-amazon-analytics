@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { getProcessedMetrics, filterMetricsData } from '../services/metricsService';
 import { MetricsState, AmazonMetric } from '../types/metrics';
+import { calculateKPIs, groupMetricsByTimePeriod, groupMetricsByDimension } from '../utils/metricsCalculationUtils';
 
 // Default state for metrics
 const defaultMetricsState: MetricsState = {
@@ -52,21 +53,36 @@ export const useMetrics = () => {
   };
 
   // Apply filters to metrics data
-  const applyFilters = () => {
+  const applyFilters = async () => {
     setState(prev => ({ ...prev, isLoading: true }));
     
     try {
       // Filter raw data
-      const filteredData = filterMetricsData(state.rawData, filters);
+      const filteredData = await filterMetricsData(filters);
       
-      // Recalculate all metrics based on filtered data
-      const metricsData = getProcessedMetricsSync(filteredData);
+      // Calculate KPIs based on filtered data
+      const kpis = calculateKPIs(filteredData);
       
-      setState(prev => ({
-        ...prev,
-        ...metricsData,
-        isLoading: false
-      }));
+      // Group metrics by time periods
+      const weeklyMetrics = groupMetricsByTimePeriod(filteredData, 'week');
+      const monthlyMetrics = groupMetricsByTimePeriod(filteredData, 'month');
+      
+      // Group metrics by dimensions
+      const asinMetrics = groupMetricsByDimension(filteredData, 'advertised_asin', 'asin');
+      const searchTermMetrics = groupMetricsByDimension(filteredData, 'search_term', 'searchTerm');
+      const skuMetrics = groupMetricsByDimension(filteredData, 'advertised_sku', 'sku');
+      
+      setState({
+        rawData: filteredData,
+        kpis,
+        weeklyMetrics,
+        monthlyMetrics,
+        asinMetrics,
+        searchTermMetrics,
+        skuMetrics,
+        isLoading: false,
+        error: null
+      });
     } catch (error) {
       setState(prev => ({
         ...prev,
@@ -74,21 +90,6 @@ export const useMetrics = () => {
         error: error instanceof Error ? error.message : 'An error occurred while applying filters'
       }));
     }
-  };
-
-  // Calculate metrics synchronously (for filtering)
-  const getProcessedMetricsSync = (data: AmazonMetric[]) => {
-    const { calculateKPIs, groupMetricsByTimePeriod, groupMetricsByDimension } = require('../utils/metricsCalculationUtils');
-    
-    return {
-      rawData: data,
-      kpis: calculateKPIs(data),
-      weeklyMetrics: groupMetricsByTimePeriod(data, 'week'),
-      monthlyMetrics: groupMetricsByTimePeriod(data, 'month'),
-      asinMetrics: groupMetricsByDimension(data, 'advertised_asin', 'asin'),
-      searchTermMetrics: groupMetricsByDimension(data, 'search_term', 'searchTerm'),
-      skuMetrics: groupMetricsByDimension(data, 'advertised_sku', 'sku')
-    };
   };
 
   // Initial data fetch

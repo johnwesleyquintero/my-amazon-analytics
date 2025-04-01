@@ -10,7 +10,7 @@ import Dashboard from './pages/Dashboard';
 function App() {
   // For now, we'll bypass authentication and route directly to the dashboard
   return (
-    <ThemeProvider defaultTheme="light" storageKey="amazon-metrics-theme">
+    <ThemeProvider>
       <Router>
         <Routes>
           {/* Redirect from root to dashboard */}

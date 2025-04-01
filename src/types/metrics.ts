@@ -55,3 +55,45 @@ export interface MetricsState {
   isLoading: boolean;
   error: string | null;
 }
+
+export interface MetricsDisplayData {
+  performance: {
+    impressions: number;
+    clicks: number;
+    spend: number;
+    ctr: number;
+    conversionRate: number;
+    roas: number;
+  };
+  sales: {
+    totalSales: number;
+    totalOrders: number;
+  };
+  weeklyMetrics: Array<{
+    period: string;
+    impressions: number;
+    clicks: number;
+    spend: number;
+    sales: number;
+    orders: number;
+    acos: number;
+    roas: number;
+    ctr: number;
+  }>;
+  monthlyMetrics: Array<{
+    period: string;
+    impressions: number;
+    clicks: number;
+    spend: number;
+    sales: number;
+    orders: number;
+    acos: number;
+    roas: number;
+    ctr: number;
+  }>;
+  detailedMetrics: {
+    asinMetrics: DimensionMetrics[];
+    searchTermMetrics: DimensionMetrics[];
+    skuMetrics: DimensionMetrics[];
+  };
+}

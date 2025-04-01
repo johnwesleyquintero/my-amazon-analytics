@@ -53,6 +53,31 @@ export const DashboardContent: React.FC = () => {
     );
   }
 
+  // Transform PeriodMetrics to include required sales and orders properties
+  const transformedWeeklyMetrics = weeklyMetrics.map(metric => ({
+    period: metric.period,
+    impressions: metric.impressions,
+    clicks: metric.clicks,
+    spend: metric.spend,
+    sales: metric.totalSales,
+    orders: metric.totalOrders,
+    acos: metric.acos,
+    roas: metric.roas,
+    ctr: metric.ctr
+  }));
+
+  const transformedMonthlyMetrics = monthlyMetrics.map(metric => ({
+    period: metric.period,
+    impressions: metric.impressions,
+    clicks: metric.clicks,
+    spend: metric.spend,
+    sales: metric.totalSales,
+    orders: metric.totalOrders,
+    acos: metric.acos,
+    roas: metric.roas,
+    ctr: metric.ctr
+  }));
+
   const metricsData = {
     performance: {
       impressions: kpis.impressions,
@@ -66,8 +91,8 @@ export const DashboardContent: React.FC = () => {
       totalSales: kpis.totalSales,
       totalOrders: kpis.totalOrders
     },
-    weeklyMetrics,
-    monthlyMetrics,
+    weeklyMetrics: transformedWeeklyMetrics,
+    monthlyMetrics: transformedMonthlyMetrics,
     detailedMetrics: {
       asinMetrics,
       searchTermMetrics,

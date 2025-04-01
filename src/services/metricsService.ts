@@ -1,22 +1,14 @@
 
-import sampleData from '../data/sampleMetrics.json';
+import { localDataService } from './localDataService';
 import { AmazonMetric, KPIData, PeriodMetrics, DimensionMetrics } from '../types/metrics';
 import { calculateKPIs, groupMetricsByTimePeriod, groupMetricsByDimension } from '../utils/metricsCalculationUtils';
-
-// Type assertion for our sample data to ensure TypeScript recognizes it properly
-const metricsData = sampleData as unknown as AmazonMetric[];
 
 /**
  * Simulates fetching metrics data from an API
  * @returns Promise that resolves to Amazon metrics data
  */
 export const fetchMetricsData = async (): Promise<AmazonMetric[]> => {
-  // Simulate API latency
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(metricsData);
-    }, 500);
-  });
+  return localDataService.getMetrics();
 };
 
 /**
@@ -55,8 +47,7 @@ export const getProcessedMetrics = async () => {
  * @param filters An object containing filter criteria
  * @returns Filtered metrics data
  */
-export const filterMetricsData = (
-  data: AmazonMetric[],
+export const filterMetricsData = async (
   filters: {
     startDate?: string;
     endDate?: string;
@@ -65,30 +56,16 @@ export const filterMetricsData = (
     asin?: string;
     sku?: string;
   }
-): AmazonMetric[] => {
-  return data.filter(item => {
-    // Apply date range filter
-    if (filters.startDate && new Date(item.date) < new Date(filters.startDate)) {
-      return false;
-    }
-    if (filters.endDate && new Date(item.date) > new Date(filters.endDate)) {
-      return false;
-    }
-    
-    // Apply other filters
-    if (filters.marketplace && item.marketplace !== filters.marketplace) {
-      return false;
-    }
-    if (filters.campaignName && item.campaign_name !== filters.campaignName) {
-      return false;
-    }
-    if (filters.asin && item.advertised_asin !== filters.asin) {
-      return false;
-    }
-    if (filters.sku && item.advertised_sku !== filters.sku) {
-      return false;
-    }
-    
-    return true;
-  });
+): Promise<AmazonMetric[]> => {
+  return localDataService.filterMetrics(filters);
+};
+
+/**
+ * Imports new metrics data
+ * @param data The new metrics data to import
+ */
+export const importMetricsData = async (
+  data: AmazonMetric[]
+): Promise<void> => {
+  return localDataService.importData(data);
 };
