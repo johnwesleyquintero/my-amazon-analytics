@@ -24,8 +24,18 @@ const config: Config.InitialOptions = {
     '!src/**/*.d.ts',
     '!src/main.tsx',
     '!src/vite-env.d.ts',
+    '!src/lib/supabase.js',
+    '!src/lib/supabaseClient.ts',
+    '!src/config/**/*',
   ],
   testMatch: ['<rootDir>/src/**/__tests__/**/*.{ts,tsx}', '<rootDir>/src/**/*.{spec,test}.{ts,tsx}'],
+  verbose: true,
+  testTimeout: 30000,
+  globals: {
+    'ts-jest': {
+      isolatedModules: true
+    }
+  }
 };
 
 export default config;

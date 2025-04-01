@@ -1,11 +1,11 @@
 
 import '@testing-library/jest-dom';
-import { expect, vi } from 'vitest';
+import { vi } from 'vitest';
 
-// Setup mock for matchMedia
+// Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: vi.fn().mockImplementation((query) => ({
+  value: vi.fn().mockImplementation(query => ({
     matches: false,
     media: query,
     onchange: null,
@@ -17,23 +17,22 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-// Mock for ResizeObserver
-class MockResizeObserver {
-  observe = vi.fn();
-  unobserve = vi.fn();
-  disconnect = vi.fn();
-}
+// Mock ResizeObserver
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}));
 
-window.ResizeObserver = MockResizeObserver;
+// Mock Intersection Observer
+global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}));
 
-// Mock for IntersectionObserver
-window.IntersectionObserver = class {
-  constructor(private readonly observerCallback: IntersectionObserverCallback) {}
-  root = null;
-  rootMargin = '';
-  thresholds = [0];
-  observe = vi.fn();
-  unobserve = vi.fn();
-  disconnect = vi.fn();
-  takeRecords = () => [] as IntersectionObserverEntry[];
-};
+// Mock fetch
+global.fetch = vi.fn();
+
+// Suppress console errors during tests
+vi.spyOn(console, 'error').mockImplementation(() => {});

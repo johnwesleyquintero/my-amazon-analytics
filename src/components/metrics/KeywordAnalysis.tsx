@@ -1,9 +1,9 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MetricsTable } from "./MetricsTable";
-import { KeywordHeatmap } from "./KeywordHeatmap";
+import { KeywordHeatmap, KeywordData } from "./KeywordHeatmap";
 
-interface KeywordData {
+interface KeywordAnalysisData {
   keyword: string;
   impressions: number;
   clicks: number;
@@ -14,12 +14,12 @@ interface KeywordData {
 }
 
 interface KeywordAnalysisProps {
-  data: Array<KeywordData>;
+  data: Array<KeywordAnalysisData>;
 }
 
 export function KeywordAnalysis({ data }: KeywordAnalysisProps) {
   // Group and aggregate data by keyword
-  const keywordMetrics = data.reduce((acc: any[], curr) => {
+  const keywordMetrics = data.reduce((acc: KeywordAnalysisData[], curr) => {
     const existingKeyword = acc.find(k => k.keyword === curr.keyword);
     
     if (existingKeyword) {
@@ -45,10 +45,18 @@ export function KeywordAnalysis({ data }: KeywordAnalysisProps) {
 
   // Sort keywords by spend
   const sortedKeywords = keywordMetrics.sort((a, b) => b.spend - a.spend);
+  
+  // Transform data for the heatmap
+  const heatmapData: KeywordData[] = sortedKeywords.map(kw => ({
+    keyword: kw.keyword,
+    impressions: kw.impressions,
+    clicks: kw.clicks,
+    score: kw.spend // Using spend as the score for heatmap intensity
+  }));
 
   return (
     <div className="space-y-6">
-      <KeywordHeatmap />
+      <KeywordHeatmap data={heatmapData} />
       <Card className="bg-spotify-light text-white">
         <CardHeader>
           <CardTitle>Keyword Performance</CardTitle>

@@ -21,6 +21,8 @@ interface ImportContextType {
   setMetrics: React.Dispatch<React.SetStateAction<MetricCalculation | null>>;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  isUploading: boolean;
+  processAndUploadData: (data: any[]) => void;
   handleCsvData: (data: any[]) => void;
   handleGoogleSheetsData: (data: any[]) => void;
   calculateMetrics: (data: any[]) => void;
@@ -34,30 +36,37 @@ export const ImportProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const [importedData, setImportedData] = useState<any[]>([]);
   const [metrics, setMetrics] = useState<MetricCalculation | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+
+  // Process and upload data (common function for both CSV and Google Sheets)
+  const processAndUploadData = (data: any[]) => {
+    setIsUploading(true);
+    try {
+      // Process data - remove empty rows, etc.
+      const processedData = data.filter(row => 
+        row && Object.values(row).some(val => val !== null && val !== '')
+      );
+      
+      setImportedData(processedData);
+      calculateMetrics(processedData);
+    } catch (error) {
+      console.error("Error processing data:", error);
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   // Function to handle CSV data import
   const handleCsvData = (data: any[]) => {
     setIsLoading(true);
-    // Process data - remove empty rows, etc.
-    const processedData = data.filter(row => 
-      row && Object.values(row).some(val => val !== null && val !== '')
-    );
-    
-    setImportedData(processedData);
-    calculateMetrics(processedData);
+    processAndUploadData(data);
     setIsLoading(false);
   };
 
   // Function to handle Google Sheets data import
   const handleGoogleSheetsData = (data: any[]) => {
     setIsLoading(true);
-    // Process data - it might be in a different format from Sheets
-    const processedData = data.filter(row => 
-      row && Object.values(row).some(val => val !== null && val !== '')
-    );
-    
-    setImportedData(processedData);
-    calculateMetrics(processedData);
+    processAndUploadData(data);
     setIsLoading(false);
   };
 
@@ -103,6 +112,8 @@ export const ImportProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         setMetrics,
         isLoading,
         setIsLoading,
+        isUploading,
+        processAndUploadData,
         handleCsvData,
         handleGoogleSheetsData,
         calculateMetrics,

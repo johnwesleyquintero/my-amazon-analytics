@@ -3,20 +3,23 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 // Define simplified types to avoid excessive type instantiation
-type KeywordData = {
+export type KeywordData = {
   keyword: string;
   impressions: number;
   clicks: number;
-  conversions: number;
+  conversions?: number;
   score: number;
 };
 
-type HeatmapProps = {
+export type HeatmapProps = {
   data: KeywordData[];
   title?: string;
 };
 
-export const KeywordHeatmap: React.FC<HeatmapProps> = ({ data = [], title = "Keyword Performance Heatmap" }) => {
+export const KeywordHeatmap: React.FC<HeatmapProps> = ({ 
+  data = [], 
+  title = "Keyword Performance Heatmap" 
+}) => {
   // Calculate the max values to normalize the heatmap colors
   const maxScore = Math.max(...data.map(item => item.score), 1);
   
