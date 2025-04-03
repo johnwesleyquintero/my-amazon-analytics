@@ -1,36 +1,9 @@
 
 import '@testing-library/jest-dom';
-import { cleanup } from '@testing-library/react';
 import { vi } from 'vitest';
+import 'vitest-canvas-mock';
 
-// Mock environment variables for tests to prevent errors
-vi.stubEnv('VITE_SUPABASE_URL', 'https://example.supabase.co');
-vi.stubEnv('VITE_SUPABASE_KEY', 'fake-supabase-key');
-
-// Run cleanup automatically after each test
-beforeEach(() => {
-  cleanup();
-  vi.resetAllMocks();
-});
-
-// Mock ResizeObserver which isn't available in test environment
-global.ResizeObserver = class ResizeObserver {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
-};
-
-// Mock IntersectionObserver which isn't available in test environment
-global.IntersectionObserver = class IntersectionObserver {
-  constructor(callback) {
-    this.callback = callback;
-  }
-  observe() {}
-  unobserve() {}
-  disconnect() {}
-};
-
-// Mock window.matchMedia
+// Mock matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: vi.fn().mockImplementation(query => ({
@@ -45,62 +18,89 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-// Mock Supabase client
-vi.mock('@supabase/supabase-js', () => ({
-  createClient: vi.fn(() => ({
-    auth: {
-      getSession: vi.fn().mockResolvedValue({ data: { session: null }, error: null }),
-      signInWithPassword: vi.fn().mockResolvedValue({ 
-        data: { user: { id: 'test-user-id', email: 'test@example.com' } }, 
-        error: null 
-      }),
-      signUp: vi.fn().mockResolvedValue({
-        data: { user: { id: 'test-user-id', email: 'test@example.com' } },
-        error: null
-      }),
-      signOut: vi.fn().mockResolvedValue({ error: null }),
-      onAuthStateChange: vi.fn().mockImplementation((callback) => {
-        callback('SIGNED_IN', { user: { id: 'test-user-id', email: 'test@example.com' } });
-        return { data: { subscription: { unsubscribe: vi.fn() } } };
-      }),
-      getUser: vi.fn().mockResolvedValue({ 
-        data: { user: { id: 'test-user-id', email: 'test@example.com' } }, 
-        error: null 
-      }),
-    },
-    from: vi.fn().mockReturnValue({
-      select: vi.fn().mockReturnThis(),
-      insert: vi.fn().mockReturnThis(),
-      update: vi.fn().mockReturnThis(),
-      delete: vi.fn().mockReturnThis(),
-      eq: vi.fn().mockReturnThis(),
-      single: vi.fn().mockReturnThis(),
-      then: vi.fn().mockImplementation(callback => callback({ data: [], error: null })),
-    }),
-    storage: {
-      from: vi.fn().mockReturnValue({
-        upload: vi.fn().mockResolvedValue({ data: { path: 'test-path' }, error: null }),
-        getPublicUrl: vi.fn().mockReturnValue({ data: { publicUrl: 'https://test-url.com' } }),
-      }),
-    },
-  })),
+// Mock ResizeObserver
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
 }));
 
-// Fix issues with TextEncoder and TextDecoder in test environment
-if (typeof TextEncoder === 'undefined') {
-  global.TextEncoder = require('util').TextEncoder;
-}
+// Mock Intersection Observer
+global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+  root: null,
+  rootMargin: '',
+  thresholds: [0],
+}));
 
-if (typeof TextDecoder === 'undefined') {
-  global.TextDecoder = require('util').TextDecoder;
-}
+// Mock window.scrollTo
+window.scrollTo = vi.fn();
 
-// Add console.log spy that can be cleared between tests
-beforeEach(() => {
-  vi.spyOn(console, 'error').mockImplementation(() => {});
-  vi.spyOn(console, 'warn').mockImplementation(() => {});
+// Suppress console errors during tests
+const originalConsoleError = console.error;
+console.error = (...args) => {
+  // Ignore specific React error messages in tests
+  const errorMessage = args[0]?.toString() || '';
+  if (
+    errorMessage.includes('React does not recognize the') ||
+    errorMessage.includes('Warning:') ||
+    errorMessage.includes('Invalid DOM property')
+  ) {
+    return;
+  }
+  originalConsoleError(...args);
+};
+
+// Setup global mocks for Supabase
+vi.mock('@supabase/supabase-js', async () => {
+  const actual = await vi.importActual('@supabase/supabase-js');
+  return {
+    ...actual,
+    createClient: vi.fn(() => ({
+      auth: {
+        getUser: vi.fn().mockResolvedValue({ data: { user: { id: 'test-user-id', email: 'test@example.com' } }, error: null }),
+        getSession: vi.fn().mockResolvedValue({ data: { session: { user: { id: 'test-user-id' } } }, error: null }),
+        signIn: vi.fn().mockResolvedValue({ data: { user: { id: 'test-user-id' } }, error: null }),
+        signUp: vi.fn().mockResolvedValue({ data: { user: { id: 'test-user-id' } }, error: null }),
+        signOut: vi.fn().mockResolvedValue({ error: null }),
+        onAuthStateChange: vi.fn(() => ({ data: { subscription: { unsubscribe: vi.fn() } } })),
+      },
+      from: vi.fn(() => ({
+        select: vi.fn(() => ({
+          eq: vi.fn(() => ({
+            single: vi.fn().mockResolvedValue({ data: {}, error: null }),
+            data: [],
+            error: null,
+          })),
+          data: [],
+          error: null,
+        })),
+        insert: vi.fn().mockResolvedValue({ data: {}, error: null }),
+        update: vi.fn().mockResolvedValue({ data: {}, error: null }),
+        delete: vi.fn().mockResolvedValue({ data: {}, error: null }),
+      })),
+      storage: {
+        from: vi.fn(() => ({
+          upload: vi.fn().mockResolvedValue({ data: { path: 'test-path' }, error: null }),
+          getPublicUrl: vi.fn(() => ({ data: { publicUrl: 'https://test-url.com' } })),
+        })),
+      },
+    })),
+  };
 });
 
+// Mock fetch for API calls
+global.fetch = vi.fn().mockImplementation(() =>
+  Promise.resolve({
+    ok: true,
+    json: () => Promise.resolve({}),
+    text: () => Promise.resolve(''),
+  })
+);
+
+// Clean up all mocks after each test
 afterEach(() => {
-  vi.restoreAllMocks();
+  vi.clearAllMocks();
 });
