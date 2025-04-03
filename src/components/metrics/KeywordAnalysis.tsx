@@ -1,7 +1,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MetricsTable } from "./MetricsTable";
-import { KeywordHeatmap, KeywordData } from "./KeywordHeatmap";
 
 interface KeywordAnalysisData {
   keyword: string;
@@ -18,25 +17,43 @@ interface KeywordAnalysisProps {
 }
 
 export function KeywordAnalysis({ data }: KeywordAnalysisProps) {
-  // Group and aggregate data by keyword
-  const keywordMetrics = data.reduce((acc: KeywordAnalysisData[], curr) => {
+  // Ensure we have an array
+  const safeData = Array.isArray(data) ? data : [];
+  
+  if (safeData.length === 0) {
+    return (
+      <Card className="bg-white">
+        <CardHeader>
+          <CardTitle>Keyword Performance</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-gray-600">No keyword data available.</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // Group and aggregate data by keyword with safety checks
+  const keywordMetrics = safeData.reduce((acc: KeywordAnalysisData[], curr) => {
+    if (!curr.keyword) return acc;
+    
     const existingKeyword = acc.find(k => k.keyword === curr.keyword);
     
     if (existingKeyword) {
-      existingKeyword.impressions += curr.impressions;
-      existingKeyword.clicks += curr.clicks;
-      existingKeyword.spend += curr.spend;
-      existingKeyword.sales += curr.sales;
-      existingKeyword.orders += curr.orders;
+      existingKeyword.impressions += curr.impressions || 0;
+      existingKeyword.clicks += curr.clicks || 0;
+      existingKeyword.spend += curr.spend || 0;
+      existingKeyword.sales += curr.sales || 0;
+      existingKeyword.orders += curr.orders || 0;
     } else {
       acc.push({
-        keyword: curr.keyword,
-        impressions: curr.impressions,
-        clicks: curr.clicks,
-        spend: curr.spend,
-        sales: curr.sales,
-        orders: curr.orders,
-        conversion_rate: (curr.orders / curr.clicks) * 100
+        keyword: curr.keyword || 'Unknown',
+        impressions: curr.impressions || 0,
+        clicks: curr.clicks || 0,
+        spend: curr.spend || 0,
+        sales: curr.sales || 0,
+        orders: curr.orders || 0,
+        conversion_rate: curr.clicks > 0 ? ((curr.orders || 0) / curr.clicks) * 100 : 0
       });
     }
     
@@ -44,19 +61,10 @@ export function KeywordAnalysis({ data }: KeywordAnalysisProps) {
   }, []);
 
   // Sort keywords by spend
-  const sortedKeywords = keywordMetrics.sort((a, b) => b.spend - a.spend);
-  
-  // Transform data for the heatmap
-  const heatmapData: KeywordData[] = sortedKeywords.map(kw => ({
-    keyword: kw.keyword,
-    impressions: kw.impressions,
-    clicks: kw.clicks,
-    score: kw.spend // Using spend as the score for heatmap intensity
-  }));
+  const sortedKeywords = keywordMetrics.sort((a, b) => (b.spend || 0) - (a.spend || 0));
 
   return (
     <div className="space-y-6">
-      <KeywordHeatmap data={heatmapData} />
       <Card className="bg-spotify-light text-white">
         <CardHeader>
           <CardTitle>Keyword Performance</CardTitle>
@@ -73,13 +81,13 @@ export function KeywordAnalysis({ data }: KeywordAnalysisProps) {
               "Conv. Rate"
             ]}
             rows={sortedKeywords.map(keyword => ({
-              keyword: keyword.keyword,
-              impressions: keyword.impressions.toLocaleString(),
-              clicks: keyword.clicks.toLocaleString(),
-              spend: `$${keyword.spend.toLocaleString()}`,
-              sales: `$${keyword.sales.toLocaleString()}`,
-              orders: keyword.orders.toLocaleString(),
-              convRate: `${keyword.conversion_rate.toFixed(2)}%`
+              keyword: keyword.keyword || 'Unknown',
+              impressions: (keyword.impressions || 0).toLocaleString(),
+              clicks: (keyword.clicks || 0).toLocaleString(),
+              spend: `$${(keyword.spend || 0).toLocaleString()}`,
+              sales: `$${(keyword.sales || 0).toLocaleString()}`,
+              orders: (keyword.orders || 0).toLocaleString(),
+              convRate: `${(keyword.conversion_rate || 0).toFixed(2)}%`
             }))}
             metrics={[]} // Pass an empty array instead of empty object
           />

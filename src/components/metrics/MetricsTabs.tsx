@@ -1,3 +1,4 @@
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CampaignAnalysis } from "./CampaignAnalysis";
 import { KeywordAnalysis } from "./KeywordAnalysis";
@@ -17,6 +18,13 @@ interface MetricsTabsProps {
 }
 
 export function MetricsTabs({ weeklyMetrics, monthlyMetrics, detailedMetrics }: MetricsTabsProps) {
+  // Ensure we have arrays, even if empty
+  const safeWeeklyMetrics = Array.isArray(weeklyMetrics) ? weeklyMetrics : [];
+  const safeMonthlyMetrics = Array.isArray(monthlyMetrics) ? monthlyMetrics : [];
+  const safeAsinMetrics = Array.isArray(detailedMetrics?.asinMetrics) ? detailedMetrics.asinMetrics : [];
+  const safeSearchTermMetrics = Array.isArray(detailedMetrics?.searchTermMetrics) ? detailedMetrics.searchTermMetrics : [];
+  const safeSkuMetrics = Array.isArray(detailedMetrics?.skuMetrics) ? detailedMetrics.skuMetrics : [];
+
   return (
     <Tabs defaultValue="weekly" className="w-full">
       <TabsList>
@@ -30,31 +38,31 @@ export function MetricsTabs({ weeklyMetrics, monthlyMetrics, detailedMetrics }: 
       </TabsList>
 
       <TabsContent value="weekly">
-        <MetricsTable metrics={weeklyMetrics} />
+        <MetricsTable metrics={safeWeeklyMetrics} />
       </TabsContent>
 
       <TabsContent value="monthly">
-        <MetricsTable metrics={monthlyMetrics} />
+        <MetricsTable metrics={safeMonthlyMetrics} />
       </TabsContent>
 
       <TabsContent value="campaigns">
-        <CampaignAnalysis data={detailedMetrics.asinMetrics} />
+        <CampaignAnalysis data={safeAsinMetrics} />
       </TabsContent>
 
       <TabsContent value="keywords">
-        <KeywordAnalysis data={detailedMetrics.searchTermMetrics} />
+        <KeywordAnalysis data={safeSearchTermMetrics} />
       </TabsContent>
 
       <TabsContent value="asin">
-        <ASINAnalysis asinMetrics={detailedMetrics.asinMetrics} />
+        <ASINAnalysis asinMetrics={safeAsinMetrics} />
       </TabsContent>
 
       <TabsContent value="search">
-        <SearchTermAnalysis searchTermMetrics={detailedMetrics.searchTermMetrics} />
+        <SearchTermAnalysis searchTermMetrics={safeSearchTermMetrics} />
       </TabsContent>
 
       <TabsContent value="sku">
-        <SKUAnalysis skuMetrics={detailedMetrics.skuMetrics} />
+        <SKUAnalysis skuMetrics={safeSkuMetrics} />
       </TabsContent>
     </Tabs>
   );

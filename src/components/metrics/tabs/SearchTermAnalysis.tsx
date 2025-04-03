@@ -17,6 +17,19 @@ interface SearchTermAnalysisProps {
 }
 
 export function SearchTermAnalysis({ searchTermMetrics }: SearchTermAnalysisProps) {
+  if (!searchTermMetrics || searchTermMetrics.length === 0) {
+    return (
+      <Card className="bg-white">
+        <CardHeader>
+          <CardTitle>Search Term Performance</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-gray-600">No search term data available.</p>
+        </CardContent>
+      </Card>
+    );
+  }
+  
   return (
     <Card className="bg-spotify-light text-white">
       <CardHeader>
@@ -26,13 +39,13 @@ export function SearchTermAnalysis({ searchTermMetrics }: SearchTermAnalysisProp
         <MetricsTable 
           headers={["Search Term", "Impressions", "Clicks", "Spend", "Sales", "Conv. Rate", "Orders"]}
           rows={searchTermMetrics.map(term => ({
-            term: term.searchTerm,
-            impressions: term.impressions.toLocaleString(),
-            clicks: term.clicks.toLocaleString(),
-            spend: `$${term.spend.toLocaleString()}`,
-            sales: `$${term.sales.toLocaleString()}`,
-            convRate: `${term.conversionRate.toFixed(2)}%`,
-            orders: term.orders?.toString() || "0"
+            term: term.searchTerm || 'N/A',
+            impressions: term.impressions ? term.impressions.toLocaleString() : '0',
+            clicks: term.clicks ? term.clicks.toLocaleString() : '0',
+            spend: `$${term.spend ? term.spend.toLocaleString() : '0'}`,
+            sales: `$${term.sales ? term.sales.toLocaleString() : '0'}`,
+            convRate: `${term.conversionRate ? term.conversionRate.toFixed(2) : '0'}%`,
+            orders: term.orders ? term.orders.toString() : "0"
           }))}
           metrics={[]} // Pass an empty array instead of empty object
         />

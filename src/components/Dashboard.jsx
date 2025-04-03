@@ -1,11 +1,10 @@
-import { Card, CardContent, Typography, useTheme } from '@mui/material';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+
+import React from 'react';
+import { Card, CardContent, Typography } from '@mui/material';
+import { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function Dashboard() {
-  const theme = useTheme();
-
   const [kpiData, setKpiData] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,18 +13,28 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchCampaignData = async () => {
       try {
-        const response = await axios.get('/api/campaigns');
-        const campaigns = response.data;
+        // For now, use mock data instead of actual API call
+        const mockCampaigns = {
+          totalSales: 124500,
+          avgConversionRate: 10.5,
+          topPerformingCampaign: "Summer Sale 2025",
+          weeklyPerformance: [
+            { week: "Week 1", totalSales: 25000 },
+            { week: "Week 2", totalSales: 28000 },
+            { week: "Week 3", totalSales: 35500 },
+            { week: "Week 4", totalSales: 36000 }
+          ]
+        };
 
         // Transform API data into KPI format
         const transformedKpis = [
-          { name: 'Total Sales', value: campaigns.totalSales },
-          { name: 'Conversion Rate', value: campaigns.avgConversionRate },
-          { name: 'Top Campaign', value: campaigns.topPerformingCampaign },
+          { name: 'Total Sales', value: mockCampaigns.totalSales },
+          { name: 'Conversion Rate', value: mockCampaigns.avgConversionRate },
+          { name: 'Top Campaign', value: mockCampaigns.topPerformingCampaign },
         ];
 
         // Transform API data into chart format
-        const transformedChart = campaigns.weeklyPerformance.map(week => ({
+        const transformedChart = mockCampaigns.weeklyPerformance.map(week => ({
           name: week.week,
           sales: week.totalSales
         }));
@@ -41,6 +50,22 @@ export default function Dashboard() {
 
     fetchCampaignData();
   }, []);
+
+  if (loading) {
+    return (
+      <div style={{ padding: '24px', backgroundColor: '#F5F5F5' }}>
+        <Typography variant="h5">Loading data...</Typography>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ padding: '24px', backgroundColor: '#F5F5F5' }}>
+        <Typography variant="h5" color="error">{error}</Typography>
+      </div>
+    );
+  }
 
   return (
     <div style={{ padding: '24px', backgroundColor: '#F5F5F5' }}>
@@ -69,8 +94,8 @@ export default function Dashboard() {
           <div style={{ height: '400px' }}>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={chartData}>
-                <XAxis dataKey="name" stroke={theme.palette.text.secondary} />
-                <YAxis stroke={theme.palette.text.secondary} />
+                <XAxis dataKey="name" />
+                <YAxis />
                 <Tooltip />
                 <Bar
                   dataKey="sales"

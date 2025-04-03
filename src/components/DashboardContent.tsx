@@ -53,50 +53,57 @@ export const DashboardContent: React.FC = () => {
     );
   }
 
-  // Transform PeriodMetrics to include required sales and orders properties
-  const transformedWeeklyMetrics = weeklyMetrics.map(metric => ({
-    period: metric.period,
-    impressions: metric.impressions,
-    clicks: metric.clicks,
-    spend: metric.spend,
-    sales: metric.totalSales,
-    orders: metric.totalOrders,
-    acos: metric.acos,
-    roas: metric.roas,
-    ctr: metric.ctr
+  // Safely ensure we have arrays with default values
+  const safeWeeklyMetrics = Array.isArray(weeklyMetrics) ? weeklyMetrics : [];
+  const safeMonthlyMetrics = Array.isArray(monthlyMetrics) ? monthlyMetrics : [];
+  const safeAsinMetrics = Array.isArray(asinMetrics) ? asinMetrics : [];
+  const safeSearchTermMetrics = Array.isArray(searchTermMetrics) ? searchTermMetrics : [];
+  const safeSkuMetrics = Array.isArray(skuMetrics) ? skuMetrics : [];
+
+  // Transform PeriodMetrics to include required sales and orders properties with safe defaults
+  const transformedWeeklyMetrics = safeWeeklyMetrics.map(metric => ({
+    period: metric.period || '',
+    impressions: metric.impressions || 0,
+    clicks: metric.clicks || 0,
+    spend: metric.spend || 0,
+    sales: metric.totalSales || 0,
+    orders: metric.totalOrders || 0,
+    acos: metric.acos || 0,
+    roas: metric.roas || 0,
+    ctr: metric.ctr || 0
   }));
 
-  const transformedMonthlyMetrics = monthlyMetrics.map(metric => ({
-    period: metric.period,
-    impressions: metric.impressions,
-    clicks: metric.clicks,
-    spend: metric.spend,
-    sales: metric.totalSales,
-    orders: metric.totalOrders,
-    acos: metric.acos,
-    roas: metric.roas,
-    ctr: metric.ctr
+  const transformedMonthlyMetrics = safeMonthlyMetrics.map(metric => ({
+    period: metric.period || '',
+    impressions: metric.impressions || 0,
+    clicks: metric.clicks || 0,
+    spend: metric.spend || 0,
+    sales: metric.totalSales || 0,
+    orders: metric.totalOrders || 0,
+    acos: metric.acos || 0,
+    roas: metric.roas || 0,
+    ctr: metric.ctr || 0
   }));
 
   const metricsData = {
     performance: {
-      impressions: kpis.impressions,
-      clicks: kpis.clicks,
-      spend: kpis.spend,
-      ctr: kpis.ctr,
-      conversionRate: kpis.conversionRate,
-      roas: kpis.roas
+      impressions: kpis.impressions || 0,
+      clicks: kpis.clicks || 0,
+      spend: kpis.spend || 0,
+      ctr: kpis.ctr || 0,
+      conversionRate: kpis.conversionRate || 0,
+      roas: kpis.roas || 0
     },
     sales: {
-      totalSales: kpis.totalSales,
-      totalOrders: kpis.totalOrders
+      totalSales: kpis.totalSales || 0,
+      totalOrders: kpis.totalOrders || 0
     },
     weeklyMetrics: transformedWeeklyMetrics,
     monthlyMetrics: transformedMonthlyMetrics,
     detailedMetrics: {
-      asinMetrics: asinMetrics as DimensionMetrics[],
-      searchTermMetrics: searchTermMetrics as DimensionMetrics[],
-      skuMetrics: skuMetrics as DimensionMetrics[]
+      asinMetrics: safeAsinMetrics as DimensionMetrics[],
+      searchTermMetrics: safeSearchTermMetrics as DimensionMetrics[],
+      skuMetrics: safeSkuMetrics as DimensionMetrics[]
     }
   };
 
