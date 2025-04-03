@@ -1,134 +1,140 @@
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from "react";
+import { calculateMetrics } from "@/utils/amazonMetrics";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { handleError } from "@/utils/errorHandling";
 
-// Define types for our metrics
-export type MetricCalculation = {
-  impressions?: number;
-  clicks?: number;
-  spend?: number;
-  totalSales?: number;
-  totalOrders?: number;
-  ctr?: number;
-  conversionRate?: number;
-  roas?: number;
-};
-
-// Define a type for import context
-interface ImportContextType {
-  importedData: any[];
-  setImportedData: React.Dispatch<React.SetStateAction<any[]>>;
-  metrics: MetricCalculation | null;
-  setMetrics: React.Dispatch<React.SetStateAction<MetricCalculation | null>>;
-  isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  isUploading: boolean;
-  processAndUploadData: (data: any[]) => void;
-  handleCsvData: (data: any[]) => void;
-  handleGoogleSheetsData: (data: any[]) => void;
-  calculateMetrics: (data: any[]) => void;
+interface AmazonMetricRow {
+  date: string;
+  impressions: number;
+  clicks: number;
+  amount_spent: number;
+  total_ad_sales: number;
+  total_ad_orders: number;
+  campaign_name: string;
+  ad_group_name: string;
+  advertised_asin: string;
+  advertised_sku: string;
+  keyword: string;
+  search_term: string;
+  account_id: string;
 }
 
-// Create the context with a default value
+interface ImportedData {
+  Date?: string;
+  Impressions?: string;
+  Clicks?: string;
+  Spend?: string;
+  "Total Sales"?: string;
+  Orders?: string;
+  "Campaign Name"?: string;
+  "Ad Group Name"?: string;
+  "Advertised ASIN"?: string;
+  "Advertised SKU"?: string;
+  Keyword?: string;
+  "Search Term"?: string;
+  [key: string]: string | undefined;
+}
+
+interface MetricCalculation {
+  totalImpressions: number;
+  totalClicks: number;
+  totalSpend: number;
+  totalSales: number;
+  totalOrders: number;
+  ctr: number;
+  cpc: number;
+  acos: number;
+  roas: number;
+  conversionRate: number;
+}
+
+interface ImportContextType {
+  importedData: AmazonMetricRow[];
+  metrics: MetricCalculation | null;
+  isUploading: boolean;
+  processAndUploadData: (data: ImportedData[]) => Promise<void>;
+}
+
 const ImportContext = createContext<ImportContextType | undefined>(undefined);
 
-// Provider component
-export const ImportProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [importedData, setImportedData] = useState<any[]>([]);
+export function ImportProvider({ children }: { children: ReactNode }) {
+  const [importedData, setImportedData] = useState<AmazonMetricRow[]>([]);
   const [metrics, setMetrics] = useState<MetricCalculation | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const { toast } = useToast();
 
-  // Process and upload data (common function for both CSV and Google Sheets)
-  const processAndUploadData = (data: any[]) => {
-    setIsUploading(true);
+  const processAndUploadData = async (data: ImportedData[]) => {
     try {
-      // Process data - remove empty rows, etc.
-      const processedData = data.filter(row => 
-        row && Object.values(row).some(val => val !== null && val !== '')
-      );
+      setIsUploading(true);
       
-      setImportedData(processedData);
-      calculateMetrics(processedData);
+      // Get current user
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      
+      if (userError) throw userError;
+      if (!user) {
+        throw new Error("You must be logged in to upload data");
+      }
+      
+      // Transform data to match database schema
+      const transformedData: AmazonMetricRow[] = data.map(row => ({
+        date: row.Date || new Date().toISOString().split('T')[0],
+        impressions: parseInt(row.Impressions || '0'),
+        clicks: parseInt(row.Clicks || '0'),
+        amount_spent: parseFloat(row.Spend?.replace('$', '').replace(',', '') || '0'),
+        total_ad_sales: parseFloat(row["Total Sales"]?.replace('$', '').replace(',', '') || '0'),
+        total_ad_orders: parseInt(row.Orders || '0'),
+        campaign_name: row["Campaign Name"] || 'Unknown Campaign',
+        ad_group_name: row["Ad Group Name"] || 'Unknown Ad Group',
+        advertised_asin: row["Advertised ASIN"] || '',
+        advertised_sku: row["Advertised SKU"] || '',
+        keyword: row.Keyword || '',
+        search_term: row["Search Term"] || '',
+        account_id: user.id
+      }));
+
+      // Validate data before upload
+      if (transformedData.length === 0) {
+        throw new Error("No valid data to upload");
+      }
+
+      // Upload to Supabase
+      const { error: insertError } = await supabase
+        .from('amazon_ads_metrics')
+        .insert(transformedData);
+
+      if (insertError) throw insertError;
+
+      // Update local state
+      setImportedData(transformedData);
+      
+      // Calculate metrics
+      const calculatedMetrics = calculateMetrics(transformedData);
+      setMetrics(calculatedMetrics);
+      
+      toast({
+        title: "Data imported successfully",
+        description: `${transformedData.length} rows processed and uploaded`,
+      });
     } catch (error) {
-      console.error("Error processing data:", error);
+      handleError(error, "Import error");
     } finally {
       setIsUploading(false);
     }
   };
 
-  // Function to handle CSV data import
-  const handleCsvData = (data: any[]) => {
-    setIsLoading(true);
-    processAndUploadData(data);
-    setIsLoading(false);
-  };
-
-  // Function to handle Google Sheets data import
-  const handleGoogleSheetsData = (data: any[]) => {
-    setIsLoading(true);
-    processAndUploadData(data);
-    setIsLoading(false);
-  };
-
-  // Calculate metrics from the imported data
-  const calculateMetrics = (data: any[]) => {
-    if (!data || data.length === 0) {
-      setMetrics(null);
-      return;
-    }
-
-    // Extract metrics from the data
-    // This is a simplified example - adjust based on your actual data structure
-    const totalImpressions = data.reduce((sum, row) => sum + (Number(row.impressions) || 0), 0);
-    const totalClicks = data.reduce((sum, row) => sum + (Number(row.clicks) || 0), 0);
-    const totalSpend = data.reduce((sum, row) => sum + (Number(row.spend) || 0), 0);
-    const totalSales = data.reduce((sum, row) => sum + (Number(row.sales) || 0), 0);
-    const totalOrders = data.reduce((sum, row) => sum + (Number(row.orders) || 0), 0);
-
-    // Calculate derived metrics
-    const ctr = totalImpressions > 0 ? (totalClicks / totalImpressions) * 100 : 0;
-    const conversionRate = totalClicks > 0 ? (totalOrders / totalClicks) * 100 : 0;
-    const roas = totalSpend > 0 ? totalSales / totalSpend : 0;
-
-    // Update metrics state
-    setMetrics({
-      impressions: totalImpressions,
-      clicks: totalClicks,
-      spend: totalSpend,
-      totalSales: totalSales,
-      totalOrders: totalOrders,
-      ctr: ctr,
-      conversionRate: conversionRate,
-      roas: roas,
-    });
-  };
-
   return (
-    <ImportContext.Provider
-      value={{
-        importedData,
-        setImportedData,
-        metrics,
-        setMetrics,
-        isLoading,
-        setIsLoading,
-        isUploading,
-        processAndUploadData,
-        handleCsvData,
-        handleGoogleSheetsData,
-        calculateMetrics,
-      }}
-    >
+    <ImportContext.Provider value={{ importedData, metrics, isUploading, processAndUploadData }}>
       {children}
     </ImportContext.Provider>
   );
-};
+}
 
-// Custom hook to use the import context
-export const useImport = () => {
+export function useImport() {
   const context = useContext(ImportContext);
   if (context === undefined) {
-    throw new Error('useImport must be used within an ImportProvider');
+    throw new Error("useImport must be used within an ImportProvider");
   }
   return context;
-};
+}

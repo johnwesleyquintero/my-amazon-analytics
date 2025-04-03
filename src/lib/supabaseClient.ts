@@ -9,13 +9,9 @@ if (!supabaseUrl || !supabaseKey) {
   console.error('Missing Supabase environment variables. Please check your .env file.');
 }
 
-/**
- * Creates and configures the Supabase client
- * with proper typing from the Database interface.
- */
 export const supabase = createClient<Database>(
-  supabaseUrl || '',
-  supabaseKey || '',
+  supabaseUrl,
+  supabaseKey,
   {
     auth: {
       persistSession: true,
@@ -23,45 +19,16 @@ export const supabase = createClient<Database>(
       detectSessionInUrl: true,
     },
     global: {
-      headers: {
-        'X-Client-Info': 'my-amazon-analytics'
-      }
-    }
+      fetch: (...args) => fetch(...args),
+    },
   }
 );
 
-/**
- * Returns a fresh Supabase client instance
- * Useful for cases where you need to ensure you have a session
- */
-export const getSupabaseClient = (): typeof supabase => supabase;
+// Export a helper function to get a refreshed client if needed
+export const getSupabaseClient = () => supabase;
 
-/**
- * Type definition for common Supabase response patterns
- */
+// Types for common response patterns
 export type SupabaseResponse<T> = {
   data: T | null;
   error: Error | null;
 };
-
-/**
- * Helper function to handle Supabase responses with proper error handling
- * @param promise The Supabase promise to be handled
- * @returns A promise that resolves to the data or rejects with an error
- */
-export async function handleSupabaseResponse<T>(
-  promise: Promise<{ data: T | null; error: Error | null }>
-): Promise<T> {
-  const { data, error } = await promise;
-  
-  if (error) {
-    console.error('Supabase operation failed:', error);
-    throw error;
-  }
-  
-  if (data === null) {
-    throw new Error('No data returned from operation');
-  }
-  
-  return data;
-}

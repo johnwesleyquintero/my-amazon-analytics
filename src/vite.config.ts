@@ -39,13 +39,13 @@ export default defineConfig(({ mode }) => ({
     ]
   },
   build: {
-    sourcemap: mode === 'development',
-    minify: mode === 'production' ? 'terser' : false,
+    sourcemap: false,
+    minify: 'terser',
     chunkSizeWarningLimit: 1500,
     terserOptions: {
       compress: {
-        drop_console: mode === 'production',
-        drop_debugger: mode === 'production'
+        drop_console: true,
+        drop_debugger: true
       }
     },
     rollupOptions: {
@@ -65,22 +65,5 @@ export default defineConfig(({ mode }) => ({
         assetFileNames: 'assets/[name].[hash][extname]'
       }
     }
-  },
-  optimizeDeps: {
-    include: [
-      'react',
-      'react-dom',
-      'react-router-dom',
-      '@supabase/supabase-js',
-      'recharts',
-      'lodash'
-    ],
-    esbuildOptions: {
-      target: 'es2020'
-    }
-  },
-  // TypeScript checking
-  typescript: {
-    tsconfig: './tsconfig.json'
   }
 }));

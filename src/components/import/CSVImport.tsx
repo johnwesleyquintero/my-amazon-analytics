@@ -1,8 +1,8 @@
 
 import { Input } from "@/components/ui/input";
 import { FileSpreadsheet } from "lucide-react";
+import Papa from "papaparse";
 import { useImport } from "@/contexts/ImportContext";
-import { processCsvFile } from "@/utils/dataImportUtils";
 
 export function CSVImport() {
   const { isUploading, processAndUploadData } = useImport();
@@ -10,7 +10,13 @@ export function CSVImport() {
   const handleCSVUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      processCsvFile(file, processAndUploadData);
+      Papa.parse(file, {
+        complete: (results) => {
+          processAndUploadData(results.data);
+        },
+        header: true,
+        skipEmptyLines: true,
+      });
     }
   };
 

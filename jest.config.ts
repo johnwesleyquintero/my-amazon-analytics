@@ -8,7 +8,6 @@ const config: Config.InitialOptions = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/__mocks__/fileMock.js',
   },
   transform: {
     '^.+\\.tsx?$': [
@@ -24,18 +23,8 @@ const config: Config.InitialOptions = {
     '!src/**/*.d.ts',
     '!src/main.tsx',
     '!src/vite-env.d.ts',
-    '!src/lib/supabase.js',
-    '!src/lib/supabaseClient.ts',
-    '!src/config/**/*',
   ],
   testMatch: ['<rootDir>/src/**/__tests__/**/*.{ts,tsx}', '<rootDir>/src/**/*.{spec,test}.{ts,tsx}'],
-  verbose: true,
-  testTimeout: 30000,
-  globals: {
-    'ts-jest': {
-      isolatedModules: true
-    }
-  }
 };
 
 export default config;

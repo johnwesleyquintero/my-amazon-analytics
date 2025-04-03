@@ -3,22 +3,33 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table } from "lucide-react";
+import Papa from "papaparse";
 import { useImport } from "@/contexts/ImportContext";
-import { fetchGoogleSheetData } from "@/utils/dataImportUtils";
 
 export function GoogleSheetsImport() {
   const [sheetUrl, setSheetUrl] = useState("");
   const { isUploading, processAndUploadData } = useImport();
 
-  const handleGoogleSheetImport = async () => {
+  const handleGoogleSheetImport = () => {
     if (!sheetUrl) return;
     
-    try {
-      const data = await fetchGoogleSheetData(sheetUrl);
-      processAndUploadData(data);
-    } catch (error) {
-      console.error("Import error:", error);
+    const sheetId = sheetUrl.match(/spreadsheets\/d\/([a-zA-Z0-9-_]+)/)?.[1];
+    if (!sheetId) {
+      throw new Error("Invalid Google Sheets URL");
     }
+
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv`;
+    
+    fetch(csvUrl)
+      .then(response => response.text())
+      .then(data => {
+        const results = Papa.parse(data, { header: true });
+        processAndUploadData(results.data);
+      })
+      .catch(error => {
+        console.error("Import error:", error);
+        throw error;
+      });
   };
 
   return (

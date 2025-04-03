@@ -1,7 +1,7 @@
 
 import { render } from '@testing-library/react';
 import { screen, waitFor } from '@testing-library/dom';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 import App from '../App';
 
 // Mock AuthProvider to avoid the actual import
